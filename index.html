@@ -832,7 +832,7 @@ function toggleHistorial(id) {
 
 function renderHistorial(tareaId) {
   const novs = datos.novedades
-    .filter(n => n.tarea_id === tareaId)
+    .filter(n => n.tarea_id && tareaId && n.tarea_id.toString().trim() === tareaId.toString().trim())
     .sort((a, b) => {
       const fa = parseFecha(a.fecha_registro || a.fecha) || '';
       const fb = parseFecha(b.fecha_registro || b.fecha) || '';
