@@ -395,6 +395,12 @@ input[type=checkbox] { width: 16px; height: 16px; accent-color: var(--accent); f
         </div>
         <button class="btn btn-sm" onclick="recargar()">↻ Actualizar</button>
       </div>
+      <div class="g4" style="margin-bottom:.75rem">
+        <div class="stat" style="border-left:3px solid #e8943a"><div class="stat-v" id="sp-proc" style="color:#e8943a">—</div><div class="stat-l">En proceso</div></div>
+        <div class="stat" style="border-left:3px solid #4caf7d"><div class="stat-v" id="sp-done" style="color:#4caf7d">—</div><div class="stat-l">Completadas</div></div>
+        <div class="stat" style="border-left:3px solid #e05555"><div class="stat-v" id="sp-risk" style="color:#e05555">—</div><div class="stat-l">Atrasadas</div></div>
+        <div class="stat" style="border-left:3px solid #5a9fd4"><div class="stat-v" id="sp-nov" style="color:#5a9fd4">—</div><div class="stat-l">Novedades</div></div>
+      </div>
       <div class="card"><div id="prog-list"><span class="ai-loading">Cargando programa...</span></div></div>
     </div>
 
@@ -724,6 +730,21 @@ function renderProg() {
   const el = document.getElementById('prog-list');
   if (!ft.length) { el.innerHTML = '<span style="color:var(--text3);font-size:13px">Sin tareas para este filtro.</span>'; return; }
   const esLider = miPerfil && miPerfil.capa === 'lider';
+
+  // Populate stats
+  const enProceso = ft.filter(t => t.estado !== 'completada' && !(t.fecha_fin && parseFecha(t.fecha_fin) < hoy())).length;
+  const completadas = ft.filter(t => t.estado === 'completada').length;
+  const atrasadas = ft.filter(t => t.fecha_fin && parseFecha(t.fecha_fin) < hoy() && t.estado !== 'completada').length;
+  const novCount = datos.novedades.filter(n => ft.some(t => t.id.toString() === n.tarea_id.toString())).length;
+  const spProc = document.getElementById('sp-proc');
+  const spDone = document.getElementById('sp-done');
+  const spRisk = document.getElementById('sp-risk');
+  const spNov  = document.getElementById('sp-nov');
+  if (spProc) spProc.textContent = enProceso;
+  if (spDone) spDone.textContent = completadas;
+  if (spRisk) spRisk.textContent = atrasadas;
+  if (spNov)  spNov.textContent  = novCount;
+
   el.innerHTML = ft.map(t => {
     const atrasada = t.fecha_fin && parseFecha(t.fecha_fin) < hoy() && t.estado !== 'completada';
     const esLiderDueno = miPerfil && miPerfil.capa === 'lider' &&
