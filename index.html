@@ -297,8 +297,8 @@ input[type=checkbox] { width: 16px; height: 16px; accent-color: var(--accent); f
     <button class="nav-tab active" onclick="go('dia')">Mi día</button>
     <button class="nav-tab" id="ntab-prog" onclick="go('prog')">Programa</button>
     <button class="nav-tab" onclick="go('nov')">Novedades</button>
-    <button class="nav-tab" onclick="go('sem')">Consolidado</button>
-    <button class="nav-tab" onclick="go('agente')">Agente</button>
+    <button class="nav-tab" id="ntab-sem" onclick="go('sem')">Consolidado</button>
+    <button class="nav-tab" id="ntab-agente" onclick="go('agente')">Agente</button>
     <button class="nav-tab" onclick="cerrarSesion()">Salir</button>
   </nav>
 
@@ -412,7 +412,12 @@ input[type=checkbox] { width: 16px; height: 16px; accent-color: var(--accent); f
               <option value="noche">Noche</option>
             </select>
           </div>
-          <div class="field"><label>ID tarea relacionada</label><input type="number" id="n-tid" placeholder="Ej: 3"/></div>
+          <div class="field" style="position:relative">
+        <label>Tarea relacionada</label>
+        <input type="text" id="n-tarea-search" placeholder="Escribe para buscar tarea..." autocomplete="off" oninput="filtrarTareas(this.value)" onfocus="filtrarTareas(this.value)"/>
+        <input type="hidden" id="n-tid"/>
+        <div id="n-tarea-dropdown" style="display:none;position:absolute;top:100%;left:0;right:0;background:var(--bg2);border:0.5px solid var(--border2);border-radius:var(--r);z-index:200;max-height:200px;overflow-y:auto;margin-top:2px"></div>
+      </div>
           <div class="field"><label>Tipo</label>
             <select id="n-tipo">
               <option value="bloqueo">Obstáculo / Bloqueo</option>
@@ -555,7 +560,9 @@ function mostrarApp() {
   document.getElementById('hdr-user').textContent = miPerfil ? miPerfil.nombre.split(' ')[0] : '—';
   const esLider = miPerfil && miPerfil.capa === 'lider';
   document.getElementById('form-nueva-tarea').style.display = esLider ? 'block' : 'none';
-  document.getElementById('ntab-prog').textContent = esLider ? 'Programa' : 'Programa';
+  document.getElementById('ntab-prog').textContent = 'Programa';
+  document.getElementById('ntab-sem').style.display = esLider ? '' : 'none';
+  document.getElementById('ntab-agente').style.display = esLider ? '' : 'none';
   if (miPerfil && miPerfil.area) document.getElementById('d-area').value = miPerfil.area;
   if (miPerfil && miPerfil.area) document.getElementById('n-area').value = miPerfil.area;
   if (miPerfil && miPerfil.nombre) {}
@@ -617,6 +624,11 @@ async function recargar() {
 }
 
 // ---- RENDER DÍA ----
+function enLista(lista, nombre) {
+  if (!lista || !nombre) return false;
+  return lista.split(',').map(n => n.trim().toLowerCase()).includes(nombre.trim().toLowerCase());
+}
+
 function parseFecha(f) {
   if (!f) return null;
   if (f.length > 12) {
@@ -663,7 +675,7 @@ function renderDia() {
       const novT = datos.novedades.filter(n => n.tarea_id === t.id && n.fecha === d);
       const esLider = miPerfil && miPerfil.capa === 'lider';
       return `<div class="trow">
-        ${(miPerfil && miPerfil.capa === 'lider' && miPerfil.nombre && t.lider_responsable && t.lider_responsable.trim().toLowerCase() === miPerfil.nombre.trim().toLowerCase()) ? `<input type="checkbox" ${t.estado==='completada'?'checked':''} onchange="completarTarea('${t.id}',this.checked)"/>` : ''}
+        ${(miPerfil && miPerfil.capa === 'lider' && enLista(t.lider_responsable, miPerfil.nombre)) ? `<input type="checkbox" ${t.estado==='completada'?'checked':''} onchange="completarTarea('${t.id}',this.checked)"/>` : ''}
         <div class="trow-main">
           <div class="trow-name ${t.estado==='completada'?'done':''}">${t.descripcion}</div>
           <div class="trow-meta">
@@ -693,8 +705,7 @@ function renderProg() {
   el.innerHTML = ft.map(t => {
     const atrasada = t.fecha_fin && parseFecha(t.fecha_fin) < hoy() && t.estado !== 'completada';
     const esLiderDueno = miPerfil && miPerfil.capa === 'lider' &&
-      miPerfil.nombre && t.lider_responsable &&
-      t.lider_responsable.trim().toLowerCase() === miPerfil.nombre.trim().toLowerCase();
+      enLista(t.lider_responsable, miPerfil.nombre);
     return `<div class="trow">
       <div class="trow-main">
         <div class="trow-name">${t.descripcion}</div>
@@ -771,6 +782,39 @@ async function completarTarea(id, completar) {
     await recargar();
   } catch(e) { console.error(e); }
 }
+
+function filtrarTareas(q) {
+  const drop = document.getElementById('n-tarea-dropdown');
+  const area = document.getElementById('n-area').value;
+  const esSupervisor = miPerfil && miPerfil.capa === 'supervisor';
+  const ft = datos.tareas.filter(t =>
+    (!q || q.length < 2 || t.descripcion.toLowerCase().includes(q.toLowerCase())) &&
+    (!area || t.area === area) &&
+    (!esSupervisor || enLista(t.supervisores, miPerfil.nombre))
+  ).slice(0, 15);
+  if (!ft.length) { drop.style.display = 'none'; return; }
+  drop.innerHTML = ft.map(t => `
+    <div onclick="seleccionarTarea('${t.id}','${t.descripcion.replace(/'/g,"\'")}')"
+      style="padding:9px 12px;font-size:13px;color:var(--text);cursor:pointer;border-bottom:0.5px solid var(--border)"
+      onmouseover="this.style.background='var(--bg3)'" onmouseout="this.style.background=''">
+      <div style="font-weight:500">${t.descripcion}</div>
+      <div style="font-size:11px;color:var(--text2);margin-top:2px">${t.contratista||'—'} · ${fmtFecha(t.fecha_fin)}</div>
+    </div>`).join('');
+  drop.style.display = 'block';
+}
+
+function seleccionarTarea(id, desc) {
+  document.getElementById('n-tid').value = id;
+  document.getElementById('n-tarea-search').value = desc;
+  document.getElementById('n-tarea-dropdown').style.display = 'none';
+}
+
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('#n-tarea-search') && !e.target.closest('#n-tarea-dropdown')) {
+    const drop = document.getElementById('n-tarea-dropdown');
+    if (drop) drop.style.display = 'none';
+  }
+});
 
 async function registrarNovedad() {
   const msg = document.getElementById('n-msg');
