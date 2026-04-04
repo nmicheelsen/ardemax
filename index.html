@@ -352,7 +352,11 @@ input[type=checkbox] { width: 16px; height: 16px; accent-color: var(--accent); f
               <option value="caldera">Caldera/ORC</option>
             </select>
           </div>
-          <div class="field"><label>Contratista</label><input type="text" id="t-contra" placeholder="Empresa contratista"/></div>
+          <div class="field"><label>Contratista</label>
+            <select id="t-contra">
+              <option value="">Selecciona contratista...</option>
+            </select>
+          </div>
           <div class="field">
             <label>Líder responsable</label>
             <select id="t-lider">
@@ -581,6 +585,11 @@ function mostrarApp() {
     const lideres = datos.equipo.filter(p => p.capa === 'lider');
     selLider.innerHTML = '<option value="">Selecciona un líder...</option>' +
       lideres.map(p => `<option value="${p.nombre}">${p.nombre} — ${p.disciplina ? DN[p.disciplina]||p.disciplina : p.rol||''}</option>`).join('');
+  }
+  const selContra = document.getElementById('t-contra');
+  if (selContra && datos.contratistas && datos.contratistas.length) {
+    selContra.innerHTML = '<option value="">Selecciona contratista...</option>' +
+      datos.contratistas.filter(c => c.activo === 'si').map(c => `<option value="${c.nombre}">${c.nombre}${c.especialidades ? ' — ' + c.especialidades : ''}</option>`).join('');
   }
   if (miPerfil && miPerfil.area) document.getElementById('n-area').value = miPerfil.area;
   if (miPerfil && miPerfil.nombre) {}
@@ -821,6 +830,7 @@ async function crearTarea() {
       document.getElementById('t-obs').value = '';
       document.getElementById('t-contra').value = '';
       document.getElementById('t-lider').value = '';
+      document.getElementById('t-contra').value = '';
       await recargar();
     } else { msg.textContent = 'Error: ' + (res.error||'?'); msg.className = 'msg msg-err'; }
   } catch(e) { msg.textContent = 'Error: ' + e.message; msg.className = 'msg msg-err'; }
