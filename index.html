@@ -353,7 +353,12 @@ input[type=checkbox] { width: 16px; height: 16px; accent-color: var(--accent); f
             </select>
           </div>
           <div class="field"><label>Contratista</label><input type="text" id="t-contra" placeholder="Empresa contratista"/></div>
-          <div class="field"><label>Lider responsable</label><input type="text" id="t-lider"/></div>
+          <div class="field">
+            <label>Líder responsable</label>
+            <select id="t-lider">
+              <option value="">Selecciona un líder...</option>
+            </select>
+          </div>
           <div class="field"><label>Inicio</label><input type="date" id="t-ini"/></div>
           <div class="field"><label>Término</label><input type="date" id="t-fin"/></div>
           <div class="field"><label>Prioridad</label>
@@ -564,6 +569,13 @@ function mostrarApp() {
   document.getElementById('ntab-sem').style.display = esLider ? '' : 'none';
   document.getElementById('ntab-agente').style.display = esLider ? '' : 'none';
   if (miPerfil && miPerfil.area) document.getElementById('d-area').value = miPerfil.area;
+  // Poblar desplegable de líderes en formulario de tarea
+  const selLider = document.getElementById('t-lider');
+  if (selLider) {
+    const lideres = datos.equipo.filter(p => p.capa === 'lider');
+    selLider.innerHTML = '<option value="">Selecciona un líder...</option>' +
+      lideres.map(p => `<option value="${p.nombre}">${p.nombre} — ${p.disciplina ? DN[p.disciplina]||p.disciplina : p.rol||''}</option>`).join('');
+  }
   if (miPerfil && miPerfil.area) document.getElementById('n-area').value = miPerfil.area;
   if (miPerfil && miPerfil.nombre) {}
   renderDia(); renderProg(); renderNovs();
@@ -771,6 +783,7 @@ async function crearTarea() {
       document.getElementById('t-desc').value = '';
       document.getElementById('t-obs').value = '';
       document.getElementById('t-contra').value = '';
+      document.getElementById('t-lider').value = '';
       await recargar();
     } else { msg.textContent = 'Error: ' + (res.error||'?'); msg.className = 'msg msg-err'; }
   } catch(e) { msg.textContent = 'Error: ' + e.message; msg.className = 'msg msg-err'; }
