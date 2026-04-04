@@ -662,7 +662,11 @@ function isActiva(t, d) {
   if (!t.fecha_inicio && !t.fecha_fin) return true;
   const ini = parseFecha(t.fecha_inicio);
   const fin = parseFecha(t.fecha_fin);
-  return (!ini || ini <= d) && (!fin || fin >= d);
+  // Tarea activa en el rango de fechas
+  const enRango = (!ini || ini <= d) && (!fin || fin >= d);
+  // Tarea atrasada: venció antes de la fecha consultada y sigue pendiente
+  const atrasadaPendiente = fin && fin < d && t.estado !== 'completada';
+  return enRango || atrasadaPendiente;
 }
 
 function renderDia() {
