@@ -568,6 +568,21 @@ async function iniciarApp() {
   } catch(e) { showErr('No se pudo conectar: ' + e.message); }
 }
 
+function poblarDropdowns() {
+  const selLider = document.getElementById('t-lider');
+  if (selLider) {
+    const lideres = datos.equipo.filter(p => p.capa === 'lider');
+    selLider.innerHTML = '<option value="">Selecciona un líder...</option>' +
+      lideres.map(p => `<option value="${p.nombre}">${p.nombre} — ${p.disciplina ? DN[p.disciplina]||p.disciplina : p.rol||''}</option>`).join('');
+  }
+  const selContra = document.getElementById('t-contra');
+  if (selContra) {
+    const contras = (datos.contratistas || []).filter(c => c.activo === 'si');
+    selContra.innerHTML = '<option value="">Selecciona contratista...</option>' +
+      contras.map(c => `<option value="${c.nombre}">${c.nombre}${c.especialidades ? ' — ' + c.especialidades : ''}</option>`).join('');
+  }
+}
+
 function mostrarApp() {
   document.getElementById('setup-screen').style.display = 'none';
   const app = document.getElementById('app');
@@ -580,17 +595,7 @@ function mostrarApp() {
   document.getElementById('ntab-agente').style.display = esLider ? '' : 'none';
   if (miPerfil && miPerfil.area) document.getElementById('d-area').value = miPerfil.area;
   // Poblar desplegable de líderes en formulario de tarea
-  const selLider = document.getElementById('t-lider');
-  if (selLider) {
-    const lideres = datos.equipo.filter(p => p.capa === 'lider');
-    selLider.innerHTML = '<option value="">Selecciona un líder...</option>' +
-      lideres.map(p => `<option value="${p.nombre}">${p.nombre} — ${p.disciplina ? DN[p.disciplina]||p.disciplina : p.rol||''}</option>`).join('');
-  }
-  const selContra = document.getElementById('t-contra');
-  if (selContra && datos.contratistas && datos.contratistas.length) {
-    selContra.innerHTML = '<option value="">Selecciona contratista...</option>' +
-      datos.contratistas.filter(c => c.activo === 'si').map(c => `<option value="${c.nombre}">${c.nombre}${c.especialidades ? ' — ' + c.especialidades : ''}</option>`).join('');
-  }
+  poblarDropdowns();
   if (miPerfil && miPerfil.area) document.getElementById('n-area').value = miPerfil.area;
   if (miPerfil && miPerfil.nombre) {}
   renderDia(); renderProg(); renderNovs();
@@ -646,6 +651,7 @@ async function recargar() {
   try {
     const res = await apiGet({ accion: 'leer_todo' });
     datos = res;
+    poblarDropdowns();
     renderDia(); renderProg(); renderNovs();
   } catch(e) { console.error(e); }
 }
