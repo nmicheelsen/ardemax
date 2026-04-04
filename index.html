@@ -606,9 +606,21 @@ async function recargar() {
 }
 
 // ---- RENDER DÍA ----
+function parseFecha(f) {
+  if (!f) return null;
+  // formato largo: "Mon Mar 24 2026 00:00:00 GMT-0300..."
+  if (f.length > 12) {
+    const d = new Date(f);
+    if (!isNaN(d)) return d.toISOString().slice(0,10);
+  }
+  return f; // ya en formato yyyy-MM-dd
+}
+
 function isActiva(t, d) {
   if (!t.fecha_inicio && !t.fecha_fin) return true;
-  return (!t.fecha_inicio || t.fecha_inicio <= d) && (!t.fecha_fin || t.fecha_fin >= d);
+  const ini = parseFecha(t.fecha_inicio);
+  const fin = parseFecha(t.fecha_fin);
+  return (!ini || ini <= d) && (!fin || fin >= d);
 }
 
 function renderDia() {
@@ -618,7 +630,7 @@ function renderDia() {
   const novHoy = datos.novedades.filter(n => n.fecha === d && (!fa || n.area === fa));
   document.getElementById('sd-tot').textContent = ft.length;
   document.getElementById('sd-done').textContent = ft.filter(t => t.estado === 'completada').length;
-  document.getElementById('sd-risk').textContent = ft.filter(t => t.fecha_fin && t.fecha_fin < hoy() && t.estado !== 'completada').length;
+  document.getElementById('sd-risk').textContent = ft.filter(t => t.fecha_fin && parseFecha(t.fecha_fin) < hoy() && t.estado !== 'completada').length;
   document.getElementById('sd-nov').textContent = novHoy.length;
   const el = document.getElementById('dia-list');
   if (!ft.length) { el.innerHTML = '<span style="color:var(--text3);font-size:13px">Sin tareas activas para esta fecha.</span>'; return; }
@@ -629,7 +641,7 @@ function renderDia() {
     if (!byArea[a].length) return;
     html += `<div class="area-group"><div class="area-label">${AN[a]}</div>`;
     html += byArea[a].map(t => {
-      const atrasada = t.fecha_fin && t.fecha_fin < hoy() && t.estado !== 'completada';
+      const atrasada = t.fecha_fin && parseFecha(t.fecha_fin) < hoy() && t.estado !== 'completada';
       const novT = datos.novedades.filter(n => n.tarea_id === t.id && n.fecha === d);
       const esLider = miPerfil && miPerfil.capa === 'lider';
       return `<div class="trow">
@@ -660,7 +672,7 @@ function renderProg() {
   if (!ft.length) { el.innerHTML = '<span style="color:var(--text3);font-size:13px">Sin tareas para este filtro.</span>'; return; }
   const esLider = miPerfil && miPerfil.capa === 'lider';
   el.innerHTML = ft.map(t => {
-    const atrasada = t.fecha_fin && t.fecha_fin < hoy() && t.estado !== 'completada';
+    const atrasada = t.fecha_fin && parseFecha(t.fecha_fin) < hoy() && t.estado !== 'completada';
     return `<div class="trow">
       <div class="trow-main">
         <div class="trow-name">${t.descripcion}</div>
