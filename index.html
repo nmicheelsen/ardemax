@@ -817,6 +817,7 @@ function toggleHistorialProg(id) {
   const btn = document.getElementById('hist-btn-p-' + id);
   if (!el) return;
   const visible = el.style.display !== 'none';
+  if (!visible) el.innerHTML = renderHistorial(id);
   el.style.display = visible ? 'none' : 'block';
   btn.textContent = visible ? 'Ver novedades' : 'Ocultar novedades';
 }
@@ -826,6 +827,7 @@ function toggleHistorial(id) {
   const btn = document.getElementById('hist-btn-' + id);
   if (!el) return;
   const visible = el.style.display !== 'none';
+  if (!visible) el.innerHTML = renderHistorial(id);
   el.style.display = visible ? 'none' : 'block';
   btn.textContent = visible ? 'Ver novedades' : 'Ocultar novedades';
 }
