@@ -7,6 +7,8 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 <meta name="apple-mobile-web-app-title" content="Comisionamiento Ardemax"/>
 <meta name="theme-color" content="#0f1117"/>
+<link rel="manifest" href="data:application/json,{%22name%22:%22Comisionamiento%20Ardemax%22,%22short_name%22:%22Ardemax%22,%22display%22:%22standalone%22,%22background_color%22:%22%230f1117%22,%22theme_color%22:%22%230f1117%22}"/>
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='80' fill='%230f1117'/%3E%3Crect x='8' y='8' width='496' height='496' rx='76' fill='none' stroke='%23e8c84a' stroke-width='12'/%3E%3Cpolygon points='256,80 456,236 378,460 134,460 56,236' fill='%23e8c84a'/%3E%3C/svg%3E"/>
 <title>Comisionamiento Ardemax</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap');
@@ -661,7 +663,7 @@ function renderDia() {
       const novT = datos.novedades.filter(n => n.tarea_id === t.id && n.fecha === d);
       const esLider = miPerfil && miPerfil.capa === 'lider';
       return `<div class="trow">
-        ${esLider ? `<input type="checkbox" ${t.estado==='completada'?'checked':''} onchange="completarTarea('${t.id}',this.checked)"/>` : ''}
+        ${(miPerfil && miPerfil.capa === 'lider' && miPerfil.nombre && t.lider_responsable && t.lider_responsable.trim().toLowerCase() === miPerfil.nombre.trim().toLowerCase()) ? `<input type="checkbox" ${t.estado==='completada'?'checked':''} onchange="completarTarea('${t.id}',this.checked)"/>` : ''}
         <div class="trow-main">
           <div class="trow-name ${t.estado==='completada'?'done':''}">${t.descripcion}</div>
           <div class="trow-meta">
@@ -670,6 +672,7 @@ function renderDia() {
             <span>hasta ${fmtFecha(t.fecha_fin)}</span>
             ${t.estado==='completada'?'<span class="badge b-ok">completada</span>':atrasada?'<span class="badge b-risk">atrasada</span>':t.prioridad==='alta'?'<span class="badge b-warn">alta prioridad</span>':''}
           </div>
+          <div class="trow-meta" style="margin-top:2px"><span style="color:var(--text3);font-size:11px">Líder: <b style="color:var(--text2)">${t.lider_responsable||'—'}</b></span></div>
           ${novT.map(n=>`<div style="font-size:11px;padding:3px 8px;border-left:2px solid ${n.tipo==='bloqueo'?'var(--red)':n.tipo==='observacion'?'var(--amber)':'var(--green)'};margin-top:4px;color:var(--text2)">${n.turno}: ${n.descripcion}</div>`).join('')}
         </div>
       </div>`;
@@ -689,6 +692,9 @@ function renderProg() {
   const esLider = miPerfil && miPerfil.capa === 'lider';
   el.innerHTML = ft.map(t => {
     const atrasada = t.fecha_fin && parseFecha(t.fecha_fin) < hoy() && t.estado !== 'completada';
+    const esLiderDueno = miPerfil && miPerfil.capa === 'lider' &&
+      miPerfil.nombre && t.lider_responsable &&
+      t.lider_responsable.trim().toLowerCase() === miPerfil.nombre.trim().toLowerCase();
     return `<div class="trow">
       <div class="trow-main">
         <div class="trow-name">${t.descripcion}</div>
@@ -699,9 +705,12 @@ function renderProg() {
           <span>${fmtFecha(t.fecha_inicio)} → ${fmtFecha(t.fecha_fin)}</span>
           <span class="badge ${t.estado==='completada'?'b-ok':atrasada?'b-risk':'b-pend'}">${t.estado||'pendiente'}</span>
         </div>
+        <div class="trow-meta" style="margin-top:3px">
+          <span style="color:var(--text3);font-size:11px">Líder: <b style="color:var(--text2)">${t.lider_responsable||'—'}</b></span>
+        </div>
         ${t.observaciones?`<div class="trow-obs">${t.observaciones}</div>`:''}
       </div>
-      ${esLider && t.estado !== 'completada' ? `<button class="btn btn-sm" onclick="completarTarea('${t.id}',true)">✓</button>` : ''}
+      ${esLiderDueno && t.estado !== 'completada' ? `<button class="btn btn-sm" onclick="completarTarea('${t.id}',true)">✓</button>` : ''}
     </div>`;
   }).join('');
 }
