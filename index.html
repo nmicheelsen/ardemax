@@ -608,12 +608,19 @@ async function recargar() {
 // ---- RENDER DÍA ----
 function parseFecha(f) {
   if (!f) return null;
-  // formato largo: "Mon Mar 24 2026 00:00:00 GMT-0300..."
   if (f.length > 12) {
     const d = new Date(f);
     if (!isNaN(d)) return d.toISOString().slice(0,10);
   }
-  return f; // ya en formato yyyy-MM-dd
+  return f;
+}
+
+function fmtFecha(f) {
+  if (!f) return '?';
+  const iso = parseFecha(f);
+  if (!iso) return f;
+  const [y, m, d] = iso.split('-');
+  return d + '-' + m + '-' + y;
 }
 
 function isActiva(t, d) {
@@ -651,7 +658,7 @@ function renderDia() {
           <div class="trow-meta">
             <span class="badge ${DB[t.disciplina]||'b-pend'}">${DN[t.disciplina]||t.disciplina}</span>
             <span style="color:var(--text3)">${t.contratista||'—'}</span>
-            <span>hasta ${t.fecha_fin||'?'}</span>
+            <span>hasta ${fmtFecha(t.fecha_fin)}</span>
             ${t.estado==='completada'?'<span class="badge b-ok">completada</span>':atrasada?'<span class="badge b-risk">atrasada</span>':t.prioridad==='alta'?'<span class="badge b-warn">alta prioridad</span>':''}
           </div>
           ${novT.map(n=>`<div style="font-size:11px;padding:3px 8px;border-left:2px solid ${n.tipo==='bloqueo'?'var(--red)':n.tipo==='observacion'?'var(--amber)':'var(--green)'};margin-top:4px;color:var(--text2)">${n.turno}: ${n.descripcion}</div>`).join('')}
@@ -680,7 +687,7 @@ function renderProg() {
           <span class="badge ${DB[t.disciplina]||'b-pend'}">${DN[t.disciplina]||t.disciplina}</span>
           <span class="badge ${AB[t.area]||'b-pend'}">${AN[t.area]||t.area}</span>
           <span style="color:var(--text3)">${t.contratista||'—'}</span>
-          <span>${t.fecha_inicio||'?'} → ${t.fecha_fin||'?'}</span>
+          <span>${fmtFecha(t.fecha_inicio)} → ${fmtFecha(t.fecha_fin)}</span>
           <span class="badge ${t.estado==='completada'?'b-ok':atrasada?'b-risk':'b-pend'}">${t.estado||'pendiente'}</span>
         </div>
         ${t.observaciones?`<div class="trow-obs">${t.observaciones}</div>`:''}
@@ -785,7 +792,7 @@ EQUIPO:
 - Supervisores por área: 2 en área verde, 2 en área seca, 2 en caldera/ORC
 
 PROGRAMA (${datos.tareas.length} tareas):
-${datos.tareas.map(t=>`[${(t.estado||'').toUpperCase()}] ID:${t.id} | ${t.descripcion} | ${DN[t.disciplina]||t.disciplina} | ${AN[t.area]||t.area} | ${t.contratista} | ${t.fecha_inicio||'?'}→${t.fecha_fin||'?'} | prio:${t.prioridad}`).join('\n')||'Sin tareas'}
+${datos.tareas.map(t=>`[${(t.estado||'').toUpperCase()}] ID:${t.id} | ${t.descripcion} | ${DN[t.disciplina]||t.disciplina} | ${AN[t.area]||t.area} | ${t.contratista} | ${fmtFecha(t.fecha_inicio)}→${fmtFecha(t.fecha_fin)} | prio:${t.prioridad}`).join('\n')||'Sin tareas'}
 
 NOVEDADES (${datos.novedades.length}):
 ${datos.novedades.map(n=>{const t=datos.tareas.find(x=>x.id===n.tarea_id);return `[${(n.tipo||'').toUpperCase()}${n.resuelto==='si'?'-RESUELTA':'-PENDIENTE'}] ${AN[n.area]||n.area} | ${n.turno} | ${n.fecha} | ${n.descripcion}${t?' | Tarea:'+t.descripcion:''}`}).join('\n')||'Sin novedades'}
