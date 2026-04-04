@@ -768,7 +768,7 @@ function renderNovs() {
       <div class="nov-meta">
         <span class="badge ${AB[n.area]||'b-pend'}">${AN[n.area]||n.area}</span>
         <span class="badge ${n.tipo==='bloqueo'?'b-risk':n.tipo==='observacion'?'b-warn':'b-ok'}">${TN[n.tipo]||n.tipo}</span>
-        <span style="font-size:11px;color:var(--text3)">${n.turno||''} · ${n.fecha||''} · ${n.supervisor||''}</span>
+        <span style="font-size:11px;color:var(--text3)">${n.turno||''} · ${fmtFecha(n.fecha)} · ${n.supervisor||''}</span>
         ${n.resuelto==='si'?'<span class="badge b-ok">resuelta</span>':'<span class="badge b-risk">sin resolver</span>'}
         ${esLider && n.resuelto==='no' ? `<button class="btn btn-sm" onclick="resolverNov('${n.id}')">Resolver</button>` : ''}
       </div>
@@ -926,7 +926,7 @@ PROGRAMA (${datos.tareas.length} tareas):
 ${datos.tareas.map(t=>`[${(t.estado||'').toUpperCase()}] ID:${t.id} | ${t.descripcion} | ${DN[t.disciplina]||t.disciplina} | ${AN[t.area]||t.area} | ${t.contratista} | ${fmtFecha(t.fecha_inicio)}→${fmtFecha(t.fecha_fin)} | prio:${t.prioridad}`).join('\n')||'Sin tareas'}
 
 NOVEDADES (${datos.novedades.length}):
-${datos.novedades.map(n=>{const t=datos.tareas.find(x=>x.id===n.tarea_id);return `[${(n.tipo||'').toUpperCase()}${n.resuelto==='si'?'-RESUELTA':'-PENDIENTE'}] ${AN[n.area]||n.area} | ${n.turno} | ${n.fecha} | ${n.descripcion}${t?' | Tarea:'+t.descripcion:''}`}).join('\n')||'Sin novedades'}
+${datos.novedades.map(n=>{const t=datos.tareas.find(x=>x.id===n.tarea_id);return `[${(n.tipo||'').toUpperCase()}${n.resuelto==='si'?'-RESUELTA':'-PENDIENTE'}] ${AN[n.area]||n.area} | ${n.turno} | ${fmtFecha(n.fecha)} | ${n.descripcion}${t?' | Tarea:'+t.descripcion:''}`}).join('\n')||'Sin novedades'}
 
 Fecha hoy: ${new Date().toLocaleDateString('es-CL')}
 Responde en español, directo y útil para jefatura de obra en terreno.`;
