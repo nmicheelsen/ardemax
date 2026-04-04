@@ -268,6 +268,8 @@ input[type=checkbox] { width: 16px; height: 16px; accent-color: var(--accent); f
     <select class="setup-select" id="cfg-perfil">
       <option value="">Conecta primero para cargar perfiles...</option>
     </select>
+    <label class="setup-label">PIN de acceso</label>
+    <input class="setup-input" id="cfg-pin" type="password" inputmode="numeric" maxlength="4" placeholder="4 dígitos" style="letter-spacing:.3em;font-size:18px"/>
     <div style="display:flex;gap:8px;margin-bottom:1rem">
       <button class="btn" style="flex:1" onclick="cargarPerfiles()">Cargar perfiles</button>
       <button class="btn btn-primary" style="flex:2" onclick="iniciarApp()">Ingresar</button>
@@ -524,15 +526,22 @@ async function iniciarApp() {
   const url = document.getElementById('cfg-url').value.trim();
   const key = document.getElementById('cfg-key').value.trim();
   const pid = document.getElementById('cfg-perfil').value;
+  const pin = document.getElementById('cfg-pin').value.trim();
   if (!url) { showErr('Falta la URL del Apps Script'); return; }
   if (!key) { showErr('Falta la API key de Claude'); return; }
   if (!pid) { showErr('Selecciona tu perfil'); return; }
+  if (!pin) { showErr('Ingresa tu PIN de acceso'); return; }
   cfg = { url, key, perfilId: pid };
-  localStorage.setItem('ardemax_cfg', JSON.stringify(cfg));
   try {
     const res = await apiGet({ accion: 'leer_todo' }, url);
     datos = res;
-    miPerfil = datos.equipo.find(p => p.id === pid) || null;
+    const perfil = datos.equipo.find(p => p.id === pid);
+    if (!perfil) { showErr('Perfil no encontrado'); return; }
+    if (perfil.pin && perfil.pin.toString() !== pin) {
+      showErr('PIN incorrecto'); return;
+    }
+    miPerfil = perfil;
+    localStorage.setItem('ardemax_cfg', JSON.stringify(cfg));
     mostrarApp();
   } catch(e) { showErr('No se pudo conectar: ' + e.message); }
 }
