@@ -323,10 +323,10 @@ input[type=checkbox] { width: 16px; height: 16px; accent-color: var(--accent); f
         <button class="btn btn-sm" onclick="recargar()">↻ Actualizar</button>
       </div>
       <div class="stats">
-        <div class="stat"><div class="stat-v" id="sd-tot">—</div><div class="stat-l">Activas</div></div>
-        <div class="stat"><div class="stat-v" id="sd-done">—</div><div class="stat-l">Hechas</div></div>
-        <div class="stat"><div class="stat-v" id="sd-risk">—</div><div class="stat-l">Atrasadas</div></div>
-        <div class="stat"><div class="stat-v" id="sd-nov">—</div><div class="stat-l">Novedades</div></div>
+        <div class="stat" style="border-left:3px solid #e8943a"><div class="stat-v" id="sd-tot" style="color:#e8943a">—</div><div class="stat-l">En proceso</div></div>
+        <div class="stat" style="border-left:3px solid #4caf7d"><div class="stat-v" id="sd-done" style="color:#4caf7d">—</div><div class="stat-l">Completadas</div></div>
+        <div class="stat" style="border-left:3px solid #e05555"><div class="stat-v" id="sd-risk" style="color:#e05555">—</div><div class="stat-l">Atrasadas</div></div>
+        <div class="stat" style="border-left:3px solid #5a9fd4"><div class="stat-v" id="sd-nov" style="color:#5a9fd4">—</div><div class="stat-l">Novedades</div></div>
       </div>
       <div class="card"><div id="dia-list"><span class="ai-loading">Cargando tareas...</span></div></div>
     </div>
@@ -395,7 +395,7 @@ input[type=checkbox] { width: 16px; height: 16px; accent-color: var(--accent); f
         </div>
         <button class="btn btn-sm" onclick="recargar()">↻ Actualizar</button>
       </div>
-      <div class="g4" style="margin-bottom:.75rem">
+      <div class="stats" style="margin-bottom:.75rem">
         <div class="stat" style="border-left:3px solid #e8943a"><div class="stat-v" id="sp-proc" style="color:#e8943a">—</div><div class="stat-l">En proceso</div></div>
         <div class="stat" style="border-left:3px solid #4caf7d"><div class="stat-v" id="sp-done" style="color:#4caf7d">—</div><div class="stat-l">Completadas</div></div>
         <div class="stat" style="border-left:3px solid #e05555"><div class="stat-v" id="sp-risk" style="color:#e05555">—</div><div class="stat-l">Atrasadas</div></div>
@@ -680,7 +680,7 @@ function renderDia() {
   const fa = document.getElementById('d-area').value;
   let ft = datos.tareas.filter(t => isActiva(t, d) && (!fa || t.area === fa));
   const novHoy = datos.novedades.filter(n => n.fecha === d && (!fa || n.area === fa));
-  document.getElementById('sd-tot').textContent = ft.length;
+  document.getElementById('sd-tot').textContent = ft.filter(t => t.estado !== 'completada' && !(t.fecha_fin && parseFecha(t.fecha_fin) < hoy())).length;
   document.getElementById('sd-done').textContent = ft.filter(t => t.estado === 'completada').length;
   document.getElementById('sd-risk').textContent = ft.filter(t => t.fecha_fin && parseFecha(t.fecha_fin) < hoy() && t.estado !== 'completada').length;
   document.getElementById('sd-nov').textContent = novHoy.length;
