@@ -701,7 +701,13 @@ function renderDia() {
             ${t.estado==='completada'?'<span class="badge b-ok">completada</span>':atrasada?'<span class="badge b-risk">atrasada</span>':t.prioridad==='alta'?'<span class="badge b-warn">alta prioridad</span>':''}
           </div>
           <div class="trow-meta" style="margin-top:2px"><span style="color:var(--text3);font-size:11px">Líder: <b style="color:var(--text2)">${t.lider_responsable||'—'}</b></span></div>
-          ${novT.map(n=>`<div style="font-size:11px;padding:3px 8px;border-left:2px solid ${n.tipo==='bloqueo'?'var(--red)':n.tipo==='observacion'?'var(--amber)':'var(--green)'};margin-top:4px;color:var(--text2)">${n.turno}: ${n.descripcion}</div>`).join('')}
+          <div style="margin-top:6px;display:flex;gap:6px;align-items:center">
+            ${novT.length ? `<span style="font-size:11px;color:var(--text3)">${novT.length} novedad(es) hoy</span>` : ''}
+            <button id="hist-btn-${t.id}" class="btn btn-sm" onclick="toggleHistorial('${t.id}')">Ver novedades</button>
+          </div>
+          <div id="hist-${t.id}" style="display:none;margin-top:8px">
+            ${renderHistorial('${t.id}')}
+          </div>
         </div>
       </div>`;
     }).join('');
@@ -736,6 +742,12 @@ function renderProg() {
           <span style="color:var(--text3);font-size:11px">Líder: <b style="color:var(--text2)">${t.lider_responsable||'—'}</b></span>
         </div>
         ${t.observaciones?`<div class="trow-obs">${t.observaciones}</div>`:''}
+        <div style="margin-top:6px">
+          <button id="hist-btn-p-${t.id}" class="btn btn-sm" onclick="toggleHistorialProg('${t.id}')">Ver novedades</button>
+        </div>
+        <div id="hist-p-${t.id}" style="display:none;margin-top:8px">
+          ${renderHistorial('${t.id}')}
+        </div>
       </div>
       ${esLiderDueno && t.estado !== 'completada' ? `<button class="btn btn-sm" onclick="completarTarea('${t.id}',true)">✓</button>` : ''}
     </div>`;
@@ -798,6 +810,44 @@ async function completarTarea(id, completar) {
     await apiPost({ accion: 'actualizar_tarea', id, datos: { estado: completar ? 'completada' : 'pendiente' }});
     await recargar();
   } catch(e) { console.error(e); }
+}
+
+function toggleHistorialProg(id) {
+  const el = document.getElementById('hist-p-' + id);
+  const btn = document.getElementById('hist-btn-p-' + id);
+  if (!el) return;
+  const visible = el.style.display !== 'none';
+  el.style.display = visible ? 'none' : 'block';
+  btn.textContent = visible ? 'Ver novedades' : 'Ocultar novedades';
+}
+
+function toggleHistorial(id) {
+  const el = document.getElementById('hist-' + id);
+  const btn = document.getElementById('hist-btn-' + id);
+  if (!el) return;
+  const visible = el.style.display !== 'none';
+  el.style.display = visible ? 'none' : 'block';
+  btn.textContent = visible ? 'Ver novedades' : 'Ocultar novedades';
+}
+
+function renderHistorial(tareaId) {
+  const novs = datos.novedades
+    .filter(n => n.tarea_id === tareaId)
+    .sort((a, b) => {
+      const fa = parseFecha(a.fecha_registro || a.fecha) || '';
+      const fb = parseFecha(b.fecha_registro || b.fecha) || '';
+      return fb.localeCompare(fa);
+    });
+  if (!novs.length) return '<div style="font-size:12px;color:var(--text3);padding:6px 0">Sin novedades registradas.</div>';
+  return novs.map(n => `
+    <div class="nov-item ${n.tipo}" style="margin-bottom:6px">
+      <div class="nov-meta">
+        <span class="badge ${n.tipo==='bloqueo'?'b-risk':n.tipo==='observacion'?'b-warn':'b-ok'}">${TN[n.tipo]||n.tipo}</span>
+        <span style="font-size:11px;color:var(--text3)">${n.turno||''} · ${fmtFecha(n.fecha)} · ${n.supervisor||''}</span>
+        ${n.resuelto==='si'?'<span class="badge b-ok">resuelta</span>':'<span class="badge b-risk">sin resolver</span>'}
+      </div>
+      <div style="font-size:13px;color:var(--text)">${n.descripcion}</div>
+    </div>`).join('');
 }
 
 function filtrarTareas(q) {
