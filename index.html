@@ -299,6 +299,7 @@ input[type=checkbox] { width: 16px; height: 16px; accent-color: var(--accent); f
     <button class="nav-tab" onclick="go('nov')">Novedades</button>
     <button class="nav-tab" id="ntab-sem" onclick="go('sem')">Consolidado</button>
     <button class="nav-tab" id="ntab-agente" onclick="go('agente')">Agente</button>
+    <button class="nav-tab" id="ntab-bsc" onclick="go('bsc')">BSC</button>
     <button class="nav-tab" onclick="cerrarSesion()">Salir</button>
   </nav>
 
@@ -497,6 +498,76 @@ input[type=checkbox] { width: 16px; height: 16px; accent-color: var(--accent); f
       </div>
     </div>
 
+    <!-- BSC -->
+    <div id="s-bsc" class="section">
+      <div style="margin-bottom:1rem">
+        <div style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--text2);margin-bottom:4px">Balance Scorecard</div>
+        <div style="font-size:12px;color:var(--text3)">Dashboard de indicadores — Comisionamiento Ardemax</div>
+      </div>
+
+      <!-- KPI cards row 1 -->
+      <div class="stats" style="margin-bottom:.75rem">
+        <div class="stat" style="border-left:3px solid #4caf7d">
+          <div class="stat-v" id="bsc-avance" style="color:#4caf7d">—%</div>
+          <div class="stat-l">Avance general</div>
+        </div>
+        <div class="stat" style="border-left:3px solid #e8943a">
+          <div class="stat-v" id="bsc-proceso" style="color:#e8943a">—</div>
+          <div class="stat-l">En proceso</div>
+        </div>
+        <div class="stat" style="border-left:3px solid #e05555">
+          <div class="stat-v" id="bsc-atrasadas" style="color:#e05555">—</div>
+          <div class="stat-l">Atrasadas</div>
+        </div>
+        <div class="stat" style="border-left:3px solid #5a9fd4">
+          <div class="stat-v" id="bsc-bloqueados" style="color:#5a9fd4">—</div>
+          <div class="stat-l">Bloqueos activos</div>
+        </div>
+      </div>
+
+      <!-- KPI cards row 2 -->
+      <div class="stats" style="margin-bottom:1rem">
+        <div class="stat" style="border-left:3px solid #4caf7d">
+          <div class="stat-v" id="bsc-completadas" style="color:#4caf7d">—</div>
+          <div class="stat-l">Completadas</div>
+        </div>
+        <div class="stat" style="border-left:3px solid #c8c8c0">
+          <div class="stat-v" id="bsc-total" style="color:#c8c8c0">—</div>
+          <div class="stat-l">Total tareas</div>
+        </div>
+        <div class="stat" style="border-left:3px solid #e8c84a">
+          <div class="stat-v" id="bsc-novedades" style="color:#e8c84a">—</div>
+          <div class="stat-l">Novedades totales</div>
+        </div>
+        <div class="stat" style="border-left:3px solid #e05555">
+          <div class="stat-v" id="bsc-sin-resolver" style="color:#e05555">—</div>
+          <div class="stat-l">Sin resolver</div>
+        </div>
+      </div>
+
+      <!-- Avance por área -->
+      <div class="card" style="margin-bottom:.75rem">
+        <div class="card-title">Avance por área</div>
+        <div id="bsc-areas"></div>
+      </div>
+
+      <!-- Avance por disciplina -->
+      <div class="card" style="margin-bottom:.75rem">
+        <div class="card-title">Avance por disciplina</div>
+        <div id="bsc-disciplinas"></div>
+      </div>
+
+      <!-- Novedades por tipo -->
+      <div class="card">
+        <div class="card-title">Novedades por tipo</div>
+        <div id="bsc-nov-tipos"></div>
+      </div>
+
+      <div style="text-align:right;margin-top:.5rem">
+        <button class="btn btn-sm" onclick="renderBSC()">↻ Actualizar</button>
+      </div>
+    </div>
+
   </main>
 </div>
 
@@ -568,6 +639,95 @@ async function iniciarApp() {
   } catch(e) { showErr('No se pudo conectar: ' + e.message); }
 }
 
+function renderBSC() {
+  const t = datos.tareas;
+  const n = datos.novedades;
+  const total = t.length;
+  const completadas = t.filter(x => x.estado === 'completada').length;
+  const atrasadas = t.filter(x => x.fecha_fin && parseFecha(x.fecha_fin) < hoy() && x.estado !== 'completada').length;
+  const enProceso = t.filter(x => x.estado !== 'completada' && !(x.fecha_fin && parseFecha(x.fecha_fin) < hoy())).length;
+  const bloqueados = n.filter(x => x.tipo === 'bloqueo' && x.resuelto === 'no').length;
+  const sinResolver = n.filter(x => x.resuelto === 'no').length;
+  const avance = total > 0 ? Math.round(completadas / total * 100) : 0;
+
+  const set = (id, val) => { const el = document.getElementById(id); if(el) el.textContent = val; };
+  set('bsc-avance', avance + '%');
+  set('bsc-proceso', enProceso);
+  set('bsc-atrasadas', atrasadas);
+  set('bsc-bloqueados', bloqueados);
+  set('bsc-completadas', completadas);
+  set('bsc-total', total);
+  set('bsc-novedades', n.length);
+  set('bsc-sin-resolver', sinResolver);
+
+  // Avance por área
+  const areas = ['verde','seca','caldera'];
+  const areaNombres = {verde:'Área verde', seca:'Área seca', caldera:'Caldera/ORC'};
+  const areaColores = {verde:'#4caf7d', seca:'#e8943a', caldera:'#5a9fd4'};
+  const elAreas = document.getElementById('bsc-areas');
+  if (elAreas) {
+    elAreas.innerHTML = areas.map(a => {
+      const at = t.filter(x => x.area === a);
+      const ac = at.filter(x => x.estado === 'completada').length;
+      const pct = at.length > 0 ? Math.round(ac / at.length * 100) : 0;
+      return `<div style="margin-bottom:12px">
+        <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px">
+          <span style="color:var(--text)">${areaNombres[a]}</span>
+          <span style="color:var(--text2)">${ac}/${at.length} — ${pct}%</span>
+        </div>
+        <div style="background:var(--bg3);border-radius:4px;height:8px;overflow:hidden">
+          <div style="width:${pct}%;height:100%;background:${areaColores[a]};border-radius:4px;transition:width .5s"></div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  // Avance por disciplina
+  const discs = ['mecanico','electrocontrol','civil','procesos'];
+  const discNombres = {mecanico:'Mecánico', electrocontrol:'Electrocontrol', civil:'Civil', procesos:'Procesos'};
+  const discColores = {mecanico:'#AFA9EC', electrocontrol:'#e8943a', civil:'#4caf7d', procesos:'#5a9fd4'};
+  const elDiscs = document.getElementById('bsc-disciplinas');
+  if (elDiscs) {
+    elDiscs.innerHTML = discs.map(d => {
+      const dt = t.filter(x => x.disciplina === d);
+      const dc = dt.filter(x => x.estado === 'completada').length;
+      const pct = dt.length > 0 ? Math.round(dc / dt.length * 100) : 0;
+      return `<div style="margin-bottom:12px">
+        <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px">
+          <span style="color:var(--text)">${discNombres[d]}</span>
+          <span style="color:var(--text2)">${dc}/${dt.length} — ${pct}%</span>
+        </div>
+        <div style="background:var(--bg3);border-radius:4px;height:8px;overflow:hidden">
+          <div style="width:${pct}%;height:100%;background:${discColores[d]};border-radius:4px;transition:width .5s"></div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  // Novedades por tipo
+  const tipos = ['bloqueo','observacion','avance'];
+  const tipoNombres = {bloqueo:'Obstáculos', observacion:'Observaciones', avance:'Avances'};
+  const tipoColores = {bloqueo:'#e05555', observacion:'#e8943a', avance:'#4caf7d'};
+  const elTipos = document.getElementById('bsc-nov-tipos');
+  if (elTipos) {
+    const maxNov = Math.max(...tipos.map(tp => n.filter(x => x.tipo === tp).length), 1);
+    elTipos.innerHTML = tipos.map(tp => {
+      const cnt = n.filter(x => x.tipo === tp).length;
+      const res = n.filter(x => x.tipo === tp && x.resuelto === 'si').length;
+      const pct = Math.round(cnt / maxNov * 100);
+      return `<div style="margin-bottom:12px">
+        <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px">
+          <span style="color:var(--text)">${tipoNombres[tp]}</span>
+          <span style="color:var(--text2)">${cnt} total · ${res} resueltas</span>
+        </div>
+        <div style="background:var(--bg3);border-radius:4px;height:8px;overflow:hidden">
+          <div style="width:${pct}%;height:100%;background:${tipoColores[tp]};border-radius:4px;transition:width .5s"></div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+}
+
 function poblarDropdowns() {
   const selLider = document.getElementById('t-lider');
   if (selLider) {
@@ -593,6 +753,7 @@ function mostrarApp() {
   document.getElementById('ntab-prog').textContent = 'Programa';
   document.getElementById('ntab-sem').style.display = esLider ? '' : 'none';
   document.getElementById('ntab-agente').style.display = esLider ? '' : 'none';
+  document.getElementById('ntab-bsc').style.display = esLider ? '' : 'none';
   if (miPerfil && miPerfil.area) document.getElementById('d-area').value = miPerfil.area;
   // Poblar desplegable de líderes en formulario de tarea
   poblarDropdowns();
@@ -617,9 +778,13 @@ function hideErr() {
 // ---- NAV ----
 function go(id) {
   document.querySelectorAll('.nav-tab').forEach((t,i) =>
-    t.classList.toggle('active', ['dia','prog','nov','sem','agente','salir'][i] === id));
+    t.classList.toggle('active', ['dia','prog','nov','sem','agente','bsc','salir'][i] === id));
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.getElementById('s-' + id).classList.add('active');
+  if (id === 'dia') renderDia();
+  if (id === 'prog') renderProg();
+  if (id === 'nov') renderNovs();
+  if (id === 'bsc') renderBSC();
 }
 
 // ---- API ----
