@@ -864,7 +864,15 @@ function isActiva(t, d) {
 function renderDia() {
   const d = document.getElementById('d-fecha').value || hoy();
   const fa = document.getElementById('d-area').value;
-  let ft = datos.tareas.filter(t => isActiva(t, d) && (!fa || t.area === fa));
+  let ft = datos.tareas.filter(t => {
+    if (!isActiva(t, d)) return false;
+    if (fa && t.area !== fa) return false;
+    // Líderes ven solo su disciplina (excepto procesos que ve todo)
+    if (miPerfil && miPerfil.capa === 'lider' && miPerfil.disciplina !== 'procesos') {
+      if (t.disciplina !== miPerfil.disciplina) return false;
+    }
+    return true;
+  });
   const novHoy = datos.novedades.filter(n => n.fecha === d && (!fa || n.area === fa));
   document.getElementById('sd-tot').textContent = ft.filter(t => t.estado !== 'completada' && !(t.fecha_fin && parseFecha(t.fecha_fin) < hoy())).length;
   document.getElementById('sd-done').textContent = ft.filter(t => t.estado === 'completada').length;
