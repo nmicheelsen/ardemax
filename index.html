@@ -929,12 +929,17 @@ function renderDia() {
     }
     return true;
   });
-  ft = aplicarFiltroDia(ft, d);
+  // Calcular contadores ANTES del filtro
+  const ftTodos = ft;
   const novHoy = datos.novedades.filter(n => n.fecha === d && (!fa || n.area === fa));
-  document.getElementById('sd-tot').textContent = ft.filter(t => t.estado !== 'completada' && !(t.fecha_fin && parseFecha(t.fecha_fin) < hoy())).length;
-  document.getElementById('sd-done').textContent = ft.filter(t => t.estado === 'completada').length;
-  document.getElementById('sd-risk').textContent = ft.filter(t => t.fecha_fin && parseFecha(t.fecha_fin) < hoy() && t.estado !== 'completada').length;
-  document.getElementById('sd-nov').textContent = novHoy.length;
+  const cinco = new Date(); cinco.setDate(cinco.getDate() - 5);
+  const cincoStr = cinco.toISOString().slice(0,10);
+  document.getElementById('sd-done').textContent = ftTodos.filter(t => t.estado === 'completada').length;
+  document.getElementById('sd-tot').textContent = ftTodos.filter(t => t.estado !== 'completada' && !(t.fecha_fin && parseFecha(t.fecha_fin) < hoy())).length;
+  document.getElementById('sd-risk').textContent = ftTodos.filter(t => t.fecha_fin && parseFecha(t.fecha_fin) < hoy() && t.estado !== 'completada').length;
+  document.getElementById('sd-nov').textContent = ftTodos.filter(t => datos.novedades.some(n => n.tarea_id.toString() === t.id.toString() && parseFecha(n.fecha) >= cincoStr)).length;
+  // Aplicar filtro para la lista
+  ft = aplicarFiltroDia(ft, d);
   const el = document.getElementById('dia-list');
   if (!ft.length) { el.innerHTML = '<span style="color:var(--text3);font-size:13px">Sin tareas activas para esta fecha.</span>'; return; }
   const byArea = { verde: [], seca: [], caldera: [] };
@@ -978,24 +983,28 @@ function renderProg() {
   const fd = document.getElementById('f-disc').value;
   const fa = document.getElementById('f-area').value;
   let ft = datos.tareas.filter(t => (!fd||t.disciplina===fd) && (!fa||t.area===fa));
+
+  // Calcular contadores ANTES del filtro
+  const cincoP = new Date(); cincoP.setDate(cincoP.getDate() - 5);
+  const cincoStrP = cincoP.toISOString().slice(0,10);
+  const enProceso = ft.filter(t => t.estado !== 'completada' && !(t.fecha_fin && parseFecha(t.fecha_fin) < hoy())).length;
+  const completadas = ft.filter(t => t.estado === 'completada').length;
+  const atrasadas = ft.filter(t => t.fecha_fin && parseFecha(t.fecha_fin) < hoy() && t.estado !== 'completada').length;
+  const novCount = ft.filter(t => datos.novedades.some(n => n.tarea_id.toString() === t.id.toString() && parseFecha(n.fecha) >= cincoStrP)).length;
+  const spDone = document.getElementById('sp-done');
+  const spProc = document.getElementById('sp-proc');
+  const spRisk = document.getElementById('sp-risk');
+  const spNov  = document.getElementById('sp-nov');
+  if (spDone) spDone.textContent = completadas;
+  if (spProc) spProc.textContent = enProceso;
+  if (spRisk) spRisk.textContent = atrasadas;
+  if (spNov)  spNov.textContent  = novCount;
+
+  // Aplicar filtro para la lista
   ft = aplicarFiltroProg(ft);
   const el = document.getElementById('prog-list');
   if (!ft.length) { el.innerHTML = '<span style="color:var(--text3);font-size:13px">Sin tareas para este filtro.</span>'; return; }
   const esLider = miPerfil && miPerfil.capa === 'lider';
-
-  // Populate stats
-  const enProceso = ft.filter(t => t.estado !== 'completada' && !(t.fecha_fin && parseFecha(t.fecha_fin) < hoy())).length;
-  const completadas = ft.filter(t => t.estado === 'completada').length;
-  const atrasadas = ft.filter(t => t.fecha_fin && parseFecha(t.fecha_fin) < hoy() && t.estado !== 'completada').length;
-  const novCount = datos.novedades.filter(n => ft.some(t => t.id.toString() === n.tarea_id.toString())).length;
-  const spProc = document.getElementById('sp-proc');
-  const spDone = document.getElementById('sp-done');
-  const spRisk = document.getElementById('sp-risk');
-  const spNov  = document.getElementById('sp-nov');
-  if (spProc) spProc.textContent = enProceso;
-  if (spDone) spDone.textContent = completadas;
-  if (spRisk) spRisk.textContent = atrasadas;
-  if (spNov)  spNov.textContent  = novCount;
 
   el.innerHTML = ft.map(t => {
     const atrasada = t.fecha_fin && parseFecha(t.fecha_fin) < hoy() && t.estado !== 'completada';
