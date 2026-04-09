@@ -822,6 +822,12 @@ async function recargar() {
 }
 
 // ---- RENDER DÍA ----
+function puedeCompletar(tarea) {
+  if (!miPerfil || miPerfil.capa !== 'lider') return false;
+  if (miPerfil.disciplina === 'procesos') return true;
+  return miPerfil.disciplina === tarea.disciplina;
+}
+
 function enLista(lista, nombre) {
   if (!lista || !nombre) return false;
   return lista.split(',').map(n => n.trim().toLowerCase()).includes(nombre.trim().toLowerCase());
@@ -877,7 +883,7 @@ function renderDia() {
       const novT = datos.novedades.filter(n => n.tarea_id === t.id && n.fecha === d);
       const esLider = miPerfil && miPerfil.capa === 'lider';
       return `<div class="trow">
-        ${(miPerfil && miPerfil.capa === 'lider' && enLista(t.lider_responsable, miPerfil.nombre)) ? `<input type="checkbox" ${t.estado==='completada'?'checked':''} onchange="completarTarea('${t.id}',this.checked)"/>` : ''}
+        ${puedeCompletar(t) ? `<input type="checkbox" ${t.estado==='completada'?'checked':''} onchange="completarTarea('${t.id}',this.checked)"/>` : ''}
         <div class="trow-main">
           <div class="trow-name ${t.estado==='completada'?'done':''}">${t.descripcion}</div>
           <div class="trow-meta">
@@ -950,7 +956,7 @@ function renderProg() {
           ${renderHistorial('${t.id}')}
         </div>
       </div>
-      ${esLiderDueno && t.estado !== 'completada' ? `<button class="btn btn-sm" onclick="completarTarea('${t.id}',true)">✓</button>` : ''}
+      ${puedeCompletar(t) && t.estado !== 'completada' ? `<button class="btn btn-sm" onclick="completarTarea('${t.id}',true)">✓</button>` : ''}
     </div>`;
   }).join('');
 }
