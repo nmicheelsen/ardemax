@@ -608,7 +608,7 @@ async function cargarPerfiles(silencioso) {
     const sel = document.getElementById('cfg-perfil');
     sel.innerHTML = '<option value="">Selecciona tu nombre...</option>' +
       (res.equipo || []).map(p =>
-        `<option value="${p.id}">${p.nombre} — ${p.capa === 'lider' ? 'Líder' : 'Supervisor'}${p.area ? ' '+AN[p.area] : ''}${p.disciplina ? ' '+DN[p.disciplina] : ''}</option>`
+        `<option value="${p.id}">${p.nombre} — ${p.capa === 'lider' ? 'Líder' : 'Supervisor'}</option>`
       ).join('');
     if (cfg.perfilId) sel.value = cfg.perfilId;
     if (!silencioso) hideErr();
