@@ -953,7 +953,15 @@ function renderDia() {
       const novT = datos.novedades.filter(n => n.tarea_id === t.id && n.fecha === d);
       const esLider = miPerfil && miPerfil.capa === 'lider';
       return `<div class="trow">
-        ${puedeCompletar(t) ? `<input type="checkbox" ${t.estado==='completada'?'checked':''} onchange="completarTarea('${t.id}',this.checked)"/>` : ''}
+        ${puedeCompletar(t) ? `
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;min-width:60px">
+          ${yaAproboPorMi(t) ?
+            `<button class="btn btn-sm" style="font-size:10px;color:var(--amber);border-color:var(--amber)" onclick="revertirAprobacion('${t.id}')">Revertir</button>` :
+            t.estado !== 'completada' ?
+            `<button class="btn btn-sm btn-accent" style="font-size:10px" onclick="aprobarTarea('${t.id}')">Aprobar</button>` : ''
+          }
+          <span style="font-size:10px;color:var(--text3)">${contarAprobaciones(t)}/2</span>
+        </div>` : ''}
         <div class="trow-main">
           <div class="trow-name ${t.estado==='completada'?'done':''}">${t.descripcion}</div>
           <div class="trow-meta">
@@ -1031,7 +1039,15 @@ function renderProg() {
           ${renderHistorial('${t.id}')}
         </div>
       </div>
-      ${puedeCompletar(t) && t.estado !== 'completada' ? `<button class="btn btn-sm" onclick="completarTarea('${t.id}',true)">✓</button>` : ''}
+      ${puedeCompletar(t) ? `
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;min-width:60px">
+          ${yaAproboPorMi(t) ?
+            `<button class="btn btn-sm" style="font-size:10px;color:var(--amber);border-color:var(--amber)" onclick="revertirAprobacion('${t.id}')">Revertir</button>` :
+            t.estado !== 'completada' ?
+            `<button class="btn btn-sm btn-accent" style="font-size:10px" onclick="aprobarTarea('${t.id}')">Aprobar</button>` : ''
+          }
+          <span style="font-size:10px;color:var(--text3)">${contarAprobaciones(t)}/2</span>
+        </div>` : ''}
     </div>`;
   }).join('');
 }
@@ -1093,6 +1109,43 @@ async function completarTarea(id, completar) {
     await apiPost({ accion: 'actualizar_tarea', id, datos: { estado: completar ? 'completada' : 'pendiente' }});
     await recargar();
   } catch(e) { console.error(e); }
+}
+
+async function aprobarTarea(id) {
+  if (!miPerfil) return;
+  try {
+    const res = await apiPost({ accion: 'aprobar_tarea', id, lider: miPerfil.nombre });
+    if (res.ok) {
+      alert(res.mensaje);
+      await recargar();
+    } else {
+      alert(res.mensaje || 'Error al aprobar');
+    }
+  } catch(e) { console.error(e); }
+}
+
+async function revertirAprobacion(id) {
+  if (!miPerfil) return;
+  if (!confirm('¿Seguro que quieres revertir tu aprobación? La tarea volverá a pendiente.')) return;
+  try {
+    const res = await apiPost({ accion: 'revertir_aprobacion', id, lider: miPerfil.nombre });
+    if (res.ok) {
+      alert(res.mensaje);
+      await recargar();
+    } else {
+      alert(res.mensaje || 'Error al revertir');
+    }
+  } catch(e) { console.error(e); }
+}
+
+function yaAproboPorMi(tarea) {
+  if (!miPerfil || !tarea.aprobaciones) return false;
+  return tarea.aprobaciones.split(',').map(n => n.trim()).includes(miPerfil.nombre);
+}
+
+function contarAprobaciones(tarea) {
+  if (!tarea.aprobaciones || !tarea.aprobaciones.trim()) return 0;
+  return tarea.aprobaciones.split(',').filter(n => n.trim()).length;
 }
 
 function toggleHistorialProg(id) {
