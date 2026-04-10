@@ -596,7 +596,8 @@ const hoy = () => new Date().toISOString().slice(0,10);
       if (cfg.url) cargarPerfiles(true);
     } catch(e) {}
   }
-  document.getElementById('d-fecha').value = hoy();
+  registrarServiceWorker();
+document.getElementById('d-fecha').value = hoy();
   document.getElementById('sem-ini').value = hoy();
 })();
 
@@ -728,6 +729,49 @@ function renderBSC() {
   }
 }
 
+const VAPID_PUBLIC_KEY = 'BPKGuBllcTBO__bjUp_QLnXOhX-7U4QHiuJuGgv4-UD5ABzcuwe8ruteDljMZSJX6wg3YDxPe319VEejb9Wa6iY';
+
+async function suscribirNotificaciones() {
+  if (!('serviceWorker' in navigator) || !('PushManager' in window)) return;
+  if (!miPerfil || miPerfil.capa !== 'lider') return;
+  try {
+    const reg = await navigator.serviceWorker.ready;
+    const existing = await reg.pushManager.getSubscription();
+    const sub = existing || await reg.pushManager.subscribe({
+      userVisibleOnly: true,
+      applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY)
+    });
+    await fetch('/api/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        perfilId: miPerfil.id,
+        nombre: miPerfil.nombre,
+        disciplina: miPerfil.disciplina || '',
+        capa: miPerfil.capa,
+        subscription: sub
+      })
+    });
+  } catch(e) { console.log('Push subscription error:', e.message); }
+}
+
+function urlBase64ToUint8Array(base64String) {
+  const padding = '='.repeat((4 - base64String.length % 4) % 4);
+  const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
+  const rawData = window.atob(base64);
+  return Uint8Array.from([...rawData].map(c => c.charCodeAt(0)));
+}
+
+async function notificarBloqueo(disciplina, area, descripcion, supervisor) {
+  try {
+    await fetch('/api/notify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ disciplina, area, descripcion, supervisor })
+    });
+  } catch(e) { console.log('Notify error:', e.message); }
+}
+
 function poblarDropdowns() {
   const selLider = document.getElementById('t-lider');
   if (selLider) {
@@ -741,6 +785,13 @@ function poblarDropdowns() {
     selContra.innerHTML = '<option value="">Selecciona contratista...</option>' +
       contras.map(c => `<option value="${c.nombre}">${c.nombre}${c.especialidades ? ' — ' + c.especialidades : ''}</option>`).join('');
   }
+}
+
+async function registrarServiceWorker() {
+  if (!('serviceWorker' in navigator)) return;
+  try {
+    await navigator.serviceWorker.register('/sw.js');
+  } catch(e) { console.log('SW error:', e.message); }
 }
 
 function mostrarApp() {
@@ -757,6 +808,18 @@ function mostrarApp() {
   if (miPerfil && miPerfil.area) document.getElementById('d-area').value = miPerfil.area;
   // Poblar desplegable de líderes en formulario de tarea
   poblarDropdowns();
+  // Solicitar permiso de notificaciones a líderes
+  if (miPerfil && miPerfil.capa === 'lider') {
+    if (Notification.permission === 'default') {
+      setTimeout(() => {
+        Notification.requestPermission().then(p => {
+          if (p === 'granted') suscribirNotificaciones();
+        });
+      }, 2000);
+    } else if (Notification.permission === 'granted') {
+      suscribirNotificaciones();
+    }
+  }
   if (miPerfil && miPerfil.area) document.getElementById('n-area').value = miPerfil.area;
   if (miPerfil && miPerfil.nombre) {}
   renderDia(); renderProg(); renderNovs();
@@ -817,6 +880,18 @@ async function recargar() {
     const res = await apiGet({ accion: 'leer_todo' });
     datos = res;
     poblarDropdowns();
+  // Solicitar permiso de notificaciones a líderes
+  if (miPerfil && miPerfil.capa === 'lider') {
+    if (Notification.permission === 'default') {
+      setTimeout(() => {
+        Notification.requestPermission().then(p => {
+          if (p === 'granted') suscribirNotificaciones();
+        });
+      }, 2000);
+    } else if (Notification.permission === 'granted') {
+      suscribirNotificaciones();
+    }
+  }
     renderDia(); renderProg(); renderNovs();
   } catch(e) { console.error(e); }
 }
@@ -1238,6 +1313,18 @@ async function registrarNovedad() {
     }});
     if (res.ok) {
       msg.textContent = '✓ Novedad registrada'; msg.className = 'msg msg-ok';
+      // Notificar a líderes si es bloqueo
+      const tipoNov = document.getElementById('n-tipo').value;
+      if (tipoNov === 'bloqueo') {
+        const tareaId = document.getElementById('n-tid').value;
+        const tarea = datos.tareas.find(t => t.id && t.id.toString() === tareaId.toString());
+        await notificarBloqueo(
+          tarea ? tarea.disciplina : '',
+          document.getElementById('n-area').value,
+          document.getElementById('n-desc').value,
+          miPerfil ? miPerfil.nombre : 'Supervisor'
+        );
+      }
       document.getElementById('n-desc').value = '';
       document.getElementById('n-tid').value = '';
       await recargar();
