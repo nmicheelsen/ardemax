@@ -845,7 +845,7 @@ function go(id) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.getElementById('s-' + id).classList.add('active');
   if (id === 'dia') renderDia();
-  if (id === 'prog') renderProg();
+  if (id === 'prog') { poblarDropdowns(); renderProg(); }
   if (id === 'nov') renderNovs();
   if (id === 'bsc') renderBSC();
 }
