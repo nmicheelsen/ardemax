@@ -75,10 +75,10 @@ body {
   border-radius: 12px;
   padding: 1.5rem;
 }
-.setup-label { font-size: 11px; font-family: var(--mono); color: var(--text2); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 6px; display: block; }
+.setup-label { font-size: 12px; font-family: var(--sans); color: var(--text2); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 6px; display: block; }
 .setup-input {
-  width: 100%; background: var(--bg3); border: 0.5px solid var(--border2);
-  border-radius: var(--r); color: var(--text); font-family: var(--sans); font-size: 13px;
+  width: var(--sans); background: var(--bg3); border: 0.5px solid var(--border2);
+  border-radius: var(--r); color: var(--text); font-family: var(--sans); font-size: 14px;
   padding: 10px 12px; margin-bottom: 1rem;
 }
 .setup-input:focus { outline: none; border-color: var(--accent); }
@@ -92,8 +92,8 @@ body {
 }
 .setup-select:focus { outline: none; border-color: var(--accent); }
 .btn-primary {
-  width: 100%; padding: 12px; background: var(--accent); color: #0f1117;
-  border: none; border-radius: var(--r); font-family: var(--mono); font-size: 13px;
+  width: 100%; padding: 12px; background: #4CAF7D; color: #0f1117;
+  border: none; border-radius: var(--r); font-family: var(--sans); font-size: 14px;
   font-weight: 500; cursor: pointer; letter-spacing: .03em;
 }
 .btn-primary:active { opacity: .85; }
@@ -124,7 +124,7 @@ body {
 .nav-tab {
   flex-shrink: 0; padding: 0 16px; height: 42px;
   display: flex; align-items: center;
-  font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: .06em;
+  font-family: var(--sans); font-size: 13px; text-transform: none; letter-spacing: 0;
   color: var(--text3); cursor: pointer; border-bottom: 2px solid transparent;
   transition: color .15s, border-color .15s; white-space: nowrap;
   background: none; border-top: none; border-left: none; border-right: none;
@@ -143,7 +143,7 @@ body {
   background: var(--bg2); border: 0.5px solid var(--border);
   border-radius: 10px; padding: 1rem; margin-bottom: .75rem;
 }
-.card-title { font-family: var(--mono); font-size: 11px; text-transform: uppercase;
+.card-title { font-family: var(--sans); font-size: 12px; text-transform: uppercase;
   letter-spacing: .07em; color: var(--text2); margin-bottom: 10px; }
 
 /* Stats grid */
@@ -154,10 +154,10 @@ body {
 
 /* Form elements */
 .field { margin-bottom: .75rem; }
-.field label { font-size: 11px; font-family: var(--mono); color: var(--text2); text-transform: uppercase; letter-spacing: .06em; display: block; margin-bottom: 5px; }
+.field label { font-size: 12px; font-family: var(--sans); color: var(--text2); text-transform: uppercase; letter-spacing: .06em; display: block; margin-bottom: 5px; }
 .field input, .field select, .field textarea {
   width: 100%; background: var(--bg3); border: 0.5px solid var(--border2);
-  border-radius: var(--r); color: var(--text); font-family: var(--sans); font-size: 13px;
+  border-radius: var(--r); color: var(--text); font-family: var(--sans); font-size: 14px;
   padding: 9px 11px;
 }
 .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--accent); }
@@ -170,8 +170,8 @@ body {
 /* Buttons */
 .btn {
   padding: 8px 14px; background: var(--bg3); border: 0.5px solid var(--border2);
-  border-radius: var(--r); color: var(--text); font-family: var(--mono); font-size: 11px;
-  text-transform: uppercase; letter-spacing: .05em; cursor: pointer;
+  border-radius: var(--r); color: var(--text); font-family: var(--sans); font-size: 12px;
+  text-transform: uppercase; letter-spacing: .06em; cursor: pointer; 
 }
 .btn:active { opacity: .75; }
 .btn-accent { background: var(--accent); color: #0f1117; border-color: var(--accent); }
@@ -196,9 +196,9 @@ body {
 .trow { padding: 10px 0; border-bottom: 0.5px solid var(--border); display: flex; gap: 10px; align-items: flex-start; }
 .trow:last-child { border-bottom: none; }
 .trow-main { flex: 1; min-width: 0; }
-.trow-name { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
+.trow-name { font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
 .trow-name.done { text-decoration: line-through; color: var(--text3); }
-.trow-meta { display: flex; gap: 5px; flex-wrap: wrap; align-items: center; font-size: 11px; color: var(--text2); }
+.trow-meta { display: flex; gap: 5px; flex-wrap: wrap; align-items: center; font-size: 12px; color: var(--text2); }
 .trow-obs { font-size: 11px; color: var(--text3); margin-top: 3px; font-style: italic; }
 .area-group { margin-bottom: 14px; }
 .area-label { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: .08em; color: var(--text3); margin-bottom: 6px; padding-bottom: 4px; border-bottom: 0.5px solid var(--border); }
@@ -209,7 +209,7 @@ body {
 .nov-item.observacion { border-left-color: var(--amber); }
 .nov-item.avance { border-left-color: var(--green); }
 .nov-meta { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; margin-bottom: 4px; }
-.nov-desc { font-size: 13px; color: var(--text); }
+.nov-desc { font-size: 14px; color: var(--text); }
 .nov-tarea { font-size: 11px; color: var(--text3); margin-top: 3px; }
 
 /* AI box */
@@ -289,7 +289,7 @@ input[type=checkbox] { width: 16px; height: 16px; accent-color: var(--accent); f
     <input class="setup-input" id="cfg-pin" type="password" inputmode="numeric" maxlength="4" placeholder="4 dígitos"/>
     <div style="display:flex;gap:8px;margin-bottom:1rem">
       <button class="btn" style="flex:1" onclick="cargarPerfiles()">Cargar perfiles</button>
-      <button class="btn btn-primary" style="flex:2" onclick="iniciarApp()">Ingresar</button>
+      <button class="btn btn-primary" style="flex:2;background:#4CAF7D;color:#0f1117;border-color:#4CAF7D" onclick="iniciarApp()">Ingresar</button>
     </div>
     <div class="setup-err" id="setup-err"></div>
     <div style="font-size:11px;color:var(--text3);margin-top:.5rem;line-height:1.6">
@@ -337,7 +337,7 @@ input[type=checkbox] { width: 16px; height: 16px; accent-color: var(--accent); f
         </div>
         <div class="field">
           <label>Área</label>
-          <select id="d-area" onchange="renderDia()" style="width:auto">
+          <select id="d-area" onchange="renderDia()" style="width:auto;font-size:14px">
             <option value="">Todas</option>
             <option value="verde">Área verde</option>
             <option value="seca">Área seca</option>
@@ -362,7 +362,7 @@ input[type=checkbox] { width: 16px; height: 16px; accent-color: var(--accent); f
         <div class="field"><label>Descripción</label><input type="text" id="t-desc" placeholder="Ej: Montaje sección hogar caldera"/></div>
         <div class="grid2">
           <div class="field"><label>Disciplina</label>
-            <select id="t-disc" style="min-height:44px;font-size:16px">
+            <select id="t-disc" style="min-height:44px;font-size:14px">
               <option value="mecanico">Mecánico</option>
               <option value="electrocontrol">Electrocontrol</option>
               <option value="civil">Civil</option>
@@ -370,27 +370,27 @@ input[type=checkbox] { width: 16px; height: 16px; accent-color: var(--accent); f
             </select>
           </div>
           <div class="field"><label>Área</label>
-            <select id="t-area" style="min-height:44px;font-size:16px">
+            <select id="t-area" style="min-height:44px;font-size:14px">
               <option value="verde">Área verde</option>
               <option value="seca">Área seca</option>
               <option value="caldera">Caldera/ORC</option>
             </select>
           </div>
           <div class="field"><label>Contratista</label>
-            <select id="t-contra" style="min-height:44px;font-size:16px">
+            <select id="t-contra" style="min-height:44px;font-size:14px">
               <option value="">Selecciona contratista...</option>
             </select>
           </div>
           <div class="field">
             <label>Líder responsable</label>
-            <select id="t-lider" style="min-height:44px;font-size:16px">
+            <select id="t-lider" style="min-height:44px;font-size:14px">
               <option value="">Selecciona un líder...</option>
             </select>
           </div>
           <div class="field"><label>Inicio</label><input type="date" id="t-ini"/></div>
           <div class="field"><label>Término</label><input type="date" id="t-fin"/></div>
           <div class="field"><label>Prioridad</label>
-            <select id="t-prio" style="min-height:44px;font-size:16px">
+            <select id="t-prio" style="min-height:44px;font-size:14px">
               <option value="alta">Alta</option>
               <option value="media">Media</option>
               <option value="baja">Baja</option>
