@@ -287,9 +287,18 @@ input[type=checkbox] { width: 16px; height: 16px; accent-color: var(--accent); f
 <div id="app">
   <header class="app-header">
     <div class="app-logo">COMISIONAMIENTO ARDEMAX</div>
-    <div class="app-user">
-      <div class="user-dot"></div>
-      <span id="hdr-user">—</span>
+    <div style="display:flex;align-items:center;gap:12px">
+      <div class="app-user">
+        <div class="user-dot"></div>
+        <span id="hdr-user">—</span>
+      </div>
+      <svg width="72" height="28" viewBox="0 0 72 28" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="8" cy="14" r="7" fill="#E05555" opacity="0.9"/>
+        <circle cx="14" cy="14" r="7" fill="#E8943A" opacity="0.9"/>
+        <circle cx="20" cy="14" r="7" fill="#4CAF7D" opacity="0.9"/>
+        <text x="30" y="12" font-family="IBM Plex Sans,sans-serif" font-size="11" font-weight="500" fill="#e8e8e0">Pulze</text>
+        <text x="30" y="22" font-family="IBM Plex Sans,sans-serif" font-size="6.5" font-weight="300" fill="#8a8a80">Agile Project Management</text>
+      </svg>
     </div>
   </header>
 
