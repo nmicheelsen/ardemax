@@ -1,0 +1,1498 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="Comisionamiento Ardemax"/>
+<meta name="theme-color" content="#1a1e24"/>
+<link rel="manifest" href="data:application/manifest+json;base64,eyJuYW1lIjogIkNvbWlzaW9uYW1pZW50byBBcmRlbWF4IiwgInNob3J0X25hbWUiOiAiQXJkZW1heCIsICJkaXNwbGF5IjogInN0YW5kYWxvbmUiLCAiYmFja2dyb3VuZF9jb2xvciI6ICIjMGYxMTE3IiwgInRoZW1lX2NvbG9yIjogIiMwZjExMTciLCAiaWNvbnMiOiBbeyJzcmMiOiAiZGF0YTppbWFnZS9wbmc7YmFzZTY0LGlWQk9SdzBLR2dvQUFBQU5TVWhFVWdBQUFNQUFBQURBQ0FZQUFBQlMzR3dIQUFBZ3cwbEVRVlI0bk8yZGVaQWIxMzNuUDYrN2NjMkZPY2laSVdlR3AyaVJsRVNha2lYNlVrUzd0bXpGYThWSlNvcVByVm9ydGhWWmtYZlhWOFd4ZkZkczJYSXNTOGxHZHVMNGtGT1Z0V3h0MlpHOWNtUXBVblJSUEVXS0ZFL3hub3R6RDRBQkJrQ2p1OS8rZ1lFTURJRGhrQVFHYU16Ny9NRXE0bWowQU8vYi9YdS83Ky85bnFCTXRMYTJObG5vYnhaU2JCT0lOemhJbjRCM2dmQ1c2ek1WTllLVWV5WGluQkFraFpRL3R3M242TlRZMkduQUx2VkhpVkllTEJqc1dDVTFlVE9DVzRRVVZ3SnJjejlDbHZMakZEVk45cmh4eGlXaVQ4RC9rNXA0TERJK2RBQklsZnBUTHBubTVxV2JIVTM3aEhCNFA1cG9CRUNxd2E0b0pRSWhRRW9wRWV3RWNYOTRZdWd4d0xxOG8xNEc5UzBkVjNtUW41YVNEd3BOQzBnMTZCVUxnWmdadG83Y2dTWWVDRThNL1lwTEZNSWxDU0FZRERaTEViaEhDSG0zRUtKT0RYeEZaUkFnUURweXU0Yjh5MUJvNU9BbEhPSGlDQVk3M2lrMHZvTVFXOVRBVjFRSEFpbWRtQkI4T1R6WjlCQ2NUTTcvbmZQbGlpdDhUZVBSandqa2crbE1qaHI4aXVwQ0NJRjA1TStRM0JNT0Q1K2QxM3ZtZVd4UHNLWGpZU0hFaDlSVlgxSE5DQ0dRVXZacXlQZE9UbzY4ZXNIWFgvaVFWL2lDTFZNL1ZvTmY0UjRFQ05rckhPZVBRcUhSQTNPOVVwdnpPRmRjNFFzMlQvMUVEWDZGdTVDQVdDSFJmdFBjdkhUelhLK2NRd0FidmNIeHFSOExUWHhRRFg2RjY1QVNoT2lSYUw5cGFXbS9wdGpMaWdxZ3FXWHNJK3JLcjNBM0VxR0pIaHYrZmlVci9ZVmVVVkFBd1dESE5vRjRRQTMrOG1MYmtwUWxsV2xlUnFTVUNLRnRDelVuSGlqMGZKNEFXbHV2YUpJYWY0OFFCUldqdUh5a2hKUWxXYmN5d0pzM04ySVlBdHRSS2lnYlVvTGdJNDB0bmUrWi9WU2VBQ3duK2tWTmlHdlVaYWs4T0k1RTErQ0dUWTEwTFBFUVR6amNlRjBUclVFUGxxMis4ekxpMWFUODI0YUd6cVhaRCtZSW9LR2hjNk5BL2c4VitwU0hsQ1ZwcU5mWnRqVkkwblI0ZmsrRS9VZGp2SElzeHBzM043S20yNDlsUzlUTm9Ed0lUV3dVSHZ2dW5NZXkvOVBVMHY0VFRXaTNLd0dVRmluVFYvNnIxdFd4dHNmUFMvdW5HQjVQNGZXa3YzN2JrUWdodU9uNkpxUURldzVGaWNWdERMMmsxZXFLTkVPcHBMTmxlbnAwQ0xJRTBOTFNjWldEM0FXaXZuTG5WbnRZbGlUZzE3anVxZ1pzUjdMN1lCUXBRU3VRZmpCVGtpdFcrbG0zTXNEQll6SE9qNWxLQkNWR0NBRU9YdzJGaHI0R1dRSm9hbW4vaVJEYTdTcjJMeDFtU25MRkNqOGJyNmpqK0pscGpwMk80L1BPN1QybUxFbFRnODdicjIzaTNHQ1NvNmVuRVlDbUtTR1VEamxpYXZhVytQajRvQUJvYm01ZUtZWDNLSWhBcFUrdEZuQWNpYVlKM3JpK25vWTZuVDJIb2tTbmJUeEcvaUJPK3pXejNpL0JzU1Z2MmRKRVk3M0dubGVqVElTdGd1OVhYRHhDQ0d6YitkUlVlT1JCRFVBSzc3dUUwTlRnTHdFcFMxSmZwM1BqbTVwd0pEeTdKMHdpNmVRTlhtY21GUXJwTUNrYlRZQmhDTGJ2aTNEb3hEUmJOemV5cXN1SHJiSkVKU0h0RGZBK1NJZEFJdGpjL2poQy9HR0Z6OHZWU0FtV0xibnFpanJXOVBoNTVWaU1jd09KZ2lHUG1aSjR2WUxiMzlmQk5WZlc4ZTBmRFhDbVAwR2RQLysxbGkzeGV6VnVmRk1UNHlHTEE4ZGlPRktpcTVEb3NwQ1NLVnZ3RnRIYTJ0cmtTT09BUkt5cTlFbTVGZHVSZUQwYTEyMXNBQUY3RDBVeFUwN0JDV3dzYm5QMXVucStjR2NQNzNwYk0wTEF1Y0VrOS8yd24wZWZHTVBqRVhtRFcwb3dMY2wxRyt0WjN1NWw3K0VZdzJPbUNva3VFd2tmRk1HMmpuZmc4RFFsN2hDeFdEQlRrcVd0SHE3ZDJNREFjSkxESjZjeGRKRVgxOXVPeExJazcvbURWcjd5aVJXczd2SXhuWENBZExnamdJZis5VHpmZStROG9ZaFY5TTZ4dE5YRG02NXU0R3gvZ3RmT0pkQkUvaHhDTVI4RVNCNFJ3WmIyZTBIN3ZGcmhkWEZJbVI3VVd6WTBzTHpkdzY2RFVVYXljdnZaSkUySHhucURPMjdyNExOLzNvVkRmdHd2Qk5RSGRKN1pHZUpMLzd1WEl5ZW5DZmkwZ2tMU0JMenQyaVlzUzdMM2NLem8zVVl4TnhMWks1cWFPMzRsaFBoakpZRDVrN0lrRFhVNjExL2RRSFRhWnYvUnduRzVsT21RNTIxYm12akNYVDI4OVkyTlRDZWNPVFBOUHEvR1JEakZBdzhQOHVOZkRpTkkzeUZta3pRZE5xNnQ0OHJWZGJ4eU5NcTU4MGtWRWwwQ29pblkrV3VoY1lzU3dQeEltZzdyMXdTNGNuVWRSMDVPYzdJM1VmQ3FiMWtTQlB6WnpVdjQ0c2Q3YUd2eGtFZzY4L29NWFJONFBZSi9lV3lFNy81MGdJRmhrNEF2UHlSS1daS21lcDJ0bXhzWkdVOXgrT1Ewa25RV1NURS9STENsUGFuYUZWNFl4MGtQck9zM05hQnJncGNQUjRrbm5JSlg1K21FdytvdUgxLzV4QXIrNjAydHBGTHlrcW85R3dJNis0NUcrZngzejdMNzFTaCtuNVkzdURPZXdkYk5qZFQ1ZFhZZGpEQWRMM3hlaW54RXNLVkRYZm92Z0ptU3REVWJYSGRWQThOaktRNmRpS0ZwK1JOZFIwSTg0WER6alMxODRjNXVybDVYVHl4K2VlMHN2UjVCUE9Idy9VZUdlT2ovbkNlUmRJck9NMVoxK2JsMll6MkhUOFk1Y1M1ZWNES3V5RVVKWUE0eWRmdWIxOWV6WXBtWC9VZGo5QStaQlFlZ21YTHdlelZ1LzlNTy91cWozZmk4QWpOVm1xOVdFMUFYMFBtM3A4ZjUxZy82T1g0Mlh0UXo4SGsxM3JLNWtWakM0Y0RSS0pZdFZSbkZIQ2dCRkdIMllIcmxhSlNVSll2bTlqZXZiK0NyZC9kdzAvVkJFa21uTENYTmRYNk5NLzBKUG5mL09aN2RIY0l3Q25zR0tVdnl4ZzMxZEM3eHNQUEFGT0dwd21VWUNpV0Fnc3czbkVqbjl1SFdkN2Z4dVk5MXMzTDU3M1A3NVNJandJZC9OY3gzSHg1a1BKVENYMkNDYktZa0hXMGUzcnFsa1ZOOUNRNmZtQzRZdGkxMmxBQ3l1SmdKWmNKMGFBMTZ1UGVUSzdubG5hMHdVd3F4RUdROGcyZDNoL21iNy9leDcwaTBvR2ZnT09uWDNwQTFjVStZamlxanlFSUpZSWI1cGhRenVmMXROd1Q1MGwwcnVIWmpQZkhrM0xuOWN1SDNha3lFTGU1NThDeS9lV1lDQkFWRHRIVHF0bzUxSy8zc2ZqWEs2RVJLaFVRektBRXdmMU1wYzRXLy9VODYrUFR0eTJscm5uOXV2MXpvbXNBdzRQLyticHo3ZnRqUHVjRmt3UWx5UnVEYmJnZ3lPR0p5NEhqczliTHR4Y3lpRnNERmxCVk1KeHhXZC91NTd6TXIyWFpETTVaMWFibjljbEVmMERsd0xNWlhIK3JsK1QxaGZNVThBMGR5N2NZR2dvMDZldzlGaWNaczlFVmNSckZvQlREZndqTEhnWlRsOE41dHJYenVqbTZ1WEJVbyswVDNVdkY2QkVsVDhyV0hldm5aYjBjeFRUbW5aN0I1ZlQzN2owVHBIellYcldldzZBUndNYVhGWmlxZENyMzNVeXU1OWQxdEdIcnBjdnZsUXRQUzlVUlB2aGppRy8vVXg2RVRNZW9EZXQ3cjBtbGV3VHR1YUNZU3RYajVTUHJ1dDlnbXlJdEtBTFl0OGZzMDNuN2QzSXRMcElSWXd1YmFEUTE4ODlPcmVOTlZEU1JUbFpub1hpcDFmbzB6QTBtKzlnKzkvUGI1aWFLZWdXV2x1MVYwZGZqWWR5VEtlQ2kxcUNwTEY0MEFraW1IMWN2OVhIZDFBL3VPUk9rZFRCYU1mVzFISWgzNDBIdVg4cWtQZDlIVjRTVmU0WW51cFdJWUFnMzR6azhHK09kSGg1bUtGVjluME43bVlldW1SbzZlbXVaMGZ3Sk5FNHVpcUs3bUJaREo3YjkxU3hNK24yRDd5eEhNQW82dUpCMGJ0d1U5M1AvWHEzbjNXNXNMMXUyN0RTSFNkNE9YWHBuaUc5L3ZZL3YrQ1BVQnZhQ3B0eGg3RTlXMEFLeVpGaU52bTJreGN1eDBIRkZ3b2l1eGJIakgxaUJmdXF1SERXdnJTSnJ1Q25rdWhOK25NVDZaNHV2LzJNZWp2eHREeXNLZXdXTHJUVlN6QWtpYWtvMXJBNnhmRTJEWHdTaERSWDVJeTVab1F2RFhmOUhOSGJkMVl1aFUvVVQzVXRFMWdjOHIrT2RIaDNuZ3B3T01US1NLcnpOWUpMMkphazRBbVZ2NXR1dWJTQ1FsdXc1T0ZaM29KcExwZE9EZjNiT2FyWnNic2F6RjBaZXpMcUJ4NkxWcDd2MUJQMCs4TUVuQVgzeWRRYTMzSnFvcEFhUXNTWHVyaHh0bUpuTm4raE5vdXNoYjdaK1o2UDd4ZjBrWHNhMVk1aU5odW5PaWU2bGtQSU52LzZpZm4vNXFoSGlSZFFabVN0TGQ2V1hUbGZVY1BUVmROSG5nVm1wQ0FPa1NZSWZycm1wazJWSXZ1dzVFR0E5YkJVT2VsQ1VKK0RLNS9TV3ZQN1lZeWF3emVQU0pNZTc5UVI5bkJ3cVhVZFJ5YnlMWEM4QzIwODFuYjdvK3lOQ1l5ZjZqTVRTUkg2OUtDZE1KbXkwYkduanc4MnZZZUVVZHBzdHkrK1VpNE5Qb1BiODRleE81V2dCbVNyS3F5OGQxVnpXdzY4QVVnNk56VEhRMXdZZmYxODcvL08vTFdkcmlJYm5JUXA0TE1iczMwV1RFd3I4SWVoTzVVZ0NPVEYvNTMzWnRFd0dmeHJON3dqTTdyeFM0YXFVY2xyWjZlUER6YTNqbm00UFk5c0xWN2JzTklTRGcxOWgzT01iZmZMK1haM2VIaTNvR3RkS2J5SFVDc0d4SmM2UEJqVzlxNHNUWk9NZE94OUdMck5aeUpMenJyYzE4NWU0VnJPcnlZNXFPYXY0eUQvdytqZkhRNHVoTjVCb0JTQ0NWa214WUcyRDk2Z0F2N29zd0ViSUtaaVJTVnJxSTdhOCsyc1dkNys5OGZaMnNZdjdrOUNaNmVLWTMwUnpyRE56YW04Z1ZBckJuZXZKc3V5RklQT213WTM4RVVXU2ltekFkMW5UN2VlakxhN2wyWTRPYTZGNG1kUUdOMTg3RStlWVArdm0zcDhlcEMrZzExWnVvNmdXUXNpU2RTenk4WlhNVCs0OUZPVGVRTFBqRlppYTZ0NzRybmR2dldPSWhhVmIxbitZYXZCNUJJdW53dlovVlhtK2lxaFZBcHQvK3RSc2JXTGJVdzRzdlI1Z3Fzbm9wWVRxME5CcDgvWlBwM0w1bFNUWFJMVEhadlltKytZTitYanNUcHk3Zy90NUVWU2tBMjVZMDF1dTgvYm9tem8rbTJIY2tXdkJLNGpqcEwzemJEVUcrOW9rVnJGc1ZVQ0ZQbVFuNE5RYUdUYjc3OEFELzh0Z0kzaUtlZ1Z0NkUxV2RBQ3hMc3JMTHg1YjFEZXc0RUdGb3JIQUhnOHhFOTJPM2R2RDVPN3JUazJRMTBWMFFNcDdCajM4NXpBTXU3MDFVTlFKd0hJbVU4Sll0TTduOTNXRWNDZnFzNzFYS2RLeTVyTjNMQTU5YnpUdmYzRXlpeGtxWDNVQmViNkxEVVFKKzkvVW1xZ29CMkxha3Rkbmc3ZGMyY2V4TW5LT240bmc4QllyWVp1TDY5NzZqbFMvZDFjT3lwZDZhTFYxMkMzNnZ4bVRFNG51UG5PZWhmejJQY0Zsdm9vb0tJT1BvYmxnVFlOMnFBQy9zalJDYUtsekVsa2c2QkpzTVBuTjdGeC8vUUNlcGxKcm9WZ3U2SnZCNEJJOCtNZWE2M2tRVkU0QnRTeHJxZGJadVN1K2FzbjFmQkYzUFg0ZnFTRWdtSGY3ZytpQmZ2cXVIVGV2cmEyNjFWcTJRM1p2b3VUM2g0dnNaVkZGdm9vb0l3TElsWGUxZXRteHM0TUN4R09jR2t3WHp5aWtyM2RmbUErOVp5bGZ1WG9IUHEyR21WQkZiTmVQMUNCS201T0ZmRHZQdEgvV1RyUExlUkFzcUFHZW1QbWZMaG5vNmwzaDVabGVJcEZtNDVYZzg0ZEM1MU10WDdsN0JuOTNjUmp6cDRLaXg3d3EwbWFLNkoxNm8vdDVFQ3lZQXk1YTBCUTIyYm03aS9Lakp5NGVuOEJpRmQwRzBMTWw3Ym1ybGkzZjFzS2JMditoV2E5VUsyYjJKSG45dW91ZzZnMHIySmlxN0FDVHBPcEhWM1g0MnJLMWo5OEVwUm9wa0FMSzNFLzNNbjNjQktyZnZkZ3hEZ0lSZlBESEcxLyt4ai9ISjRwNUJKWG9UbFZVQTZicHh3ZFpOamZoOWdtZjNSSkFsMms1VTRSNHluc0gyL1pHcTYwMVVOZ0ZZdHFSemlaZXRteG80ZGpyT2tWTnhmTjdDUld4Q3dHM3Z2dmp0UkJYdUlyczMwUytlR0FOWmVKM0JRdlltS3JrQUhFY2lnUTFyNmxpNTNNZjJmUkVpVWJ2Z0h4cFBPclMzZXZqVWg3dTQ0N1lPa21aMXRSeFhsSjZNWi9ENGN4Tjg3Ujk2T1ZOa0lmNUM5U1lxcVFCU2xxUTFhSEQ5TlExTXhkSjErMXFSM0g1bU85RjcvcUticTk5UXgzUmNYZlVYRS9VQm5VTW5ZbnpqbnlyYm02aGtBckJ0eVlybFBqYXNyZVBnOGNwc0o2cHdGOW05aVI3KzVUQUowOEhyS1R4QkxsZHZvc3NXUUdhaXVubDlQVzNOQmkvc2paQXdDeStRWHFqdFJCWHVRUlBwdWNGemU4Sjg5YUUrRGh5TEZ2VU1admNtZ3N2dlJsRVNBZHg4WXdzRHcwbGVQaExEYXhSZW9KNUtTVzY3ZWNtQ2JTZXFjQmQxZm8xemcvUHZUZFRWNGVPSkZ5WXZXd0RHNWIzOTkrV3U1d2FTZUl4OFJTWk5oK1ltZzcvOHdETHUvbS9MWmhwVXFjR3Z5R1U2NGJCc3FaZS91MmNOYjFnWjRIdVBuQ2NVeWQzUFFBandHT214MXQzcHczRkF6NzlaWEJUNUFkZEY0aUE1TjVCazNhb0F0cDM3WE1xUzNIUjlrRWZ1WDg4bmIxK09aYXNLVGtWeE11UGprN2N2NTVINzEzUFQ5Y0U4STlTMllkMnFBT2NHa3BTaXljMWxDOERRQk9jR0V5eHI5K2FscUN4YnNubDlQVnMzTlRBZFY4YVc0c0pJQ2ROeGg2MmJHdGk4dmo3dmdxbHBnbVh0WHM0TkpqQktrQks5YkFFSUFlR29qVzFMMnBxTm5FRnU2SUludDRjWW5VeTVwaytNb3ZKb0FrWW5Venk1UFpTVFRKRVMycG9OYkZzU2p0b2xxUnk5YkFGazZCMU1zS2JibjZOWWp5NDQyWnZnNFBIcHFsajlvM0FISGtOdzhQZzBKM3NUZUxJRVlObVNOZDErZWdjVEpmdXNrZ2pBMEFWbkJwSXNiL2VpWlI5UnBDZkJUNzBVcXRxMkdJcnFROU1FVDcwVVNqY3dGdG1Qdy9KMkwyY0draVVyalNpSkFJU0FTQ1lNQ25weXdpQ1BJZmpQWFdIQ1UxWlZkUU5RVkNkQ1FIaks0ajkzaFhPaUJpbWhMZWpCdGlXUkVvVS9VTUlRU0FCbkI1T3M3Zkhsek53OWh1QlVYNElEeDZjTHVud0tSVFplajhhQjQ5T2M2a3ZrQ0NCbFNkYjIrRGc3bU14cmxuQTVsR3hFNnJyZ3pFQ0M1UjIrM0RDSTlPNHRUMjZmekh0Y29aaU5wc0dUMnlkSldVN2U0OHM3Zkp3WlNKUjAvWERwN2dBQzR2RjBaclkrb09WbWd3ekI4ek1kSHpRVkJ5bUtvQWxCYU1yaStiMlJuT3BoS1dmR0ZPa3hWc29oVk5KcmNzcVNqSTZuNk9uMDU1UTFHNXJnZEYrQ0E4ZGlLaHVrS0lySEVCdzRGdU4wWDI2TzMzWWtQWjErUnNkVEpWOGhXRklCR0RxYzZrdXd1dHVYY3djUW1XelE5aEJDaFVHS0lnZ05udHFlenY1a1grV2xoTlhkUGs3MUpUQXVzL1JoTmlVZGpwb21HQmxQYjZSUU42dWlUOWZnMWRkaWViR2RRcEVoWlRtOCtsb3NyeDFtWFVBbjROY1lHVGRMbms0ditmWFlzbUY0MUdUVmNoOVdkamJJbzNIa1ZKelRzMmIzQ2dXa3c1L1RmUW1Pbklyanljb1dXcFprMVhJZnc2TW1sajNIQVM2UmtndkEwQVVuK3hLczd2Ym5sQ29KQWFFcGkyZDNSNVFBRkhsNERNR3p1OU9Ka3B6d0IxamQ3ZWRrWDZJczY0SkxMZ0JOZzdISmRCbHJRNTJlTXhmUU5QRjZqRmZTWks3QzNXVE5FYk5ESENtaG9VN0g1OVVZbTdUS2trWXZ5NVRVc2lURDR5WXJsbmxmNytnTU03UDg0N0c4R2cvRjRpWlRNM2JnZUc2VzBMWWxLNVo1R1I0M2M4THBVbElXQWVoNk9wNWIxZVhQdlFQTTJOelA3WW00WWdNMXhjSmdHSUxuOWtRSVQxazVWY05Td3FvdVA2ZjdTbXQrWlZNV0FXZ2FqRXlrTzRBMTFPZWFZcG9PVCsvSVQzVXBGaWVaRlBuVE8wSm9XWWxES2FHaFhzUHYweGlaU0pXdGlxQnNXWG5Ma293VU1NV0ttUjJLeFVreGt6UmpmbzJNcDhvVy9rQVpCVkRNRkN0bWR5c1dKOFhLWk1wcGZtVlROZ0hNWllvVkszaFNMRDZLRlVxVzAvektwcXlGQ2NWTXNXSWxyNHJGUmJGUytYS2JYOW1VVlFCem1XSmhaWW90ZWpMbTErekZVdVUydjdJcHF3Q1VLYVlvU2dYTnIyektYcHVwVERGRklTcHBmbVZUZGdGa1RMR1Z5M1BESUdXS0xXNkttbC9BeXVYbE5iK3lLYnNBTkEzR1F4WU45VHFlV1kwWWxTbTJPQ2xtZmtHNjlXRkR2YzU0cVB6aER5eUFBQ0RkRWoweVpkRzV4S2RNTWNXYzVsZm5FaCtSS1d2QnRzTmRFQUVJQWFmN2s2eGQ0Yy9wSDZwTXNjVkpNZlBMdG1IdENqK24rNU1MRmhFc2lBQjBYZEEvbEtTdDJjQXphOU1NWllvdFBvcVpYeDZQb0szWm9IK29kQnRnWElpRnVRT1Fibjg5RmJOWnR0U0xZeXRUYkxGU3pQeHliTW15cFY2bVlqYlRDV2ZCTXVNTHRrUmQwd1JuKzlQOVErMnNpNzNJeWdZcEFkUStucXpzVDNhWVl6dXdwdHZQMlpuOWdSZUtCUk9Bb1VQZnNNbVNaZytlQXR1bEhqNDVuZU1US0dvVDI1WWNQam1kOTdqSEsxalM3S0Z2MkN4cjhkdHNGclJKeVhUY0lSYTM2V2p6NEdUZEJUeUc0TVdYSTR4TXBQSzJ4VkhVRHJvbUdKbEk4ZUxMdVhkN3g0R09OZyt4dUwzZ3U0VXVxQUIwRFU3M0oxamJrOXRHM2RBRi9jTW11MStONWsyU0ZiV0R4eVBZL1dxVS91SGNqYTh0VzdLMng4L3Ava1JlUzVSeXM3QUMwQVc5NTVNc2JmWGluV1dLU1NuNTNZdVRDM2s2aWdyd3V4Y25rYk8yQ3ZJYXNMVFZTKy81aGN2K1pGandQbTJKaE1OVXpLSnphYTRwNXZVSWR1eWZZbmpjVkdGUURhSnJndUZ4a3gzN3AzTDJqN1lkU2VkU0gxTXhpMFFGTms5Y2NBRUlEVTczNVp0aXVpWVlIREhaZlRDcXNrRTFpTWNRN0Q0WVpYQWs5d0wzdXZuVmw2eEkyOHdGLzhpNVRERm5KZ3hTZFVHMWh4RHA4TWVaRmY1VXd2ektadUh2QUJRM3hUeUdZT2VCS1liR1ZCaFVTK2lhWUdqTVpPZUJxZHpzVDRYTXIyd3EwcXU1bUNtbTY0S0JFWlVOcWpVeTJaK0JFVFBuS2w4cDh5dWJpZ2hnTGxQTXRpVlBiUThoSFdXSzFRclNTZittczQzT1NwbGYyVlNzVy85Y3B0ajIvY29VcXhVeTV0ZjIvZFZqZm1WVE1RRW9VMnh4VUkzbVZ6YVZFNEF1NkJ0SzB0N216ZnNDbENsV1d4UXl2M1FOMnR1ODlGVW8rNU9ob2hzV0pVMUpNdW5RM0dUa3BNZVVLVlliRkRPL0hDbHBiakpJSmgyU1ptWG5laFVWZ09OSStvZE5WblVwVTZ3V21jdjhXdFhscDMvWXhLbHdzcU9pQXRCMU9EdVFvTHZUbTJkK0tWUE0vUlF6djRTQTdrNHZad2NTNkJYSy9tU29xQUEwSVpnTXA5ZUZOamNhT1kyemxDbm1ib3FaWDFKQ2M2T1I4OXRYa29wdldpcUJ2cUYwKzhUc1BMRXl4ZHhOVWZQTGxxenU5dE0zbEtBYW5KNktDOERRQmFmN2txeFk1c3Rya2FoTU1mZFN6UHhDd0lwbFBrNzNKY3ZlOTNNK1ZGd0FtZDBqZ1lKaGtETEYzRWN4OHlzVC9nQjV1MEZXaW9vTEFBQUp2ZWVUck9ueDVabGlBOE1tdXc1R1ZkOGdGMkVZZ2wwSG93d1VNTC9XOVBqb1BaK2tLdUlmcWtRQXVpNDQwNStncDlPZlZ4SG9TTW56ZThJVnp4WW81byt1dy9ON3d2blpINkNuMDgrWi9vWHAremtmcWtJQW1URElrWktXWUs0cFp1aUNReWVtaVVUdGltY01GQmRHRTRKSTFPYlFpZW1jcTMvMmIxc3Q0UTlVaVFBZ0hSLzJEK1diWW9ZdU9IWjZtaU1ucDFVWTVBSU1RM0RrNURUSFR1Y0s0SFh6YThoRVZrbjRBMVVrZ0dLbW1CQVFTemc4czB1RlFXNUExK0daWFdGaUNTZnZkNndXOHl1YnFoSEFuS2FZTG5obVo0am90RjAxdDA1RlBrSkFkTnJtbVoyaG5FMVBxczM4eXFacUJBREZUVEhERUJ3L0UrZkl5V2xWRzFURmVHYkNuK05uNGpuaGFyV1pYOWxVbFFDS21XSkNwTmNSUDcwanJQeUFLa2JYQkUvdkNLZlg5MmIvVEZWbWZtVlRWUUs0a0NuMnRBcURxcFpNK1BQMHpsRFZtMS9aVkpVQWdEbE5zZU5uNGh3K09ZM0hxTDdUWHV4NERJM0RtZkNueXMydmJLcHVKR1ZNc2U1WnBwZ1FrREFkL21OSHFHSUxxQlhGTVhUNGp4MGhFclAyZXhOQWQ1V1pYOWxVblFBeXQxSkRCNzlQeTdsb0dMcmcyVjFoSWpGbGlsVVRtaEJFWWpiUDdncm5YUDBsNmQvUTBLbmEwTFhxQkFCZ3BpVGpJWXZ1VGw5dU5rZ1h2SFkycmt5eEtpTmpmcjEyTmo3TC9KSjBkL29ZRDFtWXFTcU1mNmhTQWVnNm5PcE5zS2JIaDV5MW00d3l4YXFQWXVhWGRHQk5qNDlUdmRWbGZtVlRuUUxRQkVPalNScnJEZnorM0ZOVXBsaDFVY3o4QXZEN05ScnJEWVpHazFXYnZxNUtBUUNZRm94T21LeFk1bE9tV0JVemwvbTFZcG1QMFFrVDA2cmdDVjZBcWhXQW9hZDNFeXkwcVo0eXhhcUhZdVpYcHUvbnFiNUUxWmxmMlZTdEFEUU5oc2RUMUFkMDZnS3p3aUJsaWxVRnhjd3ZnTHFBUm4xQVozZzhsYmNmY0RWUnhhY0dLVk15RmtyUjArSEZtbFVpclV5eHlsUGMvSUtlRGk5am9SU3BDamUrdWhCVlBYb3kvVU5YZGZ0ekdpZ3BVNnc2S0daK09ZNWtWWGZsKzM3T2g2bytQVTBYbkI4MWFhelhxZk1yVTZ5YW1Ndjhxdk5yTk5icm5CODEwYW80L29jcUZ3QkE2Z0ttMktFVE1XV0tWUURERUJ3NkVadlQvRXBWcWZtVlRkVUxZRTVUTE81dzlGUzg2bSt6dFlpdXdkRlRjV0p4OTVsZjJWVDkwSm5MRk5OMWVIcEhLR2U3VmNYQ1lEdVNwM2VFOGdhNUc4eXZiS3BlQUZEY0ZQTVlHaThmaVhGdXNQb1dXdFF5aGk0NE41ams1U094bkN5Y1c4eXZiRndoZ0dLbW1LYkJSRGpGQzNzanFuL29BdUx4Q0Y3WUcyRWluSnZqZDR2NWxZMHJCRENYS1NhQUo3ZUhYREhocWhWU0tjbVQyME41VGN6Y1luNWw0NUxUTEc2S2VReU5mVWVpS2d4YUlETGh6NzRqMFp6d3gwM21WemF1RWNEcnBsaVhQMmUvS1UyRHNWQ0s3ZnRVR0xRUWVEeUM3ZnNpaklWeXIvSlNTbFoxdWNQOHlzWTFwNnJwZ3VIeEZNMUJnOW5WRDBMQVV5OU5rckprUlhZYlh5d0lJR1ZKbm5vcGYrY2VRNFBtb0pFT2YxeDBKM2FOQUFCTTAyRXFack8welp0VEd1RTFCSHNQeGVnOVg5a2RCMnNkWFJmMG5rK3k5MUFNYjg2ZXY1S2xiVjZtWWphbVdiazlmeThGbzlJbmNERUlBV2Y3azZ6dDhUTTRZdUtka2ErbUNjWkRLVjdhRjJIanJaM0VrKzc2RWR4Q3dLZngwcjRJNDZFVUFYOXUvTCsyeDgvWi9xVHJxbk5kSlFCZEUvUU5KZGl3dGlXdi9NSFE0UmRQakxHNjIwL0tjczhrekUxNERNRXZuaGpMSzBBMERFRjdtNGRYamtWZFlYNWw0eW9CQ0FIUm1FTWk2ZERlNm1Fa0s5M204V2pzUHhMbDF2OTFyTEluV2VNWWV2cTd6dUE0ME43bUlaRjBpTVljMXlVaVhDVUFtQW1EQmhLczZmRnpmc1JFeTdyaWFKcDRQU3hTTEF5MkxWblQ0K2ZzUU1KMTRRKzRiQklNbVltWVNVZWJWMVdCVmdHR0llaG84OUo3M25SbEFzSjFBc2dzdzB1YURrdGFEQncxMzYwWWpnTkxXZ3lTcHVQYTVhbXVDNEVnblk4KzA1OWczY29BQThOaHZDNkxPMnNGTXlWWnR6TEFtZjZFYS8wWEVXenBjR1hLUkFqQisvOXdDV2JLUVZWRFZ3Wk5nTmVqOGZOL0g4dHg1OTJFYXdVZ0pTQlE5VDhWeHJJbFNGd1ovb0JMUXlENC9SZWV0eE81WWtFUnIvL2pUalFrZTEzOUZ5Z1VsNEVHNGt5bFQwS2hxQlFhUXFZcWZSSUtSV1dRcG9ZbUg2M0t2V3NVaXJJaVFJcG5OSm1TaDBDT1ZmcDBGSXFGUnNMeldpUXlla3BJZWl0OU1nckZ3aUp0Qi90RkRaQzJsTDhWYmsza0toU1hncFFub3FHeHZScUFNSnpIM09ya0tSUVhpeEFDaWZ4M0lLNEJSQm9hRG9IYzdWbzdUNkc0Q0tTVWxoVGlVY2hVZzU0N2w4RFJ2eVZVT2toUjZ3aUJoRjlQVFk3c2dLeHk2SEM0NVhFcG5UMXFMcUNvYWFRMHNia3Y4OStzOVFCSFRCeDVuNW9LS0dxVmRPenZQQjZKRE8vSlBKYXpJQ1ljSHYwMVVtNWYrRk5US01xUGRHUWNXL3NXV2FIKzdCVmhsaVg0T0JCZjBETlRLTXFNRUFJRTM0NUVobmRuUDU2M0pESTJPWHdJeEpmVVhFQlJNd2lCbE03ZWNMM252dGxQRlZ3VDNEaHBmRTg2enMrVkNCUTFnWlNEUXNxUDBkK2ZGOWtVSGVHdHJhM2RsdU41U1FqUm83S2pDcmNpRUVpY084S1RJejhzOUh6UnJoQVRFeFA5R3M0dFNObW5EREtGSzBrYlc1OHROdmpoQW0xUlFxSFJBd0xuRnBDOWF0V1l3bFVJQVZKOE5qdzVkUCtjTDV2UHNWcGEycTl4cEhoY2FLSkgxUXdwcWg4Qk9KOEpUNDU4OTBLdm5GZGpyTW5Ka1ZjRnppMUlubEVUWTBYVmtoNmJBeExuNC9NWi9IRFJjYzFHYjdCbDdFRVFId1c4RjN0K0NrWFpFQUtrM0NtazgvRlFhUFRBdk45MktaL1YzTnp4WGltNFZ3aHhqUXFKRkJVbFBmQk40SnZoeWVGN0FmT2kzbjZwbjF0ZjM5NmgrN2hUU0hHbkVHSzVFb0ppSVJGQ3BNdWE0VEVwNUhlbUprWjJYdEp4THZkRUFtMXR5NzJPY1Nmd3NiUVFRUGtHaW5LUkdmZ0k4U3RIT2c5a3lwb3YrWGlsT3JINjl2WU93K0pEVXZKSElLNFRpTWIwTTBvTWlzdEI4UG9Za2h5WDhCc3A1Qzh2ZCtCbkg3M2tORGUzYjNLRVdJL2tOb1M4WGlCV2x1TnpGTFdPTkVGN1VrcG5oNUJpUjdqUnM3TlFPY1BsOFA4QlVja2ZYcXgvNk1zQUFBQUFTVVZPUks1Q1lJST0iLCAic2l6ZXMiOiAiMTkyeDE5MiIsICJ0eXBlIjogImltYWdlL3BuZyJ9LCB7InNyYyI6ICJkYXRhOmltYWdlL3BuZztiYXNlNjQsaVZCT1J3MEtHZ29BQUFBTlNVaEVVZ0FBQWdBQUFBSUFDQVlBQUFEMGVOVDZBQUFTUEVsRVFWUjRuTzNkVFk0ajE3R0FVWFpEYzBFakxVRUwwQ3E4WXEvQ0MvQVNldFRvRmNpRE5pVVdpeitaNU0xNzQrZWNrV0hnNGJFYUZ1UExpRlQxbHhNUC9mcmI3Myt0L2d3QXZPYkg5MjlmVm4rR3FQekJuQXg1Z0k2NngwSExIOTdBQitCYXR5Qm84Y01hK0FEc1ZUMEl5djV3aGo0QW8xU01nVkkva0tFUHdOR3F4RUNKSDhMZ0IyQzI3Q0dRK3NNYi9BQ3NsalVFVW41b2d4K0FhTEtGUUtvUGEvQURFRjJXRUVqeElRMStBTEtKSGdLaFA1ekJEMEIyVVVQZzYrb1BjSS9oRDBBRlVlZFp1Q3FKK2djRkFPK0t0QTBJdFFFdy9BR29MTktjQzFFaWtmNUFBR0NHMWR1QTVSc0F3eCtBamxiUHY2VUJzUHFIQjRDVlZzN0JKZXNIZ3g4QVBwcDlFcGkrQVREOEFlQ3oyZk54YWdBWS9nQnczOHc1T1MwQURIOEFlRzdXdkp3U0FJWS9BR3czWTI0ZUhnQ0dQd0RzZC9UOFBEUUFESDhBZU4yUmMvU3dBREQ4QWVCOVI4M1RRd0xBOEFlQWNZNllxOE1Ed1BBSGdQRkd6OWVoQVdENEE4QnhSczdaWVFGZytBUEE4VWJOMitWL0d5QUFNTitRQVBEMER3RHpqSmk3YndlQTRROEE4NzA3Zjk4S0FNTWZBTlo1Wnc1N0J3QUFHbm81QUR6OUE4QjZyODdqbHdMQThJY2EvdnZ2UDFkL0JHQ0FWK2J5TDBkOEVDQzI4K0QvNDEvLytmQ2ZnVDYrN1AwLzhQUVB1ZjMzMzMvZUhQYjMvbnNnangvZnYyMmU2N3RPQUlZLzVQWm95Rjl1QTRDYzlzenBYUnNBQVFBNTdWbnpPd2xBYmx1M0FKc0R3UENIbkY1ZDdUc0pRRjViSXNEdkFZREMzaG5pVGdKUTI2WU5nS2QveUdYa0d0OUpBSEo2dGdVUUFGRE1VYXQ3SndISTVlMEFNUHdoaHhsUDZyWUJrTXVqQ0JBQVVNRHNwM1BiQU1qaFVRQThmQW5ROElmNFZneGpMd2hDRG8vbStNTU5nQUNBdUNLczR5TjhCdUN4ZTF1QXV3RmcrRU5jMFZidzBUNFA4Tkd0Q0JBQWtFamtKMjRSQUhGdERnRERIK0xKTUdBakJ3cDBkeDBCQWdBU3lERDhMMlg3dk5DQkFJQkVNajlSWi83c1VOSFRBREQ4SVlZcVQ5RlZmZzZvNERJQy9HVkFFRkNsb2VsM0JrQk1OZ0FReU95MStjelFjQktBOVM0M0FCOEN3UENIZFZiOE90OHp2MFlZK2poSGdBQ0F4Vlk4OWQ5VGNmTUFmQ1FBSUlDVlQvMzNPQWxBYlFJQUZsdHhmOS9ETmdCcStoUUFoai9NRVdubC80eHRBTlQwNC91M0x3SUFKb3E0OG4vR0M0SlFqd0NBaWFLdi9KOXhFb0E2QkFCTWtHbmwvNHlUQU5Ud2R3QVkvbkNNakN2L1o1d0VvQVlCQUFlbzlOUi9qNU1BNUNZQVlMQ0tULzMzT0FsQVhnSUFCc3Irb3QrcmJBTWdId0VBQTNSWStUOWpHd0M1Q0FCNFU2ZVYvek5lRUlROEJBQzh5RlAvZlU0Q0VOOFh3eC8yODlUL25KTUF4Q1lBWUtldUwvcTl3a2tBNGhJQXNKR1YvK3VjQkNBZUFRQWJXUG0vejBrQVloRUE4SVNWLzFpMkFSQ0RBSUE3clB5UFl4c0E2d2tBdU1ISy8zaGVFSVMxQkFCYzhOUS9uNU1BckNFQTRQODg5YS9qSkFEekNRQTRlZEV2QWljQm1Fc0EwSnFWZnp4T0FqQ0hBS0F0Sy8rNG5BVGdlQUtBZGp6MTUyRWJBTWNSQUxUaXFUOGYyd0E0aGdDZ0RTLzY1ZVVGUVJoUEFGQ2VsWDhkVGdJd2pnQ2dOQ3YvZXB3RVlBd0JRRmxXL25VNUNjRDdCQURsV1BuMzRTUUFyeE1BbEdMbDM0K1RBTHhHQUZDQ3AzNXNBMkFmQVVCNm52bzVzdzJBN1FRQXFYblJqMnRlRUlSdEJBQXBXZm56akpNQVBDWUFTTWZLbjYyY0JPQStBVUFxVnY3czVTUUF0d2tBVXJEeTUxMU9BdkNSQUNBOFQvMk00aVFBL3hBQWhPV3BuNlBZQm9BQUlDZ3YrbkUwMndDNkV3Q0VZK1hQTEY0UXBETUJRQmhXL3F6aUpFQkhBb0FRclB4WnpVbUFiZ1FBUzNucUp4SW5BVG9SQUN6anFaK29uQVRvUUFDd2hCZjlpTTVKZ09vRUFGTlorWk9OYlFCVkNRQ21zZkluSzlzQUtoSUFUR0hsVDNaZUVLUWFBY0NoclB5cHhrbUFLZ1FBaC9IVVQxVk9BbFFnQUJqT1V6OGRPQW1RblFCZ0tDLzYwWTJUQUZrSkFJYXg4cWNySndFeUVnQzh6Y29mZnJJTklCTUJ3RnVzL09FajJ3Q3lFQUM4ek1vZmJ2T0NJQmtJQUhhejhvZHRuQVNJVEFDd2k2ZCsyTWRKZ0tnRUFKdDQ2b2ZYT1FrUWtRRGdLUy82d1JoT0FrUWlBSGpJeWgvR2NoSWdDZ0hBVFZiK2NDemJBRllUQUh4aTVROXoyQWF3a2dEZ2I1NzZZVDR2Q0xLS0FPQjBPbm5xaDlXY0JKaE5BT0JGUHdqQ1NZQ1pCRUJqVnY0UWsyMEFNd2lBcHF6OElUWVJ3TkVFUUVOVy9wQ0Rrd0JIRWdDTldQbERUcllCSEVFQU5PR3BIM0t6RFdBMEFWQ2NwMzZvdys4TVlDUUJVSmdYL2FBbUp3RkdFQUJGV2ZsRGJVNEN2RXNBRkdQbEQ3M1lCdkFxQVZDSWxULzBKQUo0aFFBb3dzb2Zlbk1TWUM4QmtKeVZQM0RKTm9DdEJFQmludnFCVzJ3RDJFSUFKT1NwSDNqRzd3emdHUUdRakJmOWdEMmNCTGhIQUNSaTVRKzh3a21BV3dSQUFsYit3QWkyQVZ3U0FNRjU2Z2RHRWdHY0NZQ2dQUFVEUjNFUzRIUVNBQ0Y1MFErWXdUYWdOd0VRakpVL01KTnRRRjhDSUFncmYyQVZ2ek9nSndFUWdKVS9FSUdUUUM4Q1lERXJmeUFTSjRFK0JNQWlWdjVBWkxZQjlRbUFCVHoxQXhtSWdOb0V3RVNlK29Gc25BVHFFZ0NUZU5FUHlNdzJvQjRCTUlHVlAxQ0JiVUF0QXVCQVZ2NUFOWDVuUUIwQzRDQ2Urb0hLbkFUeUV3Q0RlZW9IdW5BU3lFMEFET1JGUDZBajI0Q2NCTUFnVnY1QVp5SWdId0h3Sml0L2dKK2NCSElSQUcrdzhnZjR6RFlnQndId0lpdC9nUHRzQStJVEFEdForUU5zNDNjR3hDWUFkdkRVRDdDZmswQk1BbUFEVC8wQTczRVNpRWNBUE9GRlA0QnhiQVBpRUFBUFdQa0RqQ2NDWWhBQU4xajVBeHpMU1dBOUFYREZVei9BUExZQjZ3aUFDNFkvd0h5MkFXc0lnSk9WUDhCcWZtZkFmTzBEd0ZNL1FCeE9Bdk8wRFFCUC9RQXhPUW5NMFRJQS9MdjlBUEhaQmh5clhRQlkrUVBrSVFLTzB5WUFyUHdCY25JU09FYUxBUERVRDVDZmJjQllwUVBBVXo5QUxiWUI0NVFOQUMvNkFkVGtkd2FNVVRJQXJQd0I2bk1TZUUrcEFMRHlCK2pGU2VCMVpRTEFVejlBWDdZQiszMWQvUUZHTVB3QmVwdjEzZnpIdi81VFpnNmszZ0JZK1FOd3lVbGd1N1FCNEtrZmdIdWNCSjRyY1FJNGt1RVBrSS92N3VmU0JzQ01PNHovQVFIa05XTkdaSDM2UDUxT3AxOVdmNENJREg2QUdpcmM2bytTZGdOd0ZNTWZvQjdmN1orbGZRbndiTlFLeHY4NEFIb1lOVE95YnhWc0FFNkdQMEFudnZOL0VnQUEwRkQ2QUJqeGJ3TmtYK01Bc04yNzMva1YxdituVTRFQUFBRDJFd0FBMEZDSkFIQUdBR0FMNi85L2xBZ0FBR0FmQVFBQURaVUpBR2NBQUI2eC92K29UQUFBQU5zSkFBQm9xRlFBT0FNQWNJdjEvMmVsQWdBQTJFWUFBRUJENVFMQUdRQ0FTOWIvdDVVTEFBRGdPUUVBQUEyVkRBQm5BQUJPSit2L1Iwb0dBQUR3bUFBQWdJWUV3QU5WMXo0QUhmZ09mNnhzQUl4NER3Q0F2aXJmLzArbndnRUFBTnduQUo2b1hIOEFWZm51ZnE1MEFEZ0RBUENLNnV2LzA2bDRBQUFBdHdtQURhcFhJRUFsdnJPM0tSOEF6Z0FBN05GaC9YODZOUWdBQU9BekFRQUFEYlVJQUg4NUVFQVAvdktmN1ZvRUFBRHdrUUFBZ0liYUJJQXpBRUJ0MXYvN3RBa0FBT0FmQWdBQUdtb1ZBTTRBQURWWi8rL1hLZ0FBZ0o4RUFBQTAxQzRBbkFFQWFySCtmMDI3QUFBQUJBQUF0TlF5QUp3QkFHcXcvbjlkeXdBQWdPNEVBQUEwMURZQW5BRUFjclArZjAvYkFBQ0F6Z1FBQURUVU9nQ2NBUUJ5c3Y1L1grc0FBSUN1QkFBQU5OUStBSndCQUhLeC9oK2pmUUFBUUVjQ0FBQWFFZ0FuWndDQUxLei94eEVBQU5DUUFBQ0FoZ1RBL3prREFNUm0vVCtXQUFDQWhnUUFBRFFrQUM0NEF3REVaUDAvbmdBQWdJWUVBQUEwSkFDdU9BTUF4R0w5Znd3QkFBQU5DUUFBYUVnQTNPQU1BQkNEOWY5eEJBQUFOQ1FBQUtBaEFYQWdheWVBMS9rT1BaWUF1R1BFZXdBQXJPUCsvNWdBQUlDR0JNREIxQ2ZBZnI0N2p5Y0FIbkFHQU1qSit2ODVBUUFBRFFtQUNWUW93SGErTStjUUFFODRBd0RrWXYyL2pRQUFnSVlFd0NScUZPQTUzNVh6Q0lBTm5BRUFjckQrMzA0QUFFQkRBbUFpVlFwd24rL0l1UVRBUnM0QUFMRlovKzhqQUFDZ0lRRUFBQTBKZ0IxR25BR3Nwd0ErZS9lNzBmcC9Qd0VBQUEwSkFBQm9TQURzNUF3QU1KYjEveG9DQUFBYUVnQUEwSkFBZUlFekFNQVkxdi9yQ0FBQWFFZ0FBRUJEQXVCRnpnQUE3N0grWDBzQUFFQkRBZ0FBR2hJQWIzQUdBSGlOOWY5NkFnQUFHaElBQU5DUUFIaVRNd0RBUHRiL01RZ0FBR2hJQUFCQVF3SmdBR2NBZ0cycy8rTVFBQURRa0FBQWdJWUV3Q0RPQUFDUFdmL0hJZ0FBb0NFQkFBQU5DWUNCbkFFQWJyUCtqMGNBQUVCREFnQUFHaElBZ3prREFIeGsvUitUQUFDQWhnUUFBRFFrQUE3Z0RBRHdrL1YvWEFJQUFCb1NBQURRa0FBSXpOb0x5TXgzV0d3QzRDQWozZ01BNk16OS8xZ0NBQUFhRWdEQnFWOGdJOTlkOFFtQUF6a0RBTHpHK3Y5NEFnQUFHaElBQ2FoZ0lCUGZXVGtJZ0lNNUF3RHNZLzAvaHdBQWdJWUVRQkpxR01qQWQxVWVBbUFDWndDQWJhei81eEVBQU5DUUFFaEVGUU9SK1k3S1JRQk00Z3dBOEpqMS8xd0NBQUFhRWdESnFHTWdJdDlOK1FpQWlad0JBRzZ6L3A5UEFBQkFRd0lnSVpVTVJPSTdLU2NCTUprekFNQkgxdjlyQ0FBQWFFZ0FKS1dXZ1FoOEYrVWxBQlp3QmdENHlmcC9IUUVBQUEwSkFBQm9TQUFzTXVJTVlHMEdyUFR1ZDVEMS8xb0NBQUFhRWdBQTBKQUFXTWdaQU1qSytqOC9BUUFBRFFrQUFHaElBQ3ptREFCa1kvMWZnd0FBZ0lZRUFBQTBKQUFDY0FZQXNyRCtyME1BQUVCREFnQUFHaElBUVRnREFORlovOWNpQUFDZ0lRRUFBQTBKZ0VDY0FZQ29yUC9yRVFBQTBKQUFBSUNHQkVBd3pnQkFOTmIvTlFrQUFHaElBQUJBUXdJZ0lHY0FJQXJyLzdvRUFBQTBKQUFBb0NFQlVKaTFHL0FPM3lHMUNZQ2dScndIQUxDUyszOXNBZ0FBR2hJQXhhbHY0QlcrTytvVEFJRTVBd0JaV2YvSEp3QUFvQ0VCMElBS0IvYnduZEdEQUFqT0dRREl4dm8vQndFQUFBMEpnQ2JVT0xDRjc0bytCRUFDemdCQUZ0Yi9lUWdBQUdoSUFEU2l5b0ZIZkVmMElnQ1NjQVlBb3JQK3owVUFBRUJEQXFBWmRRN2M0cnVoSHdHUWlETUFFSlgxZno0Q0FBQWFFZ0FOcVhUZ2t1K0VuZ1JBTXM0QVFEVFcvemtKQUFCb1NBQTBwZGFCMDhsM1FXY0NJQ0ZuQUNBSzYvKzhCQUFBTkNRQUdsUHQwSnZ2Z040RVFGTE9BTUJxMXYrNUNRQUFhRWdBTktmZW9TZi83Q01BRW5NR0FGYXgvczlQQUFCQVF3SUFBQm9TQU1tTk9BTlk0MEV2Ny80emIvMWZnd0FBZ0lZRUFBQTBKQUFLY0FZQXRyTCs1MHdBQUVCREFnQUFHaElBUlRnREFNOVkvM05KQUFCQVF3SUFBQm9TQUlVNEF3RDNXUDl6VFFBQVFFTUNBQUFhRWdERk9BTUExNnovdVVVQUFFQkRBZ0FBR2hJQUJUa0RBR2ZXLzl3akFBQ2dJUUVBQUEwSkFPNnk5b1BjL0RQTUl3S2dxQkh2QVFDOXVmL1hKZ0FBb0NFQndFUHFIM0x5enk3UENJRENuQUdBVjFuLzF5Y0FBS0FoQWNCVG5nSWdGLy9Nc29VQUtNNFpBTmpMK3IrSFgxWi9BSEx3WlFCUWl3MEFBRFFrQUJwd0JnQzJzdjd2UXdBQVFFTUNBQUFhRWdCTk9BTUF6MWovOXlJQUFLQWhBUUFBRFFtQVJwd0JnSHVzLy9zUkFBRFFrQUFBZ0lZRVFEUE9BTUExNi8rZUJBQUFOQ1FBQUtBaEFkQ1FNd0J3WnYzZmw3OE91REVSQU5EWGwxOS8rLzJ2MVI4Q0FKakxDUUFBR2hJQUFOQ1FBQUNBaGdRQUFEUWtBQUNnSVFFQUFBMTkvZkg5MjVmVkh3SUFtTXNHQUFBYUVnQUEwSkFBQUlDR0JBQUFOQ1FBQUtBaEFRQUFEWDA5blU0bi95b2dBUFR4NC91M0x6WUFBTkNRQUFDQWhnUUFBRFQwZHdCNER3QUE2anZQZXhzQUFHaElBQUJBUXdJQUFCcjZFQURlQXdDQXVpN252QTBBQURRa0FBQ2dvVThCNEF3QUFQVmN6M2NiQUFCb1NBQUFRRU0zQThBWkFBRHF1RFhYYlFBQW9LRzdBV0FMQUFENTNadm5OZ0FBME5EREFMQUZBSUM4SHMxeEd3QUFhT2hwQU5nQ0FFQSt6K2EzRFFBQU5MUXBBR3dCQUNDUExYUGJCZ0FBR3RvY0FMWUFBQkRmMW5sdEF3QUFEZTBLQUZzQUFJaHJ6NXpldlFFUUFRQVF6OTc1N0FRQUFBMjlGQUMyQUFBUXh5dHorZVVOZ0FnQWdQVmVuY2RPQUFEUTBGc0JZQXNBQU91OE00ZmYzZ0NJQUFDWTc5MzVPK1FFSUFJQVlKNFJjOWM3QUFEUTBMQUFzQVVBZ09PTm1yZEROd0FpQUFDT00zTE9EajhCaUFBQUdHLzBmRDNrSFFBUkFBRGpIREZYRDNzSlVBUUF3UHVPbXFlSC9sc0FJZ0FBWG5ma0hEMzhYd01VQVFDdzM5SHpjOHJ2QVJBQkFMRGRqTGs1N1JjQmlRQUFlRzdXdkp6Nm13QkZBQURjTjNOT1R2OVZ3Q0lBQUQ2YlBSK1hEdU5mZi92OXI1WC8vd0ZndFZVUHhrdi9NaURiQUFBNld6a0hsLzl0Z0NJQWdJNVd6NzlRdzlkSkFJRHFWZy8rcytVYmdFdFIvbEFBNEFpUjVseVlEM0xOTmdDQUtpSU4vck5RRzRCTEVmK3dBR0N2cVBNczVJZTZaaHNBUURaUkIvOVo2QTkzVFFnQUVGMzB3WCtXNGtOZUV3SUFSSk5sOEorbCtyRFhoQUFBcTJVYi9HY3BQL1ExSVFEQWJGa0gvMW5xRDM5TkNBQnd0T3lELzZ6RUQzR0xHQUJnbENwRC8xSzVIK2dXTVFEQVhoV0gvcVhTUDl3OWdnQ0FhOVVIL3JWV1ArdzlnZ0NnbjI0RC85ci9BT25aSU0wem52ZGxBQUFBQUVsRlRrU3VRbUNDIiwgInNpemVzIjogIjUxMng1MTIiLCAidHlwZSI6ICJpbWFnZS9wbmcifV19"/>
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='80' fill='%231a1e24'/%3E%3Crect x='8' y='8' width='496' height='496' rx='76' fill='none' stroke='%23e8c84a' stroke-width='12'/%3E%3Cpolygon points='256,80 456,236 378,460 134,460 56,236' fill='%23e8c84a'/%3E%3C/svg%3E"/>
+<title>Comisionamiento Ardemax</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --bg: #1a1e24;
+  --bg2: #22272e;
+  --bg3: #2a3038;
+  --border: rgba(255,255,255,0.08);
+  --border2: rgba(255,255,255,0.15);
+  --text: #e8e8e0;
+  --text2: #c8c8c0;
+  --text3: #a0a098;
+  --accent: #e8c84a;
+  --accent2: #b89c30;
+  --green: #4caf7d;
+  --red: #e05555;
+  --amber: #e8943a;
+  --blue: #5a9fd4;
+  --mono: 'Barlow', sans-serif;
+  --sans: 'Barlow', sans-serif;
+  --r: 6px;
+}
+
+body.theme-light #pulze-text,
+body.theme-light #pulze-text-setup {
+  fill: #6b7280;
+}
+
+body.theme-light {
+  --bg: #f5f6f7;
+  --bg2: #ffffff;
+  --bg3: #eef0f2;
+  --border: rgba(0,0,0,0.08);
+  --border2: rgba(0,0,0,0.15);
+  --text: #2a2e35;
+  --text2: #5f6368;
+  --text3: #9aa0aa;
+  --accent: #e8c84a;
+  --accent2: #b89c30;
+  --green: #4caf7d;
+  --red: #e05555;
+  --amber: #e8943a;
+  --blue: #5a9fd4;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 14px;
+  min-height: 100vh;
+  line-height: 1.5;
+}
+
+/* ---- SETUP SCREEN ---- */
+#setup-screen {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.5rem;
+  background: var(--bg);
+}
+.logo-mark {
+  width: 56px; height: 56px;
+  border: 1.5px solid var(--accent);
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 1.5rem;
+}
+.logo-inner {
+  width: 28px; height: 28px;
+  background: var(--accent);
+  clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+}
+.setup-title { font-family: "Barlow", sans-serif; font-size: 20px; font-weight: 400; color: var(--text); margin-bottom: 4px; }
+.setup-sub { font-size: 13px; color: var(--text2); margin-bottom: 2rem; }
+.setup-card {
+  width: 100%; max-width: 420px;
+  background: var(--bg2);
+  border: 0.5px solid var(--border2);
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+.setup-label { font-size: 12px; font-family: var(--sans); color: var(--text2); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 6px; display: block; }
+.setup-input {
+  width: var(--sans); background: var(--bg3); border: 0.5px solid var(--border2);
+  border-radius: var(--r); color: var(--text); font-family: var(--sans); font-size: 14px;
+  padding: 10px 12px; margin-bottom: 1rem;
+}
+.setup-input:focus { outline: none; border-color: var(--accent); }
+.setup-input::placeholder { color: var(--text3); }
+.setup-select {
+  width: 100%; background: var(--bg3); border: 0.5px solid var(--border2);
+  border-radius: var(--r); color: var(--text); font-family: var(--sans); font-size: 13px;
+  padding: 10px 12px; margin-bottom: 1.25rem; appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238a8a80' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 12px center;
+}
+.setup-select:focus { outline: none; border-color: var(--accent); }
+.btn-primary {
+  width: 100%; padding: 12px; background: #4CAF7D; color: #0f1117;
+  border: none; border-radius: var(--r); font-family: var(--sans); font-size: 14px;
+  font-weight: 500; cursor: pointer; letter-spacing: .03em;
+}
+.btn-primary:active { opacity: .85; }
+.setup-err { font-size: 12px; color: var(--red); margin-top: 8px; display: none; }
+
+/* ---- MAIN APP ---- */
+#app { display: none; flex-direction: column; min-height: 100vh; }
+
+/* Header */
+.app-header {
+  background: var(--bg2);
+  border-bottom: 0.5px solid var(--border);
+  padding: 0 1rem;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 52px; position: sticky; top: 0; z-index: 100;
+}
+.app-logo { font-family: "Barlow", sans-serif; font-size: 13px; font-weight: 400; color: var(--accent); letter-spacing: .05em; }
+.app-user { font-size: 12px; color: var(--text2); display: flex; align-items: center; gap: 6px; }
+.user-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
+
+/* Nav */
+.app-nav {
+  background: var(--bg2);
+  border-bottom: 0.5px solid var(--border);
+  display: flex; overflow-x: auto; scrollbar-width: none;
+}
+.app-nav::-webkit-scrollbar { display: none; }
+.nav-tab {
+  flex-shrink: 0; padding: 0 16px; height: 42px;
+  display: flex; align-items: center;
+  font-family: var(--sans); font-size: 12px; text-transform: uppercase; letter-spacing: .06em;
+  color: var(--text3); cursor: pointer; border-bottom: 2px solid transparent;
+  transition: color .15s, border-color .15s; white-space: nowrap;
+  background: none; border-top: none; border-left: none; border-right: none;
+}
+.nav-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+/* Content */
+.app-content { flex: 1; padding: 1rem; max-width: 680px; margin: 0 auto; width: 100%; }
+
+/* Sections */
+.section { display: none; }
+.section.active { display: block; }
+
+/* Cards */
+.card {
+  background: var(--bg2); border: 0.5px solid var(--border);
+  border-radius: 10px; padding: 1rem; margin-bottom: .75rem;
+}
+.card-title { font-family: var(--sans); font-size: 12px; text-transform: uppercase;
+  letter-spacing: .07em; color: var(--text2); margin-bottom: 10px; }
+
+/* Stats grid */
+.stats { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 8px; margin-bottom: .75rem; }
+.stat { background: var(--bg3); border: 0.5px solid var(--border); border-radius: 8px; padding: .75rem .5rem; text-align: center; }
+.stat-v { font-family: var(--mono); font-size: 22px; font-weight: 500; color: var(--text); }
+.stat-l { font-size: 10px; color: var(--text2); margin-top: 2px; text-transform: uppercase; letter-spacing: .04em; }
+
+/* Form elements */
+.field { margin-bottom: .75rem; }
+.field label { font-size: 12px; font-family: var(--sans); color: var(--text2); text-transform: uppercase; letter-spacing: .06em; display: block; margin-bottom: 5px; }
+.field input, .field select, .field textarea {
+  width: 100%; background: var(--bg3); border: 0.5px solid var(--border2);
+  border-radius: var(--r); color: var(--text); font-family: var(--sans); font-size: 14px;
+  padding: 9px 11px;
+}
+.field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--accent); }
+.field textarea { resize: vertical; min-height: 70px; line-height: 1.5; }
+.field select { appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238a8a80' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 11px center; }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+/* Buttons */
+.btn {
+  padding: 8px 14px; background: var(--bg3); border: 0.5px solid var(--border2);
+  border-radius: var(--r); color: var(--text); font-family: var(--sans); font-size: 12px;
+  text-transform: uppercase; letter-spacing: .06em; cursor: pointer; 
+}
+.btn:active { opacity: .75; }
+.btn-accent { background: var(--accent); color: #0f1117; border-color: var(--accent); }
+.btn-sm { padding: 5px 10px; font-size: 10px; }
+.btn-row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-top: 10px; }
+
+/* Badges */
+.badge { display: inline-block; padding: 2px 7px; border-radius: 4px; font-family: var(--mono); font-size: 10px; font-weight: 500; letter-spacing: .04em; }
+.b-mec { background: rgba(90,110,210,.2); color: #8a9fe8; }
+.b-elec { background: rgba(232,148,58,.2); color: #e8943a; }
+.b-civ { background: rgba(76,175,125,.2); color: #4caf7d; }
+.b-proc { background: rgba(90,159,212,.2); color: #5a9fd4; }
+.b-verde { background: rgba(76,175,125,.15); color: #4caf7d; }
+.b-seca { background: rgba(232,148,58,.15); color: #e8943a; }
+.b-caldera { background: rgba(90,159,212,.15); color: #5a9fd4; }
+.b-ok { background: rgba(76,175,125,.15); color: #4caf7d; }
+.b-risk { background: rgba(224,85,85,.2); color: #e05555; }
+.b-warn { background: rgba(232,148,58,.18); color: #e8943a; }
+.b-pend { background: rgba(255,255,255,.06); color: var(--text2); }
+
+/* Task rows */
+.trow { padding: 10px 0; border-bottom: 0.5px solid var(--border); display: flex; gap: 10px; align-items: flex-start; }
+.trow:last-child { border-bottom: none; }
+.trow-main { flex: 1; min-width: 0; }
+.trow-name { font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
+.trow-name.done { text-decoration: line-through; color: var(--text3); }
+.trow-meta { display: flex; gap: 5px; flex-wrap: wrap; align-items: center; font-size: 12px; color: var(--text2); }
+.trow-obs { font-size: 11px; color: var(--text3); margin-top: 3px; font-style: italic; }
+.area-group { margin-bottom: 14px; }
+.area-label { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: .08em; color: var(--text3); margin-bottom: 6px; padding-bottom: 4px; border-bottom: 0.5px solid var(--border); }
+
+/* Novedad items */
+.nov-item { padding: 10px; margin-bottom: 6px; border-radius: var(--r); background: var(--bg3); border-left: 3px solid; }
+.nov-item.bloqueo { border-left-color: var(--red); }
+.nov-item.observacion { border-left-color: var(--amber); }
+.nov-item.avance { border-left-color: var(--green); }
+.nov-meta { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; margin-bottom: 4px; }
+.nov-desc { font-size: 14px; color: var(--text); }
+.nov-tarea { font-size: 11px; color: var(--text3); margin-top: 3px; }
+
+/* AI box */
+.ai-box {
+  background: var(--bg3); border: 0.5px solid var(--border);
+  border-radius: var(--r); padding: 1rem; font-size: 13px; line-height: 1.7;
+  color: var(--text); white-space: pre-wrap; min-height: 80px;
+}
+.ai-loading { color: var(--text3); font-style: italic; }
+
+/* Filters row */
+.filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: .75rem; align-items: flex-end; }
+.filters .field { margin-bottom: 0; }
+.filters select, .filters input[type=date] {
+  background: var(--bg3); border: 0.5px solid var(--border2);
+  border-radius: var(--r); color: var(--text); font-family: var(--sans); font-size: 12px;
+  padding: 7px 10px; appearance: none;
+}
+
+/* Checkbox */
+input[type=checkbox] { width: 16px; height: 16px; accent-color: var(--accent); flex-shrink: 0; margin-top: 2px; cursor: pointer; }
+
+/* Msg inline */
+.msg { font-size: 11px; font-family: var(--mono); }
+.msg-ok { color: var(--green); }
+.msg-err { color: var(--red); }
+
+/* Loader dot */
+.dot-loader::after { content: '...'; animation: dots 1.2s steps(4,end) infinite; }
+@keyframes dots { 0%,100%{content:'.'} 33%{content:'..'} 66%{content:'...'} }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+/* Mobile tweaks */
+@media(max-width:420px) {
+  .stats { grid-template-columns: repeat(2,1fr); }
+  .grid2 { grid-template-columns: 1fr; }
+  .stat-v { font-size: 18px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== SETUP SCREEN ===== -->
+<div id="setup-screen">
+  <div style="margin-bottom:1.5rem">
+  <svg width="210" height="52" viewBox="0 0 210 52" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="28"  cy="26" r="10" fill="#E05555" opacity="0.9"/>
+    <circle cx="42"  cy="26" r="14" fill="#e8c84a" opacity="0.9"/>
+    <circle cx="61"  cy="26" r="19" fill="#4CAF7D" opacity="0.9"/>
+    <text x="88" y="30" font-family="Barlow,sans-serif" font-size="34" font-weight="700" fill="#e8c84a" dominant-baseline="middle" id="pulze-text-setup">Pulze</text>
+  </svg>
+</div>
+  <div class="setup-title">COMISIONAMIENTO ARDEMAX</div>
+  <div class="setup-sub">Agile Project Management</div>
+  <div class="setup-card">
+    <div style="margin-bottom:1rem">
+      <div onclick="toggleConfig()" style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;padding:8px 0;border-bottom:0.5px solid var(--border)">
+        <span style="font-size:11px;font-family:var(--mono);color:var(--text2);text-transform:uppercase;letter-spacing:.08em">Configuración de conexión</span>
+        <span id="cfg-arrow" style="font-size:14px;color:var(--text2);transition:transform .2s">▼</span>
+      </div>
+      <div id="cfg-fields" style="display:none;padding-top:10px">
+        <label class="setup-label">URL del Apps Script (Google Sheets)</label>
+        <input class="setup-input" id="cfg-url" type="url" placeholder="https://script.google.com/macros/s/..."/>
+        <label class="setup-label">API Key de Claude (Anthropic)</label>
+        <input class="setup-input" id="cfg-key" type="password" placeholder="sk-ant-..."/>
+      </div>
+    </div>
+    <label class="setup-label">Mi perfil</label>
+    <select class="setup-select" id="cfg-perfil">
+      <option value="">Conecta primero para cargar perfiles...</option>
+    </select>
+    <label class="setup-label">PIN de acceso</label>
+    <input class="setup-input" id="cfg-pin" type="password" inputmode="numeric" maxlength="4" placeholder="4 dígitos"/>
+    <div style="display:flex;gap:8px;margin-bottom:1rem">
+      <button class="btn" style="flex:1" onclick="cargarPerfiles()">Cargar perfiles</button>
+      <button class="btn btn-primary" style="flex:2;background:#4CAF7D;color:#0f1117;border-color:#4CAF7D" onclick="iniciarApp()">Ingresar</button>
+    </div>
+    <div class="setup-err" id="setup-err"></div>
+    <div style="font-size:11px;color:var(--text3);margin-top:.5rem;line-height:1.6">
+      La URL y el perfil se guardan en este dispositivo. Solo debes configurarlo una vez.
+    </div>
+  </div>
+</div>
+
+<!-- ===== MAIN APP ===== -->
+<div id="app">
+  <header class="app-header">
+    <div class="app-logo">COMISIONAMIENTO ARDEMAX</div>
+    <div style="display:flex;align-items:center;gap:12px">
+      <span id="last-update" style="font-size:10px;color:var(--text3);display:none"></span>
+      <button onclick="recargar()" title="Actualizar datos" style="background:none;border:none;cursor:pointer;padding:4px;color:var(--text2);font-size:16px">↻</button>
+      <button onclick="toggleTheme()" id="theme-btn" style="background:none;border:none;cursor:pointer;padding:4px;display:flex;align-items:center;color:var(--text2);font-size:18px" title="Cambiar tema">
+        <span id="theme-icon">☀</span>
+      </button>
+      <div class="app-user">
+        <div class="user-dot"></div>
+        <span id="hdr-user">—</span>
+      </div>
+      <svg width="106" height="34" viewBox="0 0 106 34" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="8"  cy="17" r="7"  fill="#E05555" opacity="0.9"/>
+        <circle cx="18" cy="17" r="9"  fill="#e8c84a" opacity="0.9"/>
+        <circle cx="31" cy="17" r="12" fill="#4CAF7D" opacity="0.9"/>
+        <text x="47" y="20" font-family="Barlow,sans-serif" font-size="19" font-weight="700" fill="#e8c84a" dominant-baseline="middle" id="pulze-text">Pulze</text>
+      </svg>
+    </div>
+  </header>
+
+  <nav class="app-nav">
+    <button class="nav-tab active" onclick="go('dia')">Mi día</button>
+    <button class="nav-tab" id="ntab-prog" onclick="go('prog')">Programa</button>
+    <button class="nav-tab" onclick="go('nov')">Novedades</button>
+    <button class="nav-tab" id="ntab-sem" onclick="go('sem')">Consolidado</button>
+    <button class="nav-tab" id="ntab-agente" onclick="go('agente')">Agente</button>
+    <button class="nav-tab" id="ntab-bsc" onclick="go('bsc')">BSC</button>
+    <button class="nav-tab" onclick="cerrarSesion()">Salir</button>
+  </nav>
+
+  <main class="app-content">
+
+    <!-- MI DÍA -->
+    <div id="s-dia" class="section active">
+      <div class="filters">
+        <div class="field">
+          <label>Fecha</label>
+          <input type="date" id="d-fecha" onchange="renderDia()"/>
+        </div>
+        <div class="field">
+          <label>Área</label>
+          <select id="d-area" onchange="renderDia()" style="width:auto;font-size:14px">
+            <option value="">Todas</option>
+            <option value="verde">Área verde</option>
+            <option value="seca">Área seca</option>
+            <option value="caldera">Caldera/ORC</option>
+          </select>
+        </div>
+        <button class="btn btn-sm" onclick="recargar()">↻ Actualizar</button>
+      </div>
+      <div class="stats" id="dia-filter-btns">
+        <div class="stat" id="sf-done" style="border-left:9px solid #4caf7d;padding:.4rem .5rem;cursor:pointer" onclick="setDiaFilter('completada')"><div class="stat-v" id="sd-done" style="color:#4caf7d;font-size:24px">—</div><div class="stat-l">Completadas</div></div>
+        <div class="stat" id="sf-proc" style="border-left:9px solid #e8943a;padding:.4rem .5rem;cursor:pointer" onclick="setDiaFilter('proceso')"><div class="stat-v" id="sd-tot" style="color:#e8943a;font-size:24px">—</div><div class="stat-l">En proceso</div></div>
+        <div class="stat" id="sf-risk" style="border-left:9px solid #e05555;padding:.4rem .5rem;cursor:pointer" onclick="setDiaFilter('atrasada')"><div class="stat-v" id="sd-risk" style="color:#e05555;font-size:24px">—</div><div class="stat-l">Atrasadas</div></div>
+        <div class="stat" id="sf-nov" style="border-left:9px solid #5a9fd4;padding:.4rem .5rem;cursor:pointer" onclick="setDiaFilter('novedades')"><div class="stat-v" id="sd-nov" style="color:#5a9fd4;font-size:24px">—</div><div class="stat-l">Novedades</div></div>
+      </div>
+      <div class="card"><div id="dia-list"><span class="ai-loading">Cargando tareas...</span></div></div>
+    </div>
+
+    <!-- PROGRAMA -->
+    <div id="s-prog" class="section">
+      <div id="form-nueva-tarea" class="card" style="display:none">
+        <div class="card-title">Nueva tarea</div>
+        <div class="field"><label>Descripción</label><input type="text" id="t-desc" placeholder="Ej: Montaje sección hogar caldera"/></div>
+        <div class="grid2">
+          <div class="field"><label>Disciplina</label>
+            <select id="t-disc" style="min-height:44px;font-size:14px">
+              <option value="mecanico">Mecánico</option>
+              <option value="electrocontrol">Electrocontrol</option>
+              <option value="civil">Civil</option>
+              <option value="procesos">Procesos</option>
+            </select>
+          </div>
+          <div class="field"><label>Área</label>
+            <select id="t-area" style="min-height:44px;font-size:14px">
+              <option value="verde">Área verde</option>
+              <option value="seca">Área seca</option>
+              <option value="caldera">Caldera/ORC</option>
+            </select>
+          </div>
+          <div class="field"><label>Contratista</label>
+            <select id="t-contra" style="min-height:44px;font-size:14px">
+              <option value="">Selecciona contratista...</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Líder responsable</label>
+            <select id="t-lider" style="min-height:44px;font-size:14px">
+              <option value="">Selecciona un líder...</option>
+            </select>
+          </div>
+          <div class="field"><label>Inicio</label><input type="date" id="t-ini"/></div>
+          <div class="field"><label>Término</label><input type="date" id="t-fin"/></div>
+          <div class="field"><label>Prioridad</label>
+            <select id="t-prio" style="min-height:44px;font-size:14px">
+              <option value="alta">Alta</option>
+              <option value="media">Media</option>
+              <option value="baja">Baja</option>
+            </select>
+          </div>
+        </div>
+        <div class="field"><label>Observaciones técnicas</label><textarea id="t-obs" placeholder="Materiales, prerequisitos, condicionantes..."></textarea></div>
+        <div class="btn-row">
+          <button class="btn btn-accent" onclick="crearTarea()">Guardar en Sheets</button>
+          <span class="msg" id="t-msg"></span>
+        </div>
+      </div>
+      <div class="filters">
+        <div class="field"><label>Disciplina</label>
+          <select id="f-disc" onchange="renderProg()" style="width:auto">
+            <option value="">Todas</option>
+            <option value="mecanico">Mecánico</option>
+            <option value="electrocontrol">Electrocontrol</option>
+            <option value="civil">Civil</option>
+            <option value="procesos">Procesos</option>
+          </select>
+        </div>
+        <div class="field"><label>Área</label>
+          <select id="f-area" onchange="renderProg()" style="width:auto">
+            <option value="">Todas</option>
+            <option value="verde">Verde</option>
+            <option value="seca">Seca</option>
+            <option value="caldera">Caldera</option>
+          </select>
+        </div>
+        <button class="btn btn-sm" onclick="recargar()">↻ Actualizar</button>
+      </div>
+      <div class="stats" style="margin-bottom:.75rem" id="prog-filter-btns">
+        <div class="stat" id="pf-done" style="border-left:9px solid #4caf7d;padding:.4rem .5rem;cursor:pointer" onclick="setProgFilter('completada')"><div class="stat-v" id="sp-done" style="color:#4caf7d;font-size:24px">—</div><div class="stat-l">Completadas</div></div>
+        <div class="stat" id="pf-proc" style="border-left:9px solid #e8943a;padding:.4rem .5rem;cursor:pointer" onclick="setProgFilter('proceso')"><div class="stat-v" id="sp-proc" style="color:#e8943a;font-size:24px">—</div><div class="stat-l">En proceso</div></div>
+        <div class="stat" id="pf-risk" style="border-left:9px solid #e05555;padding:.4rem .5rem;cursor:pointer" onclick="setProgFilter('atrasada')"><div class="stat-v" id="sp-risk" style="color:#e05555;font-size:24px">—</div><div class="stat-l">Atrasadas</div></div>
+        <div class="stat" id="pf-nov" style="border-left:9px solid #5a9fd4;padding:.4rem .5rem;cursor:pointer" onclick="setProgFilter('novedades')"><div class="stat-v" id="sp-nov" style="color:#5a9fd4;font-size:24px">—</div><div class="stat-l">Novedades</div></div>
+      </div>
+      <div class="card"><div id="prog-list"><span class="ai-loading">Cargando programa...</span></div></div>
+    </div>
+
+    <!-- NOVEDADES -->
+    <div id="s-nov" class="section">
+      <div class="card">
+        <div class="card-title">Registrar novedad de turno</div>
+        <div class="grid2">
+          <div class="field"><label>Área</label>
+            <select id="n-area">
+              <option value="verde">Área verde</option>
+              <option value="seca">Área seca</option>
+              <option value="caldera">Caldera/ORC</option>
+            </select>
+          </div>
+          <div class="field"><label>Turno</label>
+            <select id="n-turno">
+              <option value="mañana">Mañana</option>
+              <option value="tarde">Tarde</option>
+              <option value="noche">Noche</option>
+            </select>
+          </div>
+          <div class="field" style="position:relative">
+        <label>Tarea relacionada</label>
+        <input type="text" id="n-tarea-search" placeholder="Escribe para buscar tarea..." autocomplete="off" oninput="filtrarTareas(this.value)" onfocus="filtrarTareas(this.value)"/>
+        <input type="hidden" id="n-tid"/>
+        <div id="n-tarea-dropdown" style="display:none;position:absolute;top:100%;left:0;right:0;background:var(--bg2);border:0.5px solid var(--border2);border-radius:var(--r);z-index:200;max-height:200px;overflow-y:auto;margin-top:2px"></div>
+      </div>
+          <div class="field"><label>Tipo</label>
+            <select id="n-tipo">
+              <option value="bloqueo">Obstáculo / Bloqueo</option>
+              <option value="observacion">Observación</option>
+              <option value="avance">Avance positivo</option>
+            </select>
+          </div>
+        </div>
+        <div class="field"><label>Descripción</label><textarea id="n-desc" placeholder="Describe el obstáculo, observación o avance..."></textarea></div>
+        <div class="btn-row">
+          <button class="btn btn-accent" onclick="registrarNovedad()">Guardar en Sheets</button>
+          <span class="msg" id="n-msg"></span>
+        </div>
+      </div>
+      <div class="filters">
+        <div class="field"><label>Filtrar área</label>
+          <select id="fn-area" onchange="renderNovs()" style="width:auto">
+            <option value="">Todas</option>
+            <option value="verde">Verde</option>
+            <option value="seca">Seca</option>
+            <option value="caldera">Caldera</option>
+          </select>
+        </div>
+        <div class="field"><label>Estado</label>
+          <select id="fn-res" onchange="renderNovs()" style="width:auto">
+            <option value="">Todas</option>
+            <option value="no">Sin resolver</option>
+            <option value="si">Resueltas</option>
+          </select>
+        </div>
+        <button class="btn btn-sm" onclick="recargar()">↻ Actualizar</button>
+      </div>
+      <div class="card"><div id="nov-list"><span class="ai-loading">Cargando novedades...</span></div></div>
+    </div>
+
+    <!-- CONSOLIDADO -->
+    <div id="s-sem" class="section">
+      <div class="card">
+        <div class="card-title">Consolidado semanal — líderes</div>
+        <div class="filters" style="margin-bottom:.75rem">
+          <div class="field"><label>Semana desde</label><input type="date" id="sem-ini"/></div>
+          <button class="btn btn-accent" onclick="genSemana()">Generar con IA</button>
+          <button class="btn btn-sm" onclick="recargar()">↻ Actualizar datos</button>
+        </div>
+        <div class="ai-box" id="sem-box"><span class="ai-loading">Selecciona una semana y genera el consolidado.</span></div>
+      </div>
+    </div>
+
+    <!-- AGENTE -->
+    <div id="s-agente" class="section">
+      <div class="card">
+        <div class="card-title">Consulta al agente</div>
+        <p style="font-size:12px;color:var(--text2);margin-bottom:10px;line-height:1.6">El agente lee en tiempo real desde tu Google Sheet. Pregunta sobre ruta crítica, riesgos, estado de contratistas o cualquier duda de coordinación.</p>
+        <div class="field"><textarea id="ag-q" placeholder="Ej: ¿Qué tareas del área caldera están en riesgo esta semana? / ¿Hay bloqueos sin resolver? / ¿Cuál es la ruta crítica mecánica?"></textarea></div>
+        <div class="btn-row">
+          <button class="btn btn-accent" onclick="askAgent()">Consultar</button>
+        </div>
+      </div>
+      <div class="card" id="ag-card" style="display:none">
+        <div class="card-title">Respuesta</div>
+        <div class="ai-box" id="ag-resp"></div>
+      </div>
+    </div>
+
+    <!-- BSC -->
+    <div id="s-bsc" class="section">
+      <div style="margin-bottom:1rem">
+        <div style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--text2);margin-bottom:4px">Balance Scorecard</div>
+        <div style="font-size:12px;color:var(--text3)">Dashboard de indicadores — Comisionamiento Ardemax</div>
+      </div>
+
+      <!-- KPI cards row 1 -->
+      <div class="stats" style="margin-bottom:.75rem">
+        <div class="stat" style="border-left:3px solid #4caf7d">
+          <div class="stat-v" id="bsc-avance" style="color:#4caf7d">—%</div>
+          <div class="stat-l">Avance general</div>
+        </div>
+        <div class="stat" style="border-left:3px solid #e8943a">
+          <div class="stat-v" id="bsc-proceso" style="color:#e8943a">—</div>
+          <div class="stat-l">En proceso</div>
+        </div>
+        <div class="stat" style="border-left:3px solid #e05555">
+          <div class="stat-v" id="bsc-atrasadas" style="color:#e05555">—</div>
+          <div class="stat-l">Atrasadas</div>
+        </div>
+        <div class="stat" style="border-left:3px solid #5a9fd4">
+          <div class="stat-v" id="bsc-bloqueados" style="color:#5a9fd4">—</div>
+          <div class="stat-l">Bloqueos activos</div>
+        </div>
+      </div>
+
+      <!-- KPI cards row 2 -->
+      <div class="stats" style="margin-bottom:1rem">
+        <div class="stat" style="border-left:3px solid #4caf7d">
+          <div class="stat-v" id="bsc-completadas" style="color:#4caf7d">—</div>
+          <div class="stat-l">Completadas</div>
+        </div>
+        <div class="stat" style="border-left:3px solid #c8c8c0">
+          <div class="stat-v" id="bsc-total" style="color:#c8c8c0">—</div>
+          <div class="stat-l">Total tareas</div>
+        </div>
+        <div class="stat" style="border-left:3px solid #e8c84a">
+          <div class="stat-v" id="bsc-novedades" style="color:#e8c84a">—</div>
+          <div class="stat-l">Novedades totales</div>
+        </div>
+        <div class="stat" style="border-left:3px solid #e05555">
+          <div class="stat-v" id="bsc-sin-resolver" style="color:#e05555">—</div>
+          <div class="stat-l">Sin resolver</div>
+        </div>
+      </div>
+
+      <!-- Avance por área -->
+      <div class="card" style="margin-bottom:.75rem">
+        <div class="card-title">Avance por área</div>
+        <div id="bsc-areas"></div>
+      </div>
+
+      <!-- Avance por disciplina -->
+      <div class="card" style="margin-bottom:.75rem">
+        <div class="card-title">Avance por disciplina</div>
+        <div id="bsc-disciplinas"></div>
+      </div>
+
+      <!-- Novedades por tipo -->
+      <div class="card">
+        <div class="card-title">Novedades por tipo</div>
+        <div id="bsc-nov-tipos"></div>
+      </div>
+
+      <div style="text-align:right;margin-top:.5rem">
+        <button class="btn btn-sm" onclick="renderBSC()">↻ Actualizar</button>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+// ---- STATE ----
+let datos = { tareas: [], novedades: [], equipo: [] };
+let cfg = { url: '', key: '', perfilId: '' };
+let miPerfil = null;
+
+const DN = { mecanico:'Mecánico', electrocontrol:'Electrocontrol', civil:'Civil', procesos:'Procesos' };
+const AN = { verde:'Área verde', seca:'Área seca', caldera:'Caldera/ORC' };
+const DB = { mecanico:'b-mec', electrocontrol:'b-elec', civil:'b-civ', procesos:'b-proc' };
+const AB = { verde:'b-verde', seca:'b-seca', caldera:'b-caldera' };
+const TN = { bloqueo:'Obstáculo', observacion:'Observación', avance:'Avance' };
+
+const hoy = () => new Date().toISOString().slice(0,10);
+
+// ---- INIT ----
+(async function init() {
+  const saved = localStorage.getItem('ardemax_cfg');
+  if (saved) {
+    try {
+      cfg = JSON.parse(saved);
+      document.getElementById('cfg-url').value = cfg.url || '';
+      document.getElementById('cfg-key').value = cfg.key || '';
+      if (cfg.url) cargarPerfiles(true);
+    } catch(e) {}
+  } else {
+    // No config saved — auto expand config fields
+    toggleConfig();
+  }
+  registrarServiceWorker();
+aplicarTema();
+document.getElementById('d-fecha').value = hoy();
+
+// Auto-refresh every 60 seconds
+setInterval(async () => {
+  if (cfg.url && miPerfil) {
+    await recargar();
+    const el = document.getElementById('last-update');
+    if (el) el.textContent = 'Actualizado ' + new Date().toLocaleTimeString('es-CL', {hour:'2-digit',minute:'2-digit'});
+  }
+}, 60000);
+  document.getElementById('sem-ini').value = hoy();
+})();
+
+async function cargarPerfiles(silencioso) {
+  const url = document.getElementById('cfg-url').value.trim();
+  if (!url) { showErr('Pega la URL del Apps Script primero'); return; }
+  try {
+    const res = await apiGet({ accion: 'leer_equipo' }, url);
+    const sel = document.getElementById('cfg-perfil');
+    sel.innerHTML = '<option value="">Selecciona tu nombre...</option>' +
+      (res.equipo || []).map(p =>
+        `<option value="${p.id}">${p.nombre} — ${p.capa === 'lider' ? 'Líder' : 'Supervisor'}</option>`
+      ).join('');
+    if (cfg.perfilId) sel.value = cfg.perfilId;
+    if (!silencioso) hideErr();
+  } catch(e) { if (!silencioso) showErr('Error conectando: ' + e.message); }
+}
+
+async function iniciarApp() {
+  const url = document.getElementById('cfg-url').value.trim();
+  const key = document.getElementById('cfg-key').value.trim();
+  const pid = document.getElementById('cfg-perfil').value;
+  const pin = document.getElementById('cfg-pin').value.trim();
+  if (!url) { showErr('Falta la URL del Apps Script'); return; }
+  if (!key) { showErr('Falta la API key de Claude'); return; }
+  if (!pid) { showErr('Selecciona tu perfil'); return; }
+  if (!pin) { showErr('Ingresa tu PIN de acceso'); return; }
+  cfg = { url, key, perfilId: pid };
+  try {
+    const res = await apiGet({ accion: 'leer_todo' }, url);
+    datos = res;
+    const perfil = datos.equipo.find(p => p.id === pid);
+    if (!perfil) { showErr('Perfil no encontrado'); return; }
+    if (perfil.pin && perfil.pin.toString() !== pin) {
+      showErr('PIN incorrecto'); return;
+    }
+    miPerfil = perfil;
+    localStorage.setItem('ardemax_cfg', JSON.stringify(cfg));
+    mostrarApp();
+  } catch(e) { showErr('No se pudo conectar: ' + e.message); }
+}
+
+function renderBSC() {
+  const t = datos.tareas;
+  const n = datos.novedades;
+  const total = t.length;
+  const completadas = t.filter(x => x.estado === 'completada').length;
+  const atrasadas = t.filter(x => x.fecha_fin && parseFecha(x.fecha_fin) < hoy() && x.estado !== 'completada').length;
+  const enProceso = t.filter(x => x.estado !== 'completada' && !(x.fecha_fin && parseFecha(x.fecha_fin) < hoy())).length;
+  const bloqueados = n.filter(x => x.tipo === 'bloqueo' && x.resuelto === 'no').length;
+  const sinResolver = n.filter(x => x.resuelto === 'no').length;
+  const avance = total > 0 ? Math.round(completadas / total * 100) : 0;
+
+  const set = (id, val) => { const el = document.getElementById(id); if(el) el.textContent = val; };
+  set('bsc-avance', avance + '%');
+  set('bsc-proceso', enProceso);
+  set('bsc-atrasadas', atrasadas);
+  set('bsc-bloqueados', bloqueados);
+  set('bsc-completadas', completadas);
+  set('bsc-total', total);
+  set('bsc-novedades', n.length);
+  set('bsc-sin-resolver', sinResolver);
+
+  // Avance por área
+  const areas = ['verde','seca','caldera'];
+  const areaNombres = {verde:'Área verde', seca:'Área seca', caldera:'Caldera/ORC'};
+  const areaColores = {verde:'#4caf7d', seca:'#e8943a', caldera:'#5a9fd4'};
+  const elAreas = document.getElementById('bsc-areas');
+  if (elAreas) {
+    elAreas.innerHTML = areas.map(a => {
+      const at = t.filter(x => x.area === a);
+      const ac = at.filter(x => x.estado === 'completada').length;
+      const pct = at.length > 0 ? Math.round(ac / at.length * 100) : 0;
+      return `<div style="margin-bottom:12px">
+        <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px">
+          <span style="color:var(--text)">${areaNombres[a]}</span>
+          <span style="color:var(--text2)">${ac}/${at.length} — ${pct}%</span>
+        </div>
+        <div style="background:var(--bg3);border-radius:4px;height:8px;overflow:hidden">
+          <div style="width:${pct}%;height:100%;background:${areaColores[a]};border-radius:4px;transition:width .5s"></div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  // Avance por disciplina
+  const discs = ['mecanico','electrocontrol','civil','procesos'];
+  const discNombres = {mecanico:'Mecánico', electrocontrol:'Electrocontrol', civil:'Civil', procesos:'Procesos'};
+  const discColores = {mecanico:'#AFA9EC', electrocontrol:'#e8943a', civil:'#4caf7d', procesos:'#5a9fd4'};
+  const elDiscs = document.getElementById('bsc-disciplinas');
+  if (elDiscs) {
+    elDiscs.innerHTML = discs.map(d => {
+      const dt = t.filter(x => x.disciplina === d);
+      const dc = dt.filter(x => x.estado === 'completada').length;
+      const pct = dt.length > 0 ? Math.round(dc / dt.length * 100) : 0;
+      return `<div style="margin-bottom:12px">
+        <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px">
+          <span style="color:var(--text)">${discNombres[d]}</span>
+          <span style="color:var(--text2)">${dc}/${dt.length} — ${pct}%</span>
+        </div>
+        <div style="background:var(--bg3);border-radius:4px;height:8px;overflow:hidden">
+          <div style="width:${pct}%;height:100%;background:${discColores[d]};border-radius:4px;transition:width .5s"></div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  // Novedades por tipo
+  const tipos = ['bloqueo','observacion','avance'];
+  const tipoNombres = {bloqueo:'Obstáculos', observacion:'Observaciones', avance:'Avances'};
+  const tipoColores = {bloqueo:'#e05555', observacion:'#e8943a', avance:'#4caf7d'};
+  const elTipos = document.getElementById('bsc-nov-tipos');
+  if (elTipos) {
+    const maxNov = Math.max(...tipos.map(tp => n.filter(x => x.tipo === tp).length), 1);
+    elTipos.innerHTML = tipos.map(tp => {
+      const cnt = n.filter(x => x.tipo === tp).length;
+      const res = n.filter(x => x.tipo === tp && x.resuelto === 'si').length;
+      const pct = Math.round(cnt / maxNov * 100);
+      return `<div style="margin-bottom:12px">
+        <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px">
+          <span style="color:var(--text)">${tipoNombres[tp]}</span>
+          <span style="color:var(--text2)">${cnt} total · ${res} resueltas</span>
+        </div>
+        <div style="background:var(--bg3);border-radius:4px;height:8px;overflow:hidden">
+          <div style="width:${pct}%;height:100%;background:${tipoColores[tp]};border-radius:4px;transition:width .5s"></div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+}
+
+const VAPID_PUBLIC_KEY = 'BPKGuBllcTBO__bjUp_QLnXOhX-7U4QHiuJuGgv4-UD5ABzcuwe8ruteDljMZSJX6wg3YDxPe319VEejb9Wa6iY';
+
+async function suscribirNotificaciones() {
+  if (!('serviceWorker' in navigator) || !('PushManager' in window)) return;
+  if (!miPerfil || miPerfil.capa !== 'lider') return;
+  try {
+    const reg = await navigator.serviceWorker.ready;
+    const existing = await reg.pushManager.getSubscription();
+    const sub = existing || await reg.pushManager.subscribe({
+      userVisibleOnly: true,
+      applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY)
+    });
+    await fetch('/api/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        perfilId: miPerfil.id,
+        nombre: miPerfil.nombre,
+        disciplina: miPerfil.disciplina || '',
+        capa: miPerfil.capa,
+        subscription: sub
+      })
+    });
+  } catch(e) { console.log('Push subscription error:', e.message); }
+}
+
+function urlBase64ToUint8Array(base64String) {
+  const padding = '='.repeat((4 - base64String.length % 4) % 4);
+  const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
+  const rawData = window.atob(base64);
+  return Uint8Array.from([...rawData].map(c => c.charCodeAt(0)));
+}
+
+async function notificarNuevaTarea(id, descripcion, area, supervisores, disciplina) {
+  try {
+    await fetch('/api/notify-tarea', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id, descripcion, area, supervisores, disciplina })
+    });
+  } catch(e) { console.log('Notify tarea error:', e.message); }
+}
+
+async function notificarBloqueo(disciplina, area, descripcion, supervisor) {
+  try {
+    await fetch('/api/notify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ disciplina, area, descripcion, supervisor })
+    });
+  } catch(e) { console.log('Notify error:', e.message); }
+}
+
+function toggleConfig() {
+  const fields = document.getElementById('cfg-fields');
+  const arrow = document.getElementById('cfg-arrow');
+  const visible = fields.style.display !== 'none';
+  fields.style.display = visible ? 'none' : 'block';
+  arrow.style.transform = visible ? '' : 'rotate(180deg)';
+}
+
+function poblarDropdowns() {
+  const selLider = document.getElementById('t-lider');
+  if (selLider) {
+    const lideres = datos.equipo.filter(p => p.capa === 'lider');
+    selLider.innerHTML = '<option value="">Selecciona un líder...</option>' +
+      lideres.map(p => `<option value="${p.nombre}">${p.nombre} — ${p.disciplina ? DN[p.disciplina]||p.disciplina : p.rol||''}</option>`).join('');
+  }
+  const selContra = document.getElementById('t-contra');
+  if (selContra) {
+    const contras = (datos.contratistas || []).filter(c => c.activo === 'si');
+    selContra.innerHTML = '<option value="">Selecciona contratista...</option>' +
+      contras.map(c => `<option value="${c.nombre}">${c.nombre}${c.especialidades ? ' — ' + c.especialidades : ''}</option>`).join('');
+  }
+}
+
+async function toggleTheme() {
+  const isLight = document.body.classList.toggle('theme-light');
+  document.getElementById('theme-icon').textContent = isLight ? '☾' : '☀';
+  localStorage.setItem('ardemax_theme', isLight ? 'light' : 'dark');
+}
+
+function aplicarTema() {
+  const saved = localStorage.getItem('ardemax_theme');
+  if (saved === 'light') {
+    document.body.classList.add('theme-light');
+    const icon = document.getElementById('theme-icon');
+    if (icon) icon.textContent = '☾';
+  }
+}
+
+async function registrarServiceWorker() {
+  if (!('serviceWorker' in navigator)) return;
+  try {
+    await navigator.serviceWorker.register('/sw.js');
+  } catch(e) { console.log('SW error:', e.message); }
+}
+
+function mostrarApp() {
+  document.getElementById('setup-screen').style.display = 'none';
+  const app = document.getElementById('app');
+  app.style.display = 'flex';
+  document.getElementById('hdr-user').textContent = miPerfil ? miPerfil.nombre.split(' ')[0] : '—';
+  const luEl = document.getElementById('last-update');
+  if (luEl) { luEl.style.display = 'inline'; luEl.textContent = 'Actualizado ' + new Date().toLocaleTimeString('es-CL', {hour:'2-digit',minute:'2-digit'}); }
+  const esLider = miPerfil && miPerfil.capa === 'lider';
+  document.getElementById('form-nueva-tarea').style.display = esLider ? 'block' : 'none';
+  document.getElementById('ntab-prog').textContent = 'Programa';
+  document.getElementById('ntab-sem').style.display = esLider ? '' : 'none';
+  document.getElementById('ntab-agente').style.display = esLider ? '' : 'none';
+  document.getElementById('ntab-bsc').style.display = esLider ? '' : 'none';
+  if (miPerfil && miPerfil.area) document.getElementById('d-area').value = miPerfil.area;
+  // Poblar desplegable de líderes en formulario de tarea
+  poblarDropdowns();
+  // Solicitar permiso de notificaciones a líderes
+  if (miPerfil && miPerfil.capa === 'lider') {
+    if (Notification.permission === 'default') {
+      setTimeout(() => {
+        Notification.requestPermission().then(p => {
+          if (p === 'granted') suscribirNotificaciones();
+        });
+      }, 2000);
+    } else if (Notification.permission === 'granted') {
+      suscribirNotificaciones();
+    }
+  }
+  if (miPerfil && miPerfil.area) document.getElementById('n-area').value = miPerfil.area;
+  if (miPerfil && miPerfil.nombre) {}
+  renderDia(); renderProg(); renderNovs();
+}
+
+function cerrarSesion() {
+  localStorage.removeItem('ardemax_cfg');
+  location.reload();
+}
+
+function showErr(msg) {
+  const el = document.getElementById('setup-err');
+  el.textContent = msg; el.style.display = 'block';
+}
+function hideErr() {
+  document.getElementById('setup-err').style.display = 'none';
+}
+
+// ---- NAV ----
+function go(id) {
+  document.querySelectorAll('.nav-tab').forEach((t,i) =>
+    t.classList.toggle('active', ['dia','prog','nov','sem','agente','bsc','salir'][i] === id));
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById('s-' + id).classList.add('active');
+  if (id === 'dia') renderDia();
+  if (id === 'prog') { poblarDropdowns(); renderProg(); }
+  if (id === 'nov') renderNovs();
+  if (id === 'bsc') renderBSC();
+}
+
+// ---- API ----
+async function apiGet(params, urlOverride) {
+  if (urlOverride) {
+    // Durante setup: llamada directa para verificar URL
+    const url = urlOverride + '?' + new URLSearchParams(params).toString();
+    const r = await fetch(url);
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    return r.json();
+  }
+  // Durante uso normal: llamada via proxy Netlify
+  const url = '/api/sheets?' + new URLSearchParams(params).toString();
+  const r = await fetch(url);
+  if (!r.ok) throw new Error('HTTP ' + r.status);
+  return r.json();
+}
+
+async function apiPost(body) {
+  const r = await fetch('/api/sheets', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
+  });
+  return r.json();
+}
+
+async function recargar() {
+  try {
+    const res = await apiGet({ accion: 'leer_todo' });
+    datos = res;
+    poblarDropdowns();
+  // Solicitar permiso de notificaciones a líderes
+  if (miPerfil && miPerfil.capa === 'lider') {
+    if (Notification.permission === 'default') {
+      setTimeout(() => {
+        Notification.requestPermission().then(p => {
+          if (p === 'granted') suscribirNotificaciones();
+        });
+      }, 2000);
+    } else if (Notification.permission === 'granted') {
+      suscribirNotificaciones();
+    }
+  }
+    renderDia(); renderProg(); renderNovs();
+  } catch(e) { console.error(e); }
+}
+
+// ---- RENDER DÍA ----
+let diaFiltro = null;
+let progFiltro = null;
+
+function setDiaFilter(f) {
+  diaFiltro = diaFiltro === f ? null : f;
+  ['sf-done','sf-proc','sf-risk','sf-nov'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.opacity = '1';
+  });
+  const mapa = {completada:'sf-done', proceso:'sf-proc', atrasada:'sf-risk', novedades:'sf-nov'};
+  if (diaFiltro) {
+    ['sf-done','sf-proc','sf-risk','sf-nov'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.style.opacity = id === mapa[diaFiltro] ? '1' : '0.35';
+    });
+  }
+  renderDia();
+}
+
+function setProgFilter(f) {
+  progFiltro = progFiltro === f ? null : f;
+  ['pf-done','pf-proc','pf-risk','pf-nov'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.opacity = '1';
+  });
+  const mapa = {completada:'pf-done', proceso:'pf-proc', atrasada:'pf-risk', novedades:'pf-nov'};
+  if (progFiltro) {
+    ['pf-done','pf-proc','pf-risk','pf-nov'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.style.opacity = id === mapa[progFiltro] ? '1' : '0.35';
+    });
+  }
+  renderProg();
+}
+
+function aplicarFiltroDia(tareas, d) {
+  if (!diaFiltro) return tareas;
+  const cinco = new Date(); cinco.setDate(cinco.getDate() - 5);
+  const cincoStr = cinco.toISOString().slice(0,10);
+  if (diaFiltro === 'completada') return tareas.filter(t => t.estado === 'completada');
+  if (diaFiltro === 'proceso') return tareas.filter(t => t.estado !== 'completada' && !(t.fecha_fin && parseFecha(t.fecha_fin) < hoy()));
+  if (diaFiltro === 'atrasada') return tareas.filter(t => t.fecha_fin && parseFecha(t.fecha_fin) < hoy() && t.estado !== 'completada');
+  if (diaFiltro === 'novedades') return tareas.filter(t => datos.novedades.some(n => n.tarea_id.toString() === t.id.toString() && parseFecha(n.fecha) >= cincoStr));
+  return tareas;
+}
+
+function aplicarFiltroProg(tareas) {
+  if (!progFiltro) return tareas;
+  const cinco = new Date(); cinco.setDate(cinco.getDate() - 5);
+  const cincoStr = cinco.toISOString().slice(0,10);
+  if (progFiltro === 'completada') return tareas.filter(t => t.estado === 'completada');
+  if (progFiltro === 'proceso') return tareas.filter(t => t.estado !== 'completada' && !(t.fecha_fin && parseFecha(t.fecha_fin) < hoy()));
+  if (progFiltro === 'atrasada') return tareas.filter(t => t.fecha_fin && parseFecha(t.fecha_fin) < hoy() && t.estado !== 'completada');
+  if (progFiltro === 'novedades') return tareas.filter(t => datos.novedades.some(n => n.tarea_id.toString() === t.id.toString() && parseFecha(n.fecha) >= cincoStr));
+  return tareas;
+}
+
+function puedeCompletar(tarea) {
+  if (!miPerfil || miPerfil.capa !== 'lider') return false;
+  if (miPerfil.disciplina === 'procesos') return true;
+  return miPerfil.disciplina === tarea.disciplina;
+}
+
+function enLista(lista, nombre) {
+  if (!lista || !nombre) return false;
+  return lista.split(',').map(n => n.trim().toLowerCase()).includes(nombre.trim().toLowerCase());
+}
+
+function parseFecha(f) {
+  if (!f) return null;
+  if (f.length > 12) {
+    const d = new Date(f);
+    if (!isNaN(d)) return d.toISOString().slice(0,10);
+  }
+  return f;
+}
+
+function fmtFecha(f) {
+  if (!f) return '?';
+  const iso = parseFecha(f);
+  if (!iso) return f;
+  const [y, m, d] = iso.split('-');
+  return d + '-' + m + '-' + y;
+}
+
+function isActiva(t, d) {
+  if (!t.fecha_inicio && !t.fecha_fin) return true;
+  const ini = parseFecha(t.fecha_inicio);
+  const fin = parseFecha(t.fecha_fin);
+  // Tarea activa en el rango de fechas
+  const enRango = (!ini || ini <= d) && (!fin || fin >= d);
+  // Tarea atrasada: venció antes de la fecha consultada y sigue pendiente
+  const atrasadaPendiente = fin && fin < d && t.estado !== 'completada';
+  return enRango || atrasadaPendiente;
+}
+
+function renderDia() {
+  const d = document.getElementById('d-fecha').value || hoy();
+  const fa = document.getElementById('d-area').value;
+  let ft = datos.tareas.filter(t => {
+    if (!isActiva(t, d)) return false;
+    if (fa && t.area !== fa) return false;
+    if (miPerfil && miPerfil.capa === 'lider' && miPerfil.disciplina !== 'procesos') {
+      if (t.disciplina !== miPerfil.disciplina) return false;
+    }
+    return true;
+  });
+  // Calcular contadores ANTES del filtro
+  const ftTodos = ft;
+  const novHoy = datos.novedades.filter(n => n.fecha === d && (!fa || n.area === fa));
+  const cinco = new Date(); cinco.setDate(cinco.getDate() - 5);
+  const cincoStr = cinco.toISOString().slice(0,10);
+  document.getElementById('sd-done').textContent = ftTodos.filter(t => t.estado === 'completada').length;
+  document.getElementById('sd-tot').textContent = ftTodos.filter(t => t.estado !== 'completada' && !(t.fecha_fin && parseFecha(t.fecha_fin) < hoy())).length;
+  document.getElementById('sd-risk').textContent = ftTodos.filter(t => t.fecha_fin && parseFecha(t.fecha_fin) < hoy() && t.estado !== 'completada').length;
+  document.getElementById('sd-nov').textContent = ftTodos.filter(t => datos.novedades.some(n => n.tarea_id.toString() === t.id.toString() && parseFecha(n.fecha) >= cincoStr)).length;
+  // Aplicar filtro para la lista
+  ft = aplicarFiltroDia(ft, d);
+  const el = document.getElementById('dia-list');
+  if (!ft.length) { el.innerHTML = '<span style="color:var(--text3);font-size:13px">Sin tareas activas para esta fecha.</span>'; return; }
+  const byArea = { verde: [], seca: [], caldera: [] };
+  ft.forEach(t => { if (byArea[t.area]) byArea[t.area].push(t); });
+  let html = '';
+  ['verde','seca','caldera'].forEach(a => {
+    if (!byArea[a].length) return;
+    html += `<div class="area-group"><div class="area-label">${AN[a]}</div>`;
+    html += byArea[a].map(t => {
+      const atrasada = t.fecha_fin && parseFecha(t.fecha_fin) < hoy() && t.estado !== 'completada';
+      const novT = datos.novedades.filter(n => n.tarea_id === t.id && n.fecha === d);
+      const esLider = miPerfil && miPerfil.capa === 'lider';
+      return `<div class="trow">
+        ${puedeCompletar(t) ? `
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;min-width:60px">
+          ${yaAproboPorMi(t) ?
+            `<button class="btn btn-sm" style="font-size:10px;color:var(--amber);border-color:var(--amber)" onclick="revertirAprobacion('${t.id}')">Revertir</button>` :
+            t.estado !== 'completada' ?
+            `<button class="btn btn-sm btn-accent" style="font-size:10px" onclick="aprobarTarea('${t.id}')">Aprobar</button>` : ''
+          }
+          <span style="font-size:10px;color:var(--text3)">${contarAprobaciones(t)}/2</span>
+        </div>` : ''}
+        <div class="trow-main">
+          <div class="trow-name ${t.estado==='completada'?'done':''}">${t.descripcion}</div>
+          <div class="trow-meta">
+            <span class="badge ${DB[t.disciplina]||'b-pend'}">${DN[t.disciplina]||t.disciplina}</span>
+            <span style="color:var(--text3)">${t.contratista||'—'}</span>
+            <span>hasta ${fmtFecha(t.fecha_fin)}</span>
+            ${t.estado==='completada'?'<span class="badge b-ok">completada</span>':atrasada?'<span class="badge b-risk">atrasada</span>':t.prioridad==='alta'?'<span class="badge b-warn">alta prioridad</span>':''}
+          </div>
+          <div class="trow-meta" style="margin-top:2px"><span style="color:var(--text3);font-size:11px">Líder: <b style="color:var(--text2)">${t.lider_responsable||'—'}</b></span></div>
+          <div style="margin-top:6px;display:flex;gap:6px;align-items:center">
+            ${novT.length ? `<span style="font-size:11px;color:var(--text3)">${novT.length} novedad(es) hoy</span>` : ''}
+            <button id="hist-btn-${t.id}" class="btn btn-sm" onclick="toggleHistorial('${t.id}')">Ver novedades</button>
+          </div>
+          <div id="hist-${t.id}" style="display:none;margin-top:8px">
+            ${renderHistorial('${t.id}')}
+          </div>
+        </div>
+      </div>`;
+    }).join('');
+    html += '</div>';
+  });
+  el.innerHTML = html;
+}
+
+// ---- RENDER PROGRAMA ----
+function renderProg() {
+  const fd = document.getElementById('f-disc').value;
+  const fa = document.getElementById('f-area').value;
+  let ft = datos.tareas.filter(t => (!fd||t.disciplina===fd) && (!fa||t.area===fa));
+
+  // Calcular contadores ANTES del filtro
+  const cincoP = new Date(); cincoP.setDate(cincoP.getDate() - 5);
+  const cincoStrP = cincoP.toISOString().slice(0,10);
+  const enProceso = ft.filter(t => t.estado !== 'completada' && !(t.fecha_fin && parseFecha(t.fecha_fin) < hoy())).length;
+  const completadas = ft.filter(t => t.estado === 'completada').length;
+  const atrasadas = ft.filter(t => t.fecha_fin && parseFecha(t.fecha_fin) < hoy() && t.estado !== 'completada').length;
+  const novCount = ft.filter(t => datos.novedades.some(n => n.tarea_id.toString() === t.id.toString() && parseFecha(n.fecha) >= cincoStrP)).length;
+  const spDone = document.getElementById('sp-done');
+  const spProc = document.getElementById('sp-proc');
+  const spRisk = document.getElementById('sp-risk');
+  const spNov  = document.getElementById('sp-nov');
+  if (spDone) spDone.textContent = completadas;
+  if (spProc) spProc.textContent = enProceso;
+  if (spRisk) spRisk.textContent = atrasadas;
+  if (spNov)  spNov.textContent  = novCount;
+
+  // Aplicar filtro para la lista
+  ft = aplicarFiltroProg(ft);
+  const el = document.getElementById('prog-list');
+  if (!ft.length) { el.innerHTML = '<span style="color:var(--text3);font-size:13px">Sin tareas para este filtro.</span>'; return; }
+  const esLider = miPerfil && miPerfil.capa === 'lider';
+
+  el.innerHTML = ft.map(t => {
+    const atrasada = t.fecha_fin && parseFecha(t.fecha_fin) < hoy() && t.estado !== 'completada';
+    const esLiderDueno = miPerfil && miPerfil.capa === 'lider' &&
+      enLista(t.lider_responsable, miPerfil.nombre);
+    return `<div class="trow">
+      <div class="trow-main">
+        <div class="trow-name">${t.descripcion}</div>
+        <div class="trow-meta">
+          <span class="badge ${DB[t.disciplina]||'b-pend'}">${DN[t.disciplina]||t.disciplina}</span>
+          <span class="badge ${AB[t.area]||'b-pend'}">${AN[t.area]||t.area}</span>
+          <span style="color:var(--text3)">${t.contratista||'—'}</span>
+          <span>${fmtFecha(t.fecha_inicio)} → ${fmtFecha(t.fecha_fin)}</span>
+          <span class="badge ${t.estado==='completada'?'b-ok':atrasada?'b-risk':'b-pend'}">${t.estado||'pendiente'}</span>
+        </div>
+        <div class="trow-meta" style="margin-top:3px">
+          <span style="color:var(--text3);font-size:11px">Líder: <b style="color:var(--text2)">${t.lider_responsable||'—'}</b></span>
+        </div>
+        ${t.observaciones?`<div class="trow-obs">${t.observaciones}</div>`:''}
+        <div style="margin-top:6px">
+          <button id="hist-btn-p-${t.id}" class="btn btn-sm" onclick="toggleHistorialProg('${t.id}')">Ver novedades</button>
+        </div>
+        <div id="hist-p-${t.id}" style="display:none;margin-top:8px">
+          ${renderHistorial('${t.id}')}
+        </div>
+      </div>
+      ${puedeCompletar(t) ? `
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;min-width:60px">
+          ${yaAproboPorMi(t) ?
+            `<button class="btn btn-sm" style="font-size:10px;color:var(--amber);border-color:var(--amber)" onclick="revertirAprobacion('${t.id}')">Revertir</button>` :
+            t.estado !== 'completada' ?
+            `<button class="btn btn-sm btn-accent" style="font-size:10px" onclick="aprobarTarea('${t.id}')">Aprobar</button>` : ''
+          }
+          <span style="font-size:10px;color:var(--text3)">${contarAprobaciones(t)}/2</span>
+        </div>` : ''}
+    </div>`;
+  }).join('');
+}
+
+// ---- RENDER NOVEDADES ----
+function renderNovs() {
+  const fa = document.getElementById('fn-area').value;
+  const fr = document.getElementById('fn-res').value;
+  let fn = datos.novedades.filter(n => (!fa||n.area===fa) && (!fr||n.resuelto===fr)).slice().reverse();
+  const el = document.getElementById('nov-list');
+  if (!fn.length) { el.innerHTML = '<span style="color:var(--text3);font-size:13px">Sin novedades para este filtro.</span>'; return; }
+  const esLider = miPerfil && miPerfil.capa === 'lider';
+  el.innerHTML = fn.map(n => {
+    const t = datos.tareas.find(x => x.id === n.tarea_id);
+    return `<div class="nov-item ${n.tipo}">
+      <div class="nov-meta">
+        <span class="badge ${AB[n.area]||'b-pend'}">${AN[n.area]||n.area}</span>
+        <span class="badge ${n.tipo==='bloqueo'?'b-risk':n.tipo==='observacion'?'b-warn':'b-ok'}">${TN[n.tipo]||n.tipo}</span>
+        <span style="font-size:11px;color:var(--text3)">${n.turno||''} · ${fmtFecha(n.fecha)} · ${n.supervisor||''}</span>
+        ${n.resuelto==='si'?'<span class="badge b-ok">resuelta</span>':'<span class="badge b-risk">sin resolver</span>'}
+        ${esLider && n.resuelto==='no' ? `<button class="btn btn-sm" onclick="resolverNov('${n.id}')">Resolver</button>` : ''}
+      </div>
+      <div class="nov-desc">${n.descripcion}</div>
+      ${t?`<div class="nov-tarea">Tarea: ${t.descripcion}</div>`:''}
+    </div>`;
+  }).join('');
+}
+
+// ---- ACCIONES ----
+async function crearTarea() {
+  const msg = document.getElementById('t-msg');
+  msg.textContent = 'Guardando…'; msg.className = 'msg';
+  try {
+    const res = await apiPost({ accion: 'crear_tarea', datos: {
+      descripcion: document.getElementById('t-desc').value,
+      disciplina: document.getElementById('t-disc').value,
+      area: document.getElementById('t-area').value,
+      contratista: document.getElementById('t-contra').value,
+      lider_responsable: document.getElementById('t-lider').value,
+      fecha_inicio: document.getElementById('t-ini').value,
+      fecha_fin: document.getElementById('t-fin').value,
+      prioridad: document.getElementById('t-prio').value,
+      observaciones: document.getElementById('t-obs').value
+    }});
+    if (res.ok) {
+      msg.textContent = '✓ Guardado (id ' + res.id + ')'; msg.className = 'msg msg-ok';
+      if (res.supervisores) {
+        await notificarNuevaTarea(res.id, document.getElementById('t-desc').value, document.getElementById('t-area').value, res.supervisores, res.disciplina);
+      }
+      document.getElementById('t-desc').value = '';
+      document.getElementById('t-obs').value = '';
+      document.getElementById('t-contra').value = '';
+      document.getElementById('t-lider').value = '';
+      document.getElementById('t-contra').value = '';
+      await recargar();
+    } else { msg.textContent = 'Error: ' + (res.error||'?'); msg.className = 'msg msg-err'; }
+  } catch(e) { msg.textContent = 'Error: ' + e.message; msg.className = 'msg msg-err'; }
+}
+
+async function completarTarea(id, completar) {
+  try {
+    await apiPost({ accion: 'actualizar_tarea', id, datos: { estado: completar ? 'completada' : 'pendiente' }});
+    await recargar();
+  } catch(e) { console.error(e); }
+}
+
+async function aprobarTarea(id) {
+  if (!miPerfil) return;
+  try {
+    const res = await apiPost({ accion: 'aprobar_tarea', id, lider: miPerfil.nombre });
+    if (res.ok) {
+      alert(res.mensaje);
+      await recargar();
+    } else {
+      alert(res.mensaje || 'Error al aprobar');
+    }
+  } catch(e) { console.error(e); }
+}
+
+async function revertirAprobacion(id) {
+  if (!miPerfil) return;
+  if (!confirm('¿Seguro que quieres revertir tu aprobación? La tarea volverá a pendiente.')) return;
+  try {
+    const res = await apiPost({ accion: 'revertir_aprobacion', id, lider: miPerfil.nombre });
+    if (res.ok) {
+      alert(res.mensaje);
+      await recargar();
+    } else {
+      alert(res.mensaje || 'Error al revertir');
+    }
+  } catch(e) { console.error(e); }
+}
+
+function yaAproboPorMi(tarea) {
+  if (!miPerfil || !tarea.aprobaciones) return false;
+  return tarea.aprobaciones.split(',').map(n => n.trim()).includes(miPerfil.nombre);
+}
+
+function contarAprobaciones(tarea) {
+  if (!tarea.aprobaciones || !tarea.aprobaciones.trim()) return 0;
+  return tarea.aprobaciones.split(',').filter(n => n.trim()).length;
+}
+
+function toggleHistorialProg(id) {
+  const el = document.getElementById('hist-p-' + id);
+  const btn = document.getElementById('hist-btn-p-' + id);
+  if (!el) return;
+  const visible = el.style.display !== 'none';
+  if (!visible) el.innerHTML = renderHistorial(id);
+  el.style.display = visible ? 'none' : 'block';
+  btn.textContent = visible ? 'Ver novedades' : 'Ocultar novedades';
+}
+
+function toggleHistorial(id) {
+  const el = document.getElementById('hist-' + id);
+  const btn = document.getElementById('hist-btn-' + id);
+  if (!el) return;
+  const visible = el.style.display !== 'none';
+  if (!visible) el.innerHTML = renderHistorial(id);
+  el.style.display = visible ? 'none' : 'block';
+  btn.textContent = visible ? 'Ver novedades' : 'Ocultar novedades';
+}
+
+function renderHistorial(tareaId) {
+  const novs = datos.novedades
+    .filter(n => n.tarea_id && tareaId && n.tarea_id.toString().trim() === tareaId.toString().trim())
+    .sort((a, b) => {
+      const fa = parseFecha(a.fecha_registro || a.fecha) || '';
+      const fb = parseFecha(b.fecha_registro || b.fecha) || '';
+      return fb.localeCompare(fa);
+    });
+  if (!novs.length) return '<div style="font-size:12px;color:var(--text3);padding:6px 0">Sin novedades registradas.</div>';
+  return novs.map(n => `
+    <div class="nov-item ${n.tipo}" style="margin-bottom:6px">
+      <div class="nov-meta">
+        <span class="badge ${n.tipo==='bloqueo'?'b-risk':n.tipo==='observacion'?'b-warn':'b-ok'}">${TN[n.tipo]||n.tipo}</span>
+        <span style="font-size:11px;color:var(--text3)">${n.turno||''} · ${fmtFecha(n.fecha)} · ${n.supervisor||''}</span>
+        ${n.resuelto==='si'?'<span class="badge b-ok">resuelta</span>':'<span class="badge b-risk">sin resolver</span>'}
+      </div>
+      <div style="font-size:13px;color:var(--text)">${n.descripcion}</div>
+    </div>`).join('');
+}
+
+function filtrarTareas(q) {
+  const drop = document.getElementById('n-tarea-dropdown');
+  const area = document.getElementById('n-area').value;
+  const esSupervisor = miPerfil && miPerfil.capa === 'supervisor';
+  const ft = datos.tareas.filter(t =>
+    (!q || q.length < 2 || t.descripcion.toLowerCase().includes(q.toLowerCase())) &&
+    (!area || t.area === area) &&
+    (!esSupervisor || enLista(t.supervisores, miPerfil.nombre))
+  ).slice(0, 15);
+  if (!ft.length) { drop.style.display = 'none'; return; }
+  drop.innerHTML = ft.map(t => `
+    <div onclick="seleccionarTarea('${t.id}','${t.descripcion.replace(/'/g,"\'")}')"
+      style="padding:9px 12px;font-size:13px;color:var(--text);cursor:pointer;border-bottom:0.5px solid var(--border)"
+      onmouseover="this.style.background='var(--bg3)'" onmouseout="this.style.background=''">
+      <div style="font-weight:500">${t.descripcion}</div>
+      <div style="font-size:11px;color:var(--text2);margin-top:2px">${t.contratista||'—'} · ${fmtFecha(t.fecha_fin)}</div>
+    </div>`).join('');
+  drop.style.display = 'block';
+}
+
+function seleccionarTarea(id, desc) {
+  document.getElementById('n-tid').value = id;
+  document.getElementById('n-tarea-search').value = desc;
+  document.getElementById('n-tarea-dropdown').style.display = 'none';
+}
+
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('#n-tarea-search') && !e.target.closest('#n-tarea-dropdown')) {
+    const drop = document.getElementById('n-tarea-dropdown');
+    if (drop) drop.style.display = 'none';
+  }
+});
+
+async function registrarNovedad() {
+  const msg = document.getElementById('n-msg');
+  const desc = document.getElementById('n-desc').value.trim();
+  if (!desc) { msg.textContent = 'Escribe una descripción'; msg.className = 'msg msg-err'; return; }
+  msg.textContent = 'Guardando…'; msg.className = 'msg';
+  try {
+    const res = await apiPost({ accion: 'registrar_novedad', datos: {
+      fecha: hoy(),
+      turno: document.getElementById('n-turno').value,
+      area: document.getElementById('n-area').value,
+      tarea_id: document.getElementById('n-tid').value,
+      tipo: document.getElementById('n-tipo').value,
+      descripcion: desc,
+      supervisor: miPerfil ? miPerfil.nombre : ''
+    }});
+    if (res.ok) {
+      msg.textContent = '✓ Novedad registrada'; msg.className = 'msg msg-ok';
+      // Notificar a líderes si es bloqueo
+      const tipoNov = document.getElementById('n-tipo').value;
+      if (tipoNov === 'bloqueo') {
+        const tareaId = document.getElementById('n-tid').value;
+        const tarea = datos.tareas.find(t => t.id && t.id.toString() === tareaId.toString());
+        await notificarBloqueo(
+          tarea ? tarea.disciplina : '',
+          document.getElementById('n-area').value,
+          document.getElementById('n-desc').value,
+          miPerfil ? miPerfil.nombre : 'Supervisor'
+        );
+      }
+      document.getElementById('n-desc').value = '';
+      document.getElementById('n-tid').value = '';
+      await recargar();
+    } else { msg.textContent = 'Error: ' + (res.error||'?'); msg.className = 'msg msg-err'; }
+  } catch(e) { msg.textContent = 'Error: ' + e.message; msg.className = 'msg msg-err'; }
+}
+
+async function resolverNov(id) {
+  try { await apiPost({ accion: 'resolver_novedad', id }); await recargar(); }
+  catch(e) { console.error(e); }
+}
+
+// ---- IA ----
+function buildCtx() {
+  return `Eres el agente de gestión de obra de una planta de pellet con caldera y turbina ORC en Chile.
+
+EQUIPO:
+- Líderes por disciplina: Mecánico, Electrocontrol, Civil, Procesos (cada uno con ingeniero especialista)
+- Supervisores por área: 2 en área verde, 2 en área seca, 2 en caldera/ORC
+
+PROGRAMA (${datos.tareas.length} tareas):
+${datos.tareas.map(t=>`[${(t.estado||'').toUpperCase()}] ID:${t.id} | ${t.descripcion} | ${DN[t.disciplina]||t.disciplina} | ${AN[t.area]||t.area} | ${t.contratista} | ${fmtFecha(t.fecha_inicio)}→${fmtFecha(t.fecha_fin)} | prio:${t.prioridad}`).join('\n')||'Sin tareas'}
+
+NOVEDADES (${datos.novedades.length}):
+${datos.novedades.map(n=>{const t=datos.tareas.find(x=>x.id===n.tarea_id);return `[${(n.tipo||'').toUpperCase()}${n.resuelto==='si'?'-RESUELTA':'-PENDIENTE'}] ${AN[n.area]||n.area} | ${n.turno} | ${fmtFecha(n.fecha)} | ${n.descripcion}${t?' | Tarea:'+t.descripcion:''}`}).join('\n')||'Sin novedades'}
+
+Fecha hoy: ${new Date().toLocaleDateString('es-CL')}
+Responde en español, directo y útil para jefatura de obra en terreno.`;
+}
+
+async function genSemana() {
+  const ws = document.getElementById('sem-ini').value;
+  const box = document.getElementById('sem-box');
+  box.innerHTML = '<span class="ai-loading dot-loader">Generando consolidado</span>';
+  const we = ws ? new Date(new Date(ws).getTime()+6*86400000).toISOString().slice(0,10) : '?';
+  try {
+    const r = await fetch('/api/claude', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 1200, system: buildCtx(),
+        messages: [{ role: 'user', content: `Consolidado semanal líderes, semana ${ws} al ${we}. Incluye: 1) Estado por disciplina, 2) Estado por área de terreno, 3) Obstáculos sin resolver, 4) Tareas en riesgo de atraso, 5) Recomendaciones para reunión semanal.` }]
+      })
+    });
+    const d = await r.json();
+    box.textContent = d.content?.[0]?.text || 'Sin respuesta.';
+  } catch(e) { box.textContent = 'Error IA: ' + e.message; }
+}
+
+async function askAgent() {
+  const q = document.getElementById('ag-q').value.trim();
+  if (!q) return;
+  const card = document.getElementById('ag-card');
+  const box = document.getElementById('ag-resp');
+  card.style.display = 'block';
+  box.innerHTML = '<span class="ai-loading dot-loader">Consultando</span>';
+  try {
+    const r = await fetch('/api/claude', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 1000, system: buildCtx(),
+        messages: [{ role: 'user', content: q }]
+      })
+    });
+    const d = await r.json();
+    box.textContent = d.content?.[0]?.text || 'Sin respuesta.';
+  } catch(e) { box.textContent = 'Error IA: ' + e.message; }
+}
+</script>
+</body>
+</html>
