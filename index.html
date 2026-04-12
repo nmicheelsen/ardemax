@@ -325,6 +325,8 @@ input[type=checkbox] { width: 16px; height: 16px; accent-color: var(--accent); f
   <header class="app-header">
     <div class="app-logo">COMISIONAMIENTO ARDEMAX</div>
     <div style="display:flex;align-items:center;gap:12px">
+      <span id="last-update" style="font-size:10px;color:var(--text3);display:none"></span>
+      <button onclick="recargar()" title="Actualizar datos" style="background:none;border:none;cursor:pointer;padding:4px;color:var(--text2);font-size:16px">↻</button>
       <button onclick="toggleTheme()" id="theme-btn" style="background:none;border:none;cursor:pointer;padding:4px;display:flex;align-items:center;color:var(--text2);font-size:18px" title="Cambiar tema">
         <span id="theme-icon">☀</span>
       </button>
@@ -650,6 +652,15 @@ const hoy = () => new Date().toISOString().slice(0,10);
   registrarServiceWorker();
 aplicarTema();
 document.getElementById('d-fecha').value = hoy();
+
+// Auto-refresh every 60 seconds
+setInterval(async () => {
+  if (cfg.url && miPerfil) {
+    await recargar();
+    const el = document.getElementById('last-update');
+    if (el) el.textContent = 'Actualizado ' + new Date().toLocaleTimeString('es-CL', {hour:'2-digit',minute:'2-digit'});
+  }
+}, 60000);
   document.getElementById('sem-ini').value = hoy();
 })();
 
@@ -814,6 +825,16 @@ function urlBase64ToUint8Array(base64String) {
   return Uint8Array.from([...rawData].map(c => c.charCodeAt(0)));
 }
 
+async function notificarNuevaTarea(id, descripcion, area, supervisores, disciplina) {
+  try {
+    await fetch('/api/notify-tarea', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id, descripcion, area, supervisores, disciplina })
+    });
+  } catch(e) { console.log('Notify tarea error:', e.message); }
+}
+
 async function notificarBloqueo(disciplina, area, descripcion, supervisor) {
   try {
     await fetch('/api/notify', {
@@ -874,6 +895,8 @@ function mostrarApp() {
   const app = document.getElementById('app');
   app.style.display = 'flex';
   document.getElementById('hdr-user').textContent = miPerfil ? miPerfil.nombre.split(' ')[0] : '—';
+  const luEl = document.getElementById('last-update');
+  if (luEl) { luEl.style.display = 'inline'; luEl.textContent = 'Actualizado ' + new Date().toLocaleTimeString('es-CL', {hour:'2-digit',minute:'2-digit'}); }
   const esLider = miPerfil && miPerfil.capa === 'lider';
   document.getElementById('form-nueva-tarea').style.display = esLider ? 'block' : 'none';
   document.getElementById('ntab-prog').textContent = 'Programa';
@@ -1244,6 +1267,9 @@ async function crearTarea() {
     }});
     if (res.ok) {
       msg.textContent = '✓ Guardado (id ' + res.id + ')'; msg.className = 'msg msg-ok';
+      if (res.supervisores) {
+        await notificarNuevaTarea(res.id, document.getElementById('t-desc').value, document.getElementById('t-area').value, res.supervisores, res.disciplina);
+      }
       document.getElementById('t-desc').value = '';
       document.getElementById('t-obs').value = '';
       document.getElementById('t-contra').value = '';
