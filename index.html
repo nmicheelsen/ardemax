@@ -1393,13 +1393,13 @@ function renderProg() {
         html += `<div style="position:absolute;left:${hitoPct}%;top:0;bottom:0;width:1px;background:var(--accent);opacity:0.4;z-index:3"></div>`;
       } else {
         // Normal bar
-        html += `<div style="position:absolute;left:${left}%;width:${width}%;top:50%;transform:translateY(-50%);height:8px;background:${barColor};opacity:0.25;border-radius:2px"></div>`;
+        html += `<div style="position:absolute;left:${left}%;width:${width}%;top:50%;transform:translateY(-50%);height:12px;background:${barColor};opacity:0.25;border-radius:2px"></div>`;
         if (avance > 0) {
           const progW = (parseFloat(width) * avance / 100).toFixed(2);
-          html += `<div style="position:absolute;left:${left}%;width:${progW}%;top:50%;transform:translateY(-50%);height:8px;background:${barColor};border-radius:2px;z-index:2"></div>`;
+          html += `<div style="position:absolute;left:${left}%;width:${progW}%;top:50%;transform:translateY(-50%);height:12px;background:${barColor};border-radius:2px;z-index:2"></div>`;
         }
         if (parseFloat(width) > 8) {
-          html += `<div style="position:absolute;left:${left}%;width:${width}%;top:50%;transform:translateY(-50%);height:8px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:600;color:#fff;z-index:3;text-shadow:0 1px 2px rgba(0,0,0,0.5)">${avance}%</div>`;
+          html += `<div style="position:absolute;left:${left}%;width:${width}%;top:50%;transform:translateY(-50%);height:12px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:400;color:#fff;z-index:3;text-shadow:0 1px 2px rgba(0,0,0,0.5)">${avance}%</div>`;
         }
       }
       html += `</div></div>`;
