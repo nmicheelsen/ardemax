@@ -368,7 +368,8 @@ input[type=checkbox] { width: 16px; height: 16px; accent-color: var(--accent); f
             <option value="">Todas</option>
             <option value="verde">Área verde</option>
             <option value="seca">Área seca</option>
-            <option value="caldera">Caldera/ORC</option>
+            <option value="caldera">Caldera</option>
+            <option value="orc">Turbina ORC</option>
           </select>
         </div>
         <button class="btn btn-sm" onclick="recargar()">↻ Actualizar</button>
@@ -384,6 +385,8 @@ input[type=checkbox] { width: 16px; height: 16px; accent-color: var(--accent); f
 
     <!-- PROGRAMA -->
     <div id="s-prog" class="section">
+
+      <!-- FORM NUEVA TAREA (solo líderes) -->
       <div id="form-nueva-tarea" class="card" style="display:none">
         <div class="card-title">Nueva tarea</div>
         <div class="field"><label>Descripción</label><input type="text" id="t-desc" placeholder="Ej: Montaje sección hogar caldera"/></div>
@@ -400,7 +403,8 @@ input[type=checkbox] { width: 16px; height: 16px; accent-color: var(--accent); f
             <select id="t-area" style="min-height:44px;font-size:14px">
               <option value="verde">Área verde</option>
               <option value="seca">Área seca</option>
-              <option value="caldera">Caldera/ORC</option>
+              <option value="caldera">Caldera</option>
+              <option value="orc">Turbina ORC</option>
             </select>
           </div>
           <div class="field"><label>Contratista</label>
@@ -423,6 +427,7 @@ input[type=checkbox] { width: 16px; height: 16px; accent-color: var(--accent); f
               <option value="baja">Baja</option>
             </select>
           </div>
+          <div class="field"><label>% Avance inicial</label><input type="number" id="t-avance" min="0" max="100" value="0" placeholder="0"/></div>
         </div>
         <div class="field"><label>Observaciones técnicas</label><textarea id="t-obs" placeholder="Materiales, prerequisitos, condicionantes..."></textarea></div>
         <div class="btn-row">
@@ -430,9 +435,11 @@ input[type=checkbox] { width: 16px; height: 16px; accent-color: var(--accent); f
           <span class="msg" id="t-msg"></span>
         </div>
       </div>
-      <div class="filters">
-        <div class="field"><label>Disciplina</label>
-          <select id="f-disc" onchange="renderProg()" style="width:auto">
+
+      <!-- GANTT CONTROLS -->
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:.75rem;align-items:center">
+        <div class="field" style="margin:0"><label style="margin:0 0 3px">Disciplina</label>
+          <select id="f-disc" onchange="renderProg()" style="width:auto;font-size:14px">
             <option value="">Todas</option>
             <option value="mecanico">Mecánico</option>
             <option value="electrocontrol">Electrocontrol</option>
@@ -440,24 +447,62 @@ input[type=checkbox] { width: 16px; height: 16px; accent-color: var(--accent); f
             <option value="procesos">Procesos</option>
           </select>
         </div>
-        <div class="field"><label>Área</label>
-          <select id="f-area" onchange="renderProg()" style="width:auto">
+        <div class="field" style="margin:0"><label style="margin:0 0 3px">Área</label>
+          <select id="f-area" onchange="renderProg()" style="width:auto;font-size:14px">
             <option value="">Todas</option>
             <option value="verde">Verde</option>
             <option value="seca">Seca</option>
             <option value="caldera">Caldera</option>
+            <option value="orc">ORC</option>
           </select>
         </div>
         <button class="btn btn-sm" onclick="recargar()">↻ Actualizar</button>
       </div>
+
+      <!-- STATS -->
       <div class="stats" style="margin-bottom:.75rem" id="prog-filter-btns">
         <div class="stat" id="pf-done" style="border-left:9px solid #4caf7d;padding:.4rem .5rem;cursor:pointer" onclick="setProgFilter('completada')"><div class="stat-v" id="sp-done" style="color:#4caf7d;font-size:24px">—</div><div class="stat-l">Completadas</div></div>
         <div class="stat" id="pf-proc" style="border-left:9px solid #e8943a;padding:.4rem .5rem;cursor:pointer" onclick="setProgFilter('proceso')"><div class="stat-v" id="sp-proc" style="color:#e8943a;font-size:24px">—</div><div class="stat-l">En proceso</div></div>
         <div class="stat" id="pf-risk" style="border-left:9px solid #e05555;padding:.4rem .5rem;cursor:pointer" onclick="setProgFilter('atrasada')"><div class="stat-v" id="sp-risk" style="color:#e05555;font-size:24px">—</div><div class="stat-l">Atrasadas</div></div>
         <div class="stat" id="pf-nov" style="border-left:9px solid #5a9fd4;padding:.4rem .5rem;cursor:pointer" onclick="setProgFilter('novedades')"><div class="stat-v" id="sp-nov" style="color:#5a9fd4;font-size:24px">—</div><div class="stat-l">Novedades</div></div>
       </div>
-      <div class="card"><div id="prog-list"><span class="ai-loading">Cargando programa...</span></div></div>
+
+      <!-- GANTT -->
+      <div class="card" style="padding:.5rem;overflow-x:auto">
+        <div id="gantt-container" style="min-width:600px"></div>
+      </div>
+
+      <!-- EDIT PANEL -->
+      <div id="edit-panel" class="card" style="display:none;margin-top:.75rem">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+          <div class="card-title" style="margin:0" id="edit-panel-title">Editar tarea</div>
+          <button class="btn btn-sm" onclick="cerrarEditPanel()">✕ Cerrar</button>
+        </div>
+        <div class="grid2">
+          <div class="field"><label>Estado</label>
+            <select id="ep-estado" style="font-size:14px">
+              <option value="pendiente">Pendiente</option>
+              <option value="completada">Completada</option>
+            </select>
+          </div>
+          <div class="field"><label>% Avance</label>
+            <div style="display:flex;align-items:center;gap:10px">
+              <input type="range" id="ep-avance" min="0" max="100" step="5" style="flex:1" oninput="document.getElementById('ep-avance-val').textContent=this.value+'%'"/>
+              <span id="ep-avance-val" style="font-size:14px;font-weight:500;min-width:36px;color:var(--accent)">0%</span>
+            </div>
+          </div>
+          <div class="field"><label>Fecha inicio</label><input type="date" id="ep-ini"/></div>
+          <div class="field"><label>Fecha término</label><input type="date" id="ep-fin"/></div>
+        </div>
+        <div class="field"><label>Observación rápida</label><textarea id="ep-obs" style="min-height:50px" placeholder="Nota de la reunión..."></textarea></div>
+        <div class="btn-row">
+          <button class="btn btn-accent" onclick="guardarEdicion()">Guardar cambios</button>
+          <span class="msg" id="ep-msg"></span>
+        </div>
+      </div>
+
     </div>
+
 
     <!-- NOVEDADES -->
     <div id="s-nov" class="section">
@@ -468,7 +513,8 @@ input[type=checkbox] { width: 16px; height: 16px; accent-color: var(--accent); f
             <select id="n-area">
               <option value="verde">Área verde</option>
               <option value="seca">Área seca</option>
-              <option value="caldera">Caldera/ORC</option>
+              <option value="caldera">Caldera</option>
+              <option value="orc">Turbina ORC</option>
             </select>
           </div>
           <div class="field"><label>Turno</label>
@@ -505,6 +551,7 @@ input[type=checkbox] { width: 16px; height: 16px; accent-color: var(--accent); f
             <option value="verde">Verde</option>
             <option value="seca">Seca</option>
             <option value="caldera">Caldera</option>
+            <option value="orc">ORC</option>
           </select>
         </div>
         <div class="field"><label>Estado</label>
@@ -628,7 +675,7 @@ let cfg = { url: '', key: '', perfilId: '' };
 let miPerfil = null;
 
 const DN = { mecanico:'Mecánico', electrocontrol:'Electrocontrol', civil:'Civil', procesos:'Procesos' };
-const AN = { verde:'Área verde', seca:'Área seca', caldera:'Caldera/ORC' };
+const AN = { verde:'Área verde', seca:'Área seca', caldera:'Caldera', orc:'Turbina ORC' };
 const DB = { mecanico:'b-mec', electrocontrol:'b-elec', civil:'b-civ', procesos:'b-proc' };
 const AB = { verde:'b-verde', seca:'b-seca', caldera:'b-caldera' };
 const TN = { bloqueo:'Obstáculo', observacion:'Observación', avance:'Avance' };
@@ -725,8 +772,8 @@ function renderBSC() {
   set('bsc-sin-resolver', sinResolver);
 
   // Avance por área
-  const areas = ['verde','seca','caldera'];
-  const areaNombres = {verde:'Área verde', seca:'Área seca', caldera:'Caldera/ORC'};
+  const areas = ['seca','verde','caldera','orc'];
+  const areaNombres = {verde:'Área verde', seca:'Área seca', caldera:'Caldera', orc:'Turbina ORC'};
   const areaColores = {verde:'#4caf7d', seca:'#e8943a', caldera:'#5a9fd4'};
   const elAreas = document.getElementById('bsc-areas');
   if (elAreas) {
@@ -1115,7 +1162,7 @@ function renderDia() {
   ft = aplicarFiltroDia(ft, d);
   const el = document.getElementById('dia-list');
   if (!ft.length) { el.innerHTML = '<span style="color:var(--text3);font-size:13px">Sin tareas activas para esta fecha.</span>'; return; }
-  const byArea = { verde: [], seca: [], caldera: [] };
+  const byArea = { verde: [], seca: [], caldera: [], orc: [] };
   ft.forEach(t => { if (byArea[t.area]) byArea[t.area].push(t); });
   let html = '';
   ['verde','seca','caldera'].forEach(a => {
@@ -1160,70 +1207,180 @@ function renderDia() {
 }
 
 // ---- RENDER PROGRAMA ----
+// ---- GANTT ----
+let editTareaId = null;
+
 function renderProg() {
   const fd = document.getElementById('f-disc').value;
   const fa = document.getElementById('f-area').value;
   let ft = datos.tareas.filter(t => (!fd||t.disciplina===fd) && (!fa||t.area===fa));
 
-  // Calcular contadores ANTES del filtro
-  const cincoP = new Date(); cincoP.setDate(cincoP.getDate() - 5);
+  // Stats before filter
+  const cincoP = new Date(); cincoP.setDate(cincoP.getDate()-5);
   const cincoStrP = cincoP.toISOString().slice(0,10);
-  const enProceso = ft.filter(t => t.estado !== 'completada' && !(t.fecha_fin && parseFecha(t.fecha_fin) < hoy())).length;
-  const completadas = ft.filter(t => t.estado === 'completada').length;
-  const atrasadas = ft.filter(t => t.fecha_fin && parseFecha(t.fecha_fin) < hoy() && t.estado !== 'completada').length;
-  const novCount = ft.filter(t => datos.novedades.some(n => n.tarea_id.toString() === t.id.toString() && parseFecha(n.fecha) >= cincoStrP)).length;
   const spDone = document.getElementById('sp-done');
   const spProc = document.getElementById('sp-proc');
   const spRisk = document.getElementById('sp-risk');
   const spNov  = document.getElementById('sp-nov');
-  if (spDone) spDone.textContent = completadas;
-  if (spProc) spProc.textContent = enProceso;
-  if (spRisk) spRisk.textContent = atrasadas;
-  if (spNov)  spNov.textContent  = novCount;
+  if (spDone) spDone.textContent = ft.filter(t=>t.estado==='completada').length;
+  if (spProc) spProc.textContent = ft.filter(t=>t.estado!=='completada'&&!(t.fecha_fin&&parseFecha(t.fecha_fin)<hoy())).length;
+  if (spRisk) spRisk.textContent = ft.filter(t=>t.fecha_fin&&parseFecha(t.fecha_fin)<hoy()&&t.estado!=='completada').length;
+  if (spNov)  spNov.textContent  = ft.filter(t=>datos.novedades.some(n=>n.tarea_id&&n.tarea_id.toString()===t.id.toString()&&parseFecha(n.fecha)>=cincoStrP)).length;
 
-  // Aplicar filtro para la lista
   ft = aplicarFiltroProg(ft);
-  const el = document.getElementById('prog-list');
-  if (!ft.length) { el.innerHTML = '<span style="color:var(--text3);font-size:13px">Sin tareas para este filtro.</span>'; return; }
+
+  const container = document.getElementById('gantt-container');
+  if (!container) return;
+  if (!ft.length) { container.innerHTML = '<p style="font-size:13px;color:var(--text3);padding:1rem">Sin tareas para este filtro.</p>'; return; }
+
+  // Calculate date range
+  const fechas = ft.flatMap(t => [parseFecha(t.fecha_inicio), parseFecha(t.fecha_fin)]).filter(Boolean).sort();
+  if (!fechas.length) { container.innerHTML = '<p style="font-size:13px;color:var(--text3);padding:1rem">Sin fechas definidas.</p>'; return; }
+
+  const dIni = new Date(fechas[0]);
+  const dFin = new Date(fechas[fechas.length-1]);
+  dIni.setDate(1);
+  dFin.setMonth(dFin.getMonth()+1); dFin.setDate(0);
+
+  const totalDias = Math.round((dFin - dIni) / 86400000) + 1;
+  const hoyStr = hoy();
+  const hoyDias = Math.round((new Date(hoyStr) - dIni) / 86400000);
+  const hoyPct = Math.min(100, Math.max(0, (hoyDias / totalDias * 100))).toFixed(2);
+
+  // Generate month headers
+  let meses = [];
+  let d = new Date(dIni);
+  while (d <= dFin) {
+    meses.push({label: d.toLocaleDateString('es-CL',{month:'short',year:'2-digit'}), pct: ((Math.round((d-dIni)/86400000)/totalDias)*100).toFixed(1)});
+    d = new Date(d.getFullYear(), d.getMonth()+1, 1);
+  }
+
+  const NAME_W = 160;
   const esLider = miPerfil && miPerfil.capa === 'lider';
 
-  el.innerHTML = ft.map(t => {
-    const atrasada = t.fecha_fin && parseFecha(t.fecha_fin) < hoy() && t.estado !== 'completada';
-    const esLiderDueno = miPerfil && miPerfil.capa === 'lider' &&
-      enLista(t.lider_responsable, miPerfil.nombre);
-    return `<div class="trow">
-      <div class="trow-main">
-        <div class="trow-name">${t.descripcion}</div>
-        <div class="trow-meta">
-          <span class="badge ${DB[t.disciplina]||'b-pend'}">${DN[t.disciplina]||t.disciplina}</span>
-          <span class="badge ${AB[t.area]||'b-pend'}">${AN[t.area]||t.area}</span>
-          <span style="color:var(--text3)">${t.contratista||'—'}</span>
-          <span>${fmtFecha(t.fecha_inicio)} → ${fmtFecha(t.fecha_fin)}</span>
-          <span class="badge ${t.estado==='completada'?'b-ok':atrasada?'b-risk':'b-pend'}">${t.estado||'pendiente'}</span>
-        </div>
-        <div class="trow-meta" style="margin-top:3px">
-          <span style="color:var(--text3);font-size:11px">Líder: <b style="color:var(--text2)">${t.lider_responsable||'—'}</b></span>
-        </div>
-        ${t.observaciones?`<div class="trow-obs">${t.observaciones}</div>`:''}
-        <div style="margin-top:6px">
-          <button id="hist-btn-p-${t.id}" class="btn btn-sm" onclick="toggleHistorialProg('${t.id}')">Ver novedades</button>
-        </div>
-        <div id="hist-p-${t.id}" style="display:none;margin-top:8px">
-          ${renderHistorial('${t.id}')}
-        </div>
-      </div>
-      ${puedeCompletar(t) ? `
-        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;min-width:60px">
-          ${yaAproboPorMi(t) ?
-            `<button class="btn btn-sm" style="font-size:10px;color:var(--amber);border-color:var(--amber)" onclick="revertirAprobacion('${t.id}')">Revertir</button>` :
-            t.estado !== 'completada' ?
-            `<button class="btn btn-sm btn-accent" style="font-size:10px" onclick="aprobarTarea('${t.id}')">Aprobar</button>` : ''
-          }
-          <span style="font-size:10px;color:var(--text3)">${contarAprobaciones(t)}/2</span>
-        </div>` : ''}
-    </div>`;
-  }).join('');
+  let html = '';
+
+  // Header row with months
+  html += `<div style="display:grid;grid-template-columns:${NAME_W}px 1fr;border-bottom:0.5px solid var(--border2);background:var(--bg3)">`;
+  html += `<div style="padding:5px 8px;font-size:11px;font-weight:500;color:var(--text2);border-right:0.5px solid var(--border2);text-transform:uppercase;letter-spacing:.05em">Tarea</div>`;
+  html += `<div style="position:relative;height:22px">`;
+  meses.forEach(m => {
+    html += `<span style="position:absolute;left:${m.pct}%;font-size:10px;color:var(--text3);white-space:nowrap;transform:translateX(-50%)">${m.label}</span>`;
+  });
+  html += `</div></div>`;
+
+  // Group by area
+  const areas = ['seca','verde','caldera','orc'];
+  const AN2 = {verde:'Área verde', seca:'Área seca', caldera:'Caldera', orc:'Turbina ORC'};
+  const AC = {verde:'#4caf7d', seca:'#e8943a', caldera:'#5a9fd4', orc:'#AFA9EC'};
+
+  areas.forEach(area => {
+    const tareasArea = ft.filter(t => t.area === area);
+    if (!tareasArea.length) return;
+
+    // Area header
+    html += `<div style="display:grid;grid-template-columns:${NAME_W}px 1fr;background:var(--bg3);border-bottom:0.5px solid var(--border2)">`;
+    html += `<div style="padding:4px 8px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:${AC[area]};border-right:0.5px solid var(--border2)">${AN2[area]}</div>`;
+    html += `<div></div></div>`;
+
+    tareasArea.forEach(t => {
+      const tIni = parseFecha(t.fecha_inicio);
+      const tFin = parseFecha(t.fecha_fin);
+      if (!tIni || !tFin) return;
+
+      const iniDias = Math.round((new Date(tIni) - dIni) / 86400000);
+      const finDias = Math.round((new Date(tFin) - dIni) / 86400000);
+      const left = Math.max(0, (iniDias / totalDias * 100)).toFixed(2);
+      const width = Math.max(0.5, ((finDias - iniDias) / totalDias * 100)).toFixed(2);
+
+      const avance = parseInt(t.avance) || 0;
+      const atrasada = tFin < hoyStr && t.estado !== 'completada';
+      const barColor = t.estado === 'completada' ? '#4caf7d' : atrasada ? '#e05555' : '#5a9fd4';
+      const novT = datos.novedades.filter(n => n.tarea_id && n.tarea_id.toString() === t.id.toString());
+
+      html += `<div style="display:grid;grid-template-columns:${NAME_W}px 1fr;border-bottom:0.5px solid var(--border);min-height:32px" ${esLider?`onclick="abrirEditPanel('${t.id}')" style="display:grid;grid-template-columns:${NAME_W}px 1fr;border-bottom:0.5px solid var(--border);min-height:32px;cursor:pointer"`:''}>`;
+
+      // Name cell
+      html += `<div style="padding:4px 8px;font-size:11px;color:var(--text);border-right:0.5px solid var(--border2);display:flex;align-items:center;gap:4px;min-width:0">
+        ${novT.some(n=>n.tipo==='bloqueo'&&n.resuelto==='no') ? '<span style="width:6px;height:6px;border-radius:50%;background:#e05555;flex-shrink:0"></span>' : '<span style="width:6px;height:6px;flex-shrink:0"></span>'}
+        <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${t.descripcion}">${t.descripcion}</span>
+      </div>`;
+
+      // Bar cell
+      html += `<div style="position:relative;height:32px">`;
+      // Today line
+      html += `<div style="position:absolute;left:${hoyPct}%;top:0;bottom:0;width:1.5px;background:rgba(232,200,74,0.6);z-index:5"></div>`;
+      // Bar background
+      html += `<div style="position:absolute;left:${left}%;width:${width}%;top:50%;transform:translateY(-50%);height:16px;background:${barColor};opacity:0.25;border-radius:3px"></div>`;
+      // Bar progress
+      if (avance > 0) {
+        const progW = (parseFloat(width) * avance / 100).toFixed(2);
+        html += `<div style="position:absolute;left:${left}%;width:${progW}%;top:50%;transform:translateY(-50%);height:16px;background:${barColor};border-radius:3px;z-index:2"></div>`;
+      }
+      // % label
+      if (parseFloat(width) > 8) {
+        html += `<div style="position:absolute;left:${left}%;width:${width}%;top:50%;transform:translateY(-50%);height:16px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:#fff;z-index:3;text-shadow:0 1px 2px rgba(0,0,0,0.5)">${avance}%</div>`;
+      }
+      html += `</div></div>`;
+    });
+  });
+
+  // Fin de proyecto marker
+  html += `<div style="display:grid;grid-template-columns:${NAME_W}px 1fr;border-top:1px solid var(--border2);background:var(--bg3)">`;
+  html += `<div style="padding:5px 8px;font-size:11px;font-weight:600;color:var(--accent);border-right:0.5px solid var(--border2)">▶ Entrega planta</div>`;
+  const finPct = ((Math.round((dFin-dIni)/86400000)/totalDias)*100).toFixed(2);
+  html += `<div style="position:relative;height:28px"><div style="position:absolute;left:${finPct}%;top:50%;transform:translate(-50%,-50%);width:14px;height:14px;background:var(--accent);clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%)"></div></div>`;
+  html += `</div>`;
+
+  container.innerHTML = html;
 }
+
+function abrirEditPanel(id) {
+  if (!miPerfil || miPerfil.capa !== 'lider') return;
+  const t = datos.tareas.find(x => x.id.toString() === id.toString());
+  if (!t) return;
+  if (!puedeCompletar(t)) return;
+
+  editTareaId = id;
+  document.getElementById('edit-panel-title').textContent = t.descripcion;
+  document.getElementById('ep-estado').value = t.estado || 'pendiente';
+  const av = parseInt(t.avance) || 0;
+  document.getElementById('ep-avance').value = av;
+  document.getElementById('ep-avance-val').textContent = av + '%';
+  document.getElementById('ep-ini').value = parseFecha(t.fecha_inicio) || '';
+  document.getElementById('ep-fin').value = parseFecha(t.fecha_fin) || '';
+  document.getElementById('ep-obs').value = '';
+  document.getElementById('ep-msg').textContent = '';
+  document.getElementById('edit-panel').style.display = 'block';
+  document.getElementById('edit-panel').scrollIntoView({behavior:'smooth'});
+}
+
+function cerrarEditPanel() {
+  document.getElementById('edit-panel').style.display = 'none';
+  editTareaId = null;
+}
+
+async function guardarEdicion() {
+  if (!editTareaId) return;
+  const msg = document.getElementById('ep-msg');
+  msg.textContent = 'Guardando...'; msg.className = 'msg';
+  try {
+    const res = await apiPost({ accion: 'actualizar_tarea', id: editTareaId, datos: {
+      estado: document.getElementById('ep-estado').value,
+      avance: document.getElementById('ep-avance').value,
+      fecha_inicio: document.getElementById('ep-ini').value,
+      fecha_fin: document.getElementById('ep-fin').value,
+      observaciones: document.getElementById('ep-obs').value || undefined
+    }});
+    if (res.ok) {
+      msg.textContent = '✓ Guardado'; msg.className = 'msg msg-ok';
+      await recargar();
+      setTimeout(() => cerrarEditPanel(), 1000);
+    } else { msg.textContent = 'Error: ' + (res.error||'?'); msg.className = 'msg msg-err'; }
+  } catch(e) { msg.textContent = 'Error: ' + e.message; msg.className = 'msg msg-err'; }
+}
+
+
 
 // ---- RENDER NOVEDADES ----
 function renderNovs() {
