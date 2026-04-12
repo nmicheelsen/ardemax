@@ -467,9 +467,6 @@ input[type=checkbox] { width: 16px; height: 16px; accent-color: var(--accent); f
         <div class="stat" id="pf-nov" style="border-left:9px solid #5a9fd4;padding:.4rem .5rem;cursor:pointer" onclick="setProgFilter('novedades')"><div class="stat-v" id="sp-nov" style="color:#5a9fd4;font-size:24px">—</div><div class="stat-l">Novedades</div></div>
       </div>
 
-      <!-- HITOS ROW -->
-      <div id="hitos-row" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:.5rem;overflow-x:auto"></div>
-
       <!-- GANTT -->
       <div style="display:flex;gap:14px;flex-wrap:wrap;margin-bottom:6px;font-size:11px;color:var(--text2);align-items:center">
         <span style="display:flex;align-items:center;gap:4px"><span style="width:12px;height:12px;border-radius:2px;background:#e8943a;display:inline-block"></span>Ruta crítica</span>
@@ -1329,27 +1326,6 @@ function renderProg() {
 
   const NAME_W = 260;
   const esLider = miPerfil && miPerfil.capa === 'lider';
-
-  // Render hitos indicators
-  const hitosRow = document.getElementById('hitos-row');
-  if (hitosRow) {
-    const hitos = ft.filter(t => t.hito === 'si' && t.fecha_fin).sort((a,b) => parseFecha(a.fecha_fin).localeCompare(parseFecha(b.fecha_fin)));
-    if (hitos.length) {
-      hitosRow.innerHTML = hitos.map(h => {
-        const fin = parseFecha(h.fecha_fin);
-        const [y,m,d] = fin.split('-');
-        const fechaCorta = d+'-'+m+'-'+y.slice(2);
-        const atrasado = fin < hoy();
-        const color = atrasado ? '#e05555' : h.estado === 'completada' ? '#4caf7d' : 'var(--accent)';
-        return `<div style="background:var(--bg3);border:0.5px solid var(--border2);border-top:3px solid ${color};border-radius:var(--r);padding:4px 10px;min-width:100px;flex-shrink:0">
-          <div style="font-size:10px;color:var(--text2);text-transform:uppercase;letter-spacing:.04em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:160px" title="${h.descripcion}">${h.descripcion}</div>
-          <div style="font-size:14px;font-weight:500;color:${color};margin-top:2px">${fechaCorta}</div>
-        </div>`;
-      }).join('');
-    } else {
-      hitosRow.innerHTML = '';
-    }
-  }
 
   // Calculate critical path
   const rutaCritica = calcularRutaCritica(ft);
