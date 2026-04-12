@@ -468,6 +468,14 @@ input[type=checkbox] { width: 16px; height: 16px; accent-color: var(--accent); f
       </div>
 
       <!-- GANTT -->
+      <div style="display:flex;gap:14px;flex-wrap:wrap;margin-bottom:6px;font-size:11px;color:var(--text2);align-items:center">
+        <span style="display:flex;align-items:center;gap:4px"><span style="width:12px;height:12px;border-radius:2px;background:#e8943a;display:inline-block"></span>Ruta crítica</span>
+        <span style="display:flex;align-items:center;gap:4px"><span style="width:12px;height:12px;border-radius:2px;background:#5a9fd4;display:inline-block"></span>En proceso</span>
+        <span style="display:flex;align-items:center;gap:4px"><span style="width:12px;height:12px;border-radius:2px;background:#4caf7d;display:inline-block"></span>Completada</span>
+        <span style="display:flex;align-items:center;gap:4px"><span style="width:12px;height:12px;border-radius:2px;background:#e05555;display:inline-block"></span>Atrasada</span>
+        <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;background:var(--accent);clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%);display:inline-block"></span>Hito</span>
+        <span style="display:flex;align-items:center;gap:4px"><span style="width:1.5px;height:14px;background:rgba(232,200,74,0.7);display:inline-block"></span>Hoy</span>
+      </div>
       <div class="card" style="padding:.5rem;overflow-x:auto">
         <div id="gantt-container" style="min-width:600px"></div>
       </div>
@@ -1210,6 +1218,67 @@ function renderDia() {
 // ---- GANTT ----
 let editTareaId = null;
 
+function calcularRutaCritica(tareas) {
+  if (!tareas.length) return new Set();
+
+  // Build dependency map
+  const tareaMap = {};
+  tareas.forEach(t => tareaMap[t.id.toString()] = t);
+
+  // Find last hito
+  const hitos = tareas.filter(t => t.hito === 'si' && t.fecha_fin);
+  if (!hitos.length) return new Set();
+
+  hitos.sort((a, b) => parseFecha(b.fecha_fin).localeCompare(parseFecha(a.fecha_fin)));
+  const hitoFinal = hitos[0];
+
+  // Backward traversal from last hito
+  const criticas = new Set();
+  const cola = [hitoFinal.id.toString()];
+  const visitados = new Set();
+
+  while (cola.length) {
+    const idActual = cola.pop();
+    if (visitados.has(idActual)) continue;
+    visitados.add(idActual);
+    criticas.add(idActual);
+
+    // Find tasks that this task depends on
+    const tActual = tareaMap[idActual];
+    if (!tActual || !tActual.depende_de) continue;
+
+    const deps = tActual.depende_de.toString().split(',').map(d => d.trim()).filter(Boolean);
+    deps.forEach(depId => {
+      if (tareaMap[depId] && !visitados.has(depId)) {
+        cola.push(depId);
+      }
+    });
+  }
+
+  // Also forward: find tasks that depend on critical tasks
+  // Any task whose predecessor is critical AND whose dates are tight is also critical
+  tareas.forEach(t => {
+    if (!t.depende_de || !t.fecha_inicio || !t.fecha_fin) return;
+    const deps = t.depende_de.toString().split(',').map(d => d.trim()).filter(Boolean);
+    const depsCriticas = deps.filter(d => criticas.has(d));
+    if (!depsCriticas.length) return;
+
+    // Check if there's no slack: task starts right when predecessor ends
+    depsCriticas.forEach(depId => {
+      const pred = tareaMap[depId];
+      if (!pred || !pred.fecha_fin) return;
+      const predFin = parseFecha(pred.fecha_fin);
+      const tIni = parseFecha(t.fecha_inicio);
+      // Allow 1 day tolerance
+      if (predFin && tIni && Math.abs(new Date(tIni) - new Date(predFin)) <= 86400000 * 2) {
+        criticas.add(t.id.toString());
+      }
+    });
+  });
+
+  return criticas;
+}
+
 function renderProg() {
   const fd = document.getElementById('f-disc').value;
   const fa = document.getElementById('f-area').value;
@@ -1258,6 +1327,9 @@ function renderProg() {
   const NAME_W = 160;
   const esLider = miPerfil && miPerfil.capa === 'lider';
 
+  // Calculate critical path
+  const rutaCritica = calcularRutaCritica(ft);
+
   let html = '';
 
   // Header row with months
@@ -1296,15 +1368,16 @@ function renderProg() {
       const avance = parseInt(t.avance) || 0;
       const atrasada = tFin < hoyStr && t.estado !== 'completada';
       const esHito = t.hito === 'si';
-      const barColor = t.estado === 'completada' ? '#4caf7d' : atrasada ? '#e05555' : '#5a9fd4';
+      const esCritica = rutaCritica.has(t.id.toString());
+      const barColor = t.estado === 'completada' ? '#4caf7d' : atrasada ? '#e05555' : esCritica ? '#e8943a' : '#5a9fd4';
       const novT = datos.novedades.filter(n => n.tarea_id && n.tarea_id.toString() === t.id.toString());
 
       html += `<div style="display:grid;grid-template-columns:${NAME_W}px 1fr;border-bottom:0.5px solid var(--border);min-height:32px${esLider?';cursor:pointer':''}" ${esLider?`onclick="abrirEditPanel('${t.id}')"`:''}>`;
 
       // Name cell
       html += `<div style="padding:4px 8px;font-size:11px;color:var(--text);border-right:0.5px solid var(--border2);display:flex;align-items:center;gap:4px;min-width:0">
-        ${esHito ? '<span style="width:10px;height:10px;background:var(--accent);clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%);flex-shrink:0"></span>' : novT.some(n=>n.tipo==='bloqueo'&&n.resuelto==='no') ? '<span style="width:6px;height:6px;border-radius:50%;background:#e05555;flex-shrink:0"></span>' : '<span style="width:6px;height:6px;flex-shrink:0"></span>'}
-        <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;${esHito?'font-weight:600;color:var(--accent)':''}" title="${t.descripcion}">${t.descripcion}</span>
+        ${esHito ? '<span style="width:10px;height:10px;background:var(--accent);clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%);flex-shrink:0"></span>' : esCritica ? '<span style="width:6px;height:6px;border-radius:50%;background:#e8943a;flex-shrink:0"></span>' : novT.some(n=>n.tipo==='bloqueo'&&n.resuelto==='no') ? '<span style="width:6px;height:6px;border-radius:50%;background:#e05555;flex-shrink:0"></span>' : '<span style="width:6px;height:6px;flex-shrink:0"></span>'}
+        <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;${esHito?'font-weight:600;color:var(--accent)':esCritica?'font-weight:500':''}" title="${t.descripcion}">${t.descripcion}</span>
       </div>`;
 
       // Bar cell
