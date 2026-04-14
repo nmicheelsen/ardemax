@@ -1316,13 +1316,32 @@ function renderProg() {
 
   // Generate month headers
   let meses = [];
-  let d = new Date(dIni);
-  while (d <= dFin) {
-    meses.push({label: d.toLocaleDateString('es-CL',{month:'short',year:'2-digit'}), pct: ((Math.round((d-dIni)/86400000)/totalDias)*100).toFixed(1)});
-    d = new Date(d.getFullYear(), d.getMonth()+1, 1);
+  let dm = new Date(dIni);
+  while (dm <= dFin) {
+    meses.push({
+      label: dm.toLocaleDateString('es-CL',{month:'short', year:'2-digit'}),
+      pct: ((Math.round((dm-dIni)/86400000)/totalDias)*100).toFixed(1)
+    });
+    dm = new Date(dm.getFullYear(), dm.getMonth()+1, 1);
   }
 
-  const NAME_W = 260;
+  // Generate week headers
+  let semanas = [];
+  let dw = new Date(dIni);
+  const diaSemana = dw.getDay();
+  const diff = diaSemana === 0 ? -6 : 1 - diaSemana;
+  dw.setDate(dw.getDate() + diff);
+  while (dw <= dFin) {
+    const pct = Math.max(0, (Math.round((dw - dIni) / 86400000) / totalDias * 100)).toFixed(1);
+    const startOfYear = new Date(dw.getFullYear(), 0, 1);
+    const weekNum = Math.ceil(((dw - startOfYear) / 86400000 + startOfYear.getDay() + 1) / 7);
+    semanas.push({ label: `S${weekNum}`, pct });
+    dw.setDate(dw.getDate() + 7);
+  }
+
+  // Calculate dynamic name column width based on longest description
+  const maxDescLen = ft.reduce((max, t) => Math.max(max, (t.descripcion || '').length), 0);
+  const NAME_W = Math.min(Math.round(260 * 1.5), Math.max(260, maxDescLen * 5.5));
   const esLider = miPerfil && miPerfil.capa === 'lider';
 
   // Calculate critical path
@@ -1331,11 +1350,22 @@ function renderProg() {
   let html = '';
 
   // Header row with months
-  html += `<div style="display:grid;grid-template-columns:${NAME_W}px 1fr;border-bottom:0.5px solid var(--border2);background:var(--bg3)">`;
-  html += `<div style="padding:5px 8px;font-size:11px;font-weight:500;color:var(--text2);border-right:0.5px solid var(--border2);text-transform:uppercase;letter-spacing:.05em">Tarea</div>`;
-  html += `<div style="position:relative;height:22px">`;
+  // Header: months row
+  html += `<div style="display:grid;grid-template-columns:${NAME_W}px 1fr;background:var(--bg3);border-bottom:0.5px solid var(--border)">`;
+  html += `<div style="padding:4px 8px;font-size:11px;font-weight:500;color:var(--text2);border-right:0.5px solid var(--border2);text-transform:uppercase;letter-spacing:.05em">Tarea</div>`;
+  html += `<div style="position:relative;height:20px">`;
   meses.forEach(m => {
-    html += `<span style="position:absolute;left:${m.pct}%;font-size:10px;color:var(--text3);white-space:nowrap;transform:translateX(-50%)">${m.label}</span>`;
+    html += `<span style="position:absolute;left:${m.pct}%;font-size:10px;color:var(--text2);white-space:nowrap;padding-left:3px;border-left:0.5px solid var(--border)">${m.label}</span>`;
+  });
+  html += `</div></div>`;
+  // Header: weeks row
+  html += `<div style="display:grid;grid-template-columns:${NAME_W}px 1fr;background:var(--bg3);border-bottom:0.5px solid var(--border2)">`;
+  html += `<div style="border-right:0.5px solid var(--border2)"></div>`;
+  html += `<div style="position:relative;height:18px">`;
+  semanas.forEach(s => {
+    html += `<div style="position:absolute;left:${s.pct}%;top:0;bottom:0;border-left:0.5px solid var(--border);padding:1px 2px">
+      <span style="font-size:9px;color:var(--text3);white-space:nowrap">${s.label}</span>
+    </div>`;
   });
   html += `</div></div>`;
 
