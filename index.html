@@ -1405,7 +1405,7 @@ function renderProg() {
       const barColor = t.estado === 'completada' ? '#4caf7d' : atrasada ? '#e05555' : esCritica ? '#e8943a' : '#5a9fd4';
       const novT = datos.novedades.filter(n => n.tarea_id && n.tarea_id.toString() === t.id.toString());
 
-      html += `<div style="display:grid;grid-template-columns:${NAME_W}px 1fr;border-bottom:0.5px solid var(--border);height:18px${esLider?';cursor:pointer':''}" ${esLider?`onclick="abrirEditPanel('${t.id}')"`:''}>`;
+      html += `<div data-task-id="${t.id}" style="display:grid;grid-template-columns:${NAME_W}px 1fr;border-bottom:0.5px solid var(--border);height:18px${esLider?';cursor:pointer':''}" ${esLider?`onclick="abrirEditPanel('${t.id}')"`:''}>`;
 
       // Name cell
       html += `<div style="padding:1px 6px;font-size:9px;color:var(--text);border-right:0.5px solid var(--border2);display:flex;align-items:center;gap:3px;min-width:0">
@@ -1453,25 +1453,84 @@ function abrirEditPanel(id) {
   if (!miPerfil || miPerfil.capa !== 'lider') return;
   const t = datos.tareas.find(x => x.id.toString() === id.toString());
   if (!t) return;
-  if (!puedeCompletar(t)) return;
 
-  editTareaId = id;
-  document.getElementById('edit-panel-title').textContent = t.descripcion;
-  document.getElementById('ep-estado').value = t.estado || 'pendiente';
+  // Close if same task clicked again
+  if (editTareaId === id.toString()) { cerrarEditPanel(); return; }
+  editTareaId = id.toString();
+
+  // Remove existing inline panel if any
+  const existing = document.getElementById('edit-panel-inline');
+  if (existing) existing.remove();
+
+  // Build inline panel HTML
   const av = parseInt(t.avance) || 0;
-  document.getElementById('ep-avance').value = av;
-  document.getElementById('ep-avance-val').textContent = av + '%';
-  document.getElementById('ep-ini').value = parseFecha(t.fecha_inicio) || '';
-  document.getElementById('ep-fin').value = parseFecha(t.fecha_fin) || '';
-  document.getElementById('ep-obs').value = '';
-  document.getElementById('ep-msg').textContent = '';
-  document.getElementById('edit-panel').style.display = 'block';
-  document.getElementById('edit-panel').scrollIntoView({behavior:'smooth'});
+  const esLider = miPerfil && miPerfil.capa === 'lider';
+  const panelHTML = `<div id="edit-panel-inline" style="grid-column:1/-1;background:var(--bg2);border:0.5px solid var(--accent);border-radius:var(--r);padding:.75rem;margin:2px 0">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+      <div style="font-size:11px;font-weight:700;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:70%">${t.descripcion}</div>
+      <button onclick="cerrarEditPanel()" style="background:none;border:none;cursor:pointer;color:var(--text2);font-size:14px;padding:0 4px">✕</button>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:8px">
+      <div class="field" style="margin:0"><label style="font-size:10px">Estado</label>
+        <select id="ep-estado" style="font-size:12px;padding:4px 6px">
+          <option value="pendiente" ${t.estado==='pendiente'?'selected':''}>Pendiente</option>
+          <option value="proceso" ${t.estado==='proceso'?'selected':''}>En proceso</option>
+          <option value="completada" ${t.estado==='completada'?'selected':''}>Completada</option>
+        </select>
+      </div>
+      <div class="field" style="margin:0"><label style="font-size:10px">Fecha inicio</label><input type="date" id="ep-ini" value="${parseFecha(t.fecha_inicio)||''}" style="font-size:12px;padding:4px 6px"/></div>
+      <div class="field" style="margin:0"><label style="font-size:10px">Fecha término</label><input type="date" id="ep-fin" value="${parseFecha(t.fecha_fin)||''}" style="font-size:12px;padding:4px 6px"/></div>
+    </div>
+    <div class="field" style="margin:0 0 8px"><label style="font-size:10px">% Avance</label>
+      <div style="display:flex;align-items:center;gap:8px">
+        <input type="range" id="ep-avance" min="0" max="100" step="5" value="${av}" style="flex:1" oninput="document.getElementById('ep-avance-val').textContent=this.value+'%'"/>
+        <span id="ep-avance-val" style="font-size:12px;font-weight:500;min-width:36px;color:var(--accent)">${av}%</span>
+      </div>
+    </div>
+    <div class="field" style="margin:0 0 8px"><label style="font-size:10px">Observación rápida</label>
+      <textarea id="ep-obs" style="min-height:40px;font-size:12px;padding:4px 6px" placeholder="Nota de la reunión..."></textarea>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center;justify-content:space-between">
+      <button class="btn btn-accent" onclick="guardarEdicion()" style="font-size:12px;padding:5px 12px">Guardar</button>
+      ${esLider ? `<button onclick="eliminarTarea('${t.id}')" style="background:none;border:0.5px solid #e05555;color:#e05555;border-radius:var(--r);font-size:11px;padding:4px 10px;cursor:pointer">Eliminar tarea</button>` : ''}
+      <span class="msg" id="ep-msg"></span>
+    </div>
+  </div>`;
+
+  // Find the row for this task and insert after it
+  const gantt = document.getElementById('gantt-container');
+  const rows = gantt.querySelectorAll('[data-task-id]');
+  let targetRow = null;
+  rows.forEach(r => { if (r.dataset.taskId === id.toString()) targetRow = r; });
+
+  if (targetRow) {
+    targetRow.insertAdjacentHTML('afterend', panelHTML);
+  } else {
+    gantt.insertAdjacentHTML('beforeend', panelHTML);
+  }
 }
 
 function cerrarEditPanel() {
-  document.getElementById('edit-panel').style.display = 'none';
+  const inline = document.getElementById('edit-panel-inline');
+  if (inline) inline.remove();
+  const fixed = document.getElementById('edit-panel');
+  if (fixed) fixed.style.display = 'none';
   editTareaId = null;
+}
+
+async function eliminarTarea(id) {
+  if (!confirm('¿Eliminar esta tarea? Esta acción no se puede deshacer.')) return;
+  if (!confirm('Confirma nuevamente: ¿Eliminar la tarea definitivamente?')) return;
+  const msg = document.getElementById('ep-msg');
+  msg.textContent = 'Eliminando...'; msg.className = 'msg';
+  try {
+    const res = await apiPost({ accion: 'eliminar_tarea', id });
+    if (res.ok) {
+      msg.textContent = '✓ Tarea eliminada'; msg.className = 'msg msg-ok';
+      cerrarEditPanel();
+      await recargar();
+    } else { msg.textContent = 'Error: ' + (res.error||'?'); msg.className = 'msg msg-err'; }
+  } catch(e) { msg.textContent = 'Error: ' + e.message; msg.className = 'msg msg-err'; }
 }
 
 async function guardarEdicion() {
@@ -1480,11 +1539,11 @@ async function guardarEdicion() {
   msg.textContent = 'Guardando...'; msg.className = 'msg';
   try {
     const res = await apiPost({ accion: 'actualizar_tarea', id: editTareaId, datos: {
-      estado: document.getElementById('ep-estado').value,
-      avance: document.getElementById('ep-avance').value,
-      fecha_inicio: document.getElementById('ep-ini').value,
-      fecha_fin: document.getElementById('ep-fin').value,
-      observaciones: document.getElementById('ep-obs').value || undefined
+      estado: document.getElementById('ep-estado')?.value,
+      avance: document.getElementById('ep-avance')?.value,
+      fecha_inicio: document.getElementById('ep-ini')?.value,
+      fecha_fin: document.getElementById('ep-fin')?.value,
+      observaciones: document.getElementById('ep-obs')?.value || undefined
     }});
     if (res.ok) {
       msg.textContent = '✓ Guardado'; msg.className = 'msg msg-ok';
