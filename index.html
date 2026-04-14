@@ -1465,35 +1465,137 @@ function abrirEditPanel(id) {
   // Build inline panel HTML
   const av = parseInt(t.avance) || 0;
   const esLider = miPerfil && miPerfil.capa === 'lider';
+
+  // Build contratistas options
+  const contratistas = [...new Set(datos.tareas.map(x=>x.contratista).filter(Boolean))].sort();
+  const contraOpts = contratistas.map(c => `<option value="${c}" ${t.contratista===c?'selected':''}>${c}</option>`).join('');
+
+  // Build lideres options
+  const lideres = [...new Set(datos.equipo.filter(e=>e.capa==='lider').map(e=>e.nombre).filter(Boolean))].sort();
+  const liderOpts = lideres.map(l => `<option value="${l}" ${t.lider_responsable===l?'selected':''}>${l}</option>`).join('');
+
+  // Build supervisores options
+  const supervisores = [...new Set(datos.equipo.filter(e=>e.capa==='supervisor').map(e=>e.nombre).filter(Boolean))].sort();
+  const supActuales = (t.supervisores||'').split(',').map(s=>s.trim());
+  const supOpts = supervisores.map(s => `<option value="${s}" ${supActuales.includes(s)?'selected':''}>${s}</option>`).join('');
+
+  // Checklist items
+  const checklistItems = (t.observaciones||'').split('\n').filter(l=>l.startsWith('☐')||l.startsWith('☑')).map((item,i) => {
+    const done = item.startsWith('☑');
+    const text = item.slice(2).trim();
+    return `<div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+      <input type="checkbox" id="chk-${i}" ${done?'checked':''} style="width:14px;height:14px;cursor:pointer"/>
+      <span style="font-size:11px;color:var(--text);${done?'text-decoration:line-through;color:var(--text3)':''}">${text}</span>
+    </div>`;
+  }).join('');
+
   const panelHTML = `<div id="edit-panel-inline" style="grid-column:1/-1;background:var(--bg2);border:0.5px solid var(--accent);border-radius:var(--r);padding:.75rem;margin:2px 0">
+
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-      <div style="font-size:11px;font-weight:700;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:70%">${t.descripcion}</div>
+      <div style="font-size:11px;font-weight:700;color:var(--accent)">Editar tarea #${t.id}</div>
       <button onclick="cerrarEditPanel()" style="background:none;border:none;cursor:pointer;color:var(--text2);font-size:14px;padding:0 4px">✕</button>
     </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:8px">
+
+    <!-- Descripción -->
+    <div class="field" style="margin:0 0 8px"><label style="font-size:10px">Descripción</label>
+      <input type="text" id="ep-desc" value="${(t.descripcion||'').replace(/"/g,'&quot;')}" style="font-size:12px;padding:4px 6px;width:100%"/>
+    </div>
+
+    <!-- Fila 1: Estado, Avance, Hito, Validada -->
+    <div style="display:grid;grid-template-columns:1fr 2fr 1fr 1fr;gap:6px;margin-bottom:8px;align-items:end">
       <div class="field" style="margin:0"><label style="font-size:10px">Estado</label>
-        <select id="ep-estado" style="font-size:12px;padding:4px 6px">
+        <select id="ep-estado" style="font-size:12px;padding:4px 6px" onchange="syncEstadoAvance()">
           <option value="pendiente" ${t.estado==='pendiente'?'selected':''}>Pendiente</option>
           <option value="proceso" ${t.estado==='proceso'?'selected':''}>En proceso</option>
           <option value="completada" ${t.estado==='completada'?'selected':''}>Completada</option>
         </select>
       </div>
-      <div class="field" style="margin:0"><label style="font-size:10px">Fecha inicio</label><input type="date" id="ep-ini" value="${parseFecha(t.fecha_inicio)||''}" style="font-size:12px;padding:4px 6px"/></div>
-      <div class="field" style="margin:0"><label style="font-size:10px">Fecha término</label><input type="date" id="ep-fin" value="${parseFecha(t.fecha_fin)||''}" style="font-size:12px;padding:4px 6px"/></div>
-    </div>
-    <div class="field" style="margin:0 0 8px"><label style="font-size:10px">% Avance</label>
-      <div style="display:flex;align-items:center;gap:8px">
-        <input type="range" id="ep-avance" min="0" max="100" step="5" value="${av}" style="flex:1" oninput="document.getElementById('ep-avance-val').textContent=this.value+'%'"/>
-        <span id="ep-avance-val" style="font-size:12px;font-weight:500;min-width:36px;color:var(--accent)">${av}%</span>
+      <div class="field" style="margin:0"><label style="font-size:10px">% Avance</label>
+        <div style="display:flex;align-items:center;gap:6px">
+          <input type="range" id="ep-avance" min="0" max="100" step="5" value="${av}" style="flex:1" oninput="syncAvanceEstado(this.value)"/>
+          <span id="ep-avance-val" style="font-size:12px;font-weight:500;min-width:36px;color:var(--accent)">${av}%</span>
+        </div>
+      </div>
+      <div class="field" style="margin:0"><label style="font-size:10px">Hito</label>
+        <select id="ep-hito" style="font-size:12px;padding:4px 6px">
+          <option value="" ${!t.hito||t.hito!=='si'?'selected':''}>No</option>
+          <option value="si" ${t.hito==='si'?'selected':''}>Sí</option>
+        </select>
+      </div>
+      <div class="field" style="margin:0"><label style="font-size:10px">Validada</label>
+        <select id="ep-validada" style="font-size:12px;padding:4px 6px">
+          <option value="" ${!t.aprobaciones?'selected':''}>No</option>
+          <option value="si" ${t.aprobaciones?'selected':''}>Sí</option>
+        </select>
       </div>
     </div>
-    <div class="field" style="margin:0 0 8px"><label style="font-size:10px">Observación rápida</label>
-      <textarea id="ep-obs" style="min-height:40px;font-size:12px;padding:4px 6px" placeholder="Nota de la reunión..."></textarea>
+
+    <!-- Fila 2: Fechas, Área, Disciplina -->
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px;margin-bottom:8px">
+      <div class="field" style="margin:0"><label style="font-size:10px">Fecha inicio</label><input type="date" id="ep-ini" value="${parseFecha(t.fecha_inicio)||''}" style="font-size:12px;padding:4px 6px"/></div>
+      <div class="field" style="margin:0"><label style="font-size:10px">Fecha término</label><input type="date" id="ep-fin" value="${parseFecha(t.fecha_fin)||''}" style="font-size:12px;padding:4px 6px"/></div>
+      <div class="field" style="margin:0"><label style="font-size:10px">Área</label>
+        <select id="ep-area" style="font-size:12px;padding:4px 6px">
+          <option value="seca" ${t.area==='seca'?'selected':''}>Área seca</option>
+          <option value="verde" ${t.area==='verde'?'selected':''}>Área verde</option>
+          <option value="caldera" ${t.area==='caldera'?'selected':''}>Caldera</option>
+          <option value="orc" ${t.area==='orc'?'selected':''}>Turbina ORC</option>
+        </select>
+      </div>
+      <div class="field" style="margin:0"><label style="font-size:10px">Disciplina</label>
+        <select id="ep-disc" style="font-size:12px;padding:4px 6px">
+          <option value="mecanico" ${t.disciplina==='mecanico'?'selected':''}>Mecánico</option>
+          <option value="electrocontrol" ${t.disciplina==='electrocontrol'?'selected':''}>Electrocontrol</option>
+          <option value="civil" ${t.disciplina==='civil'?'selected':''}>Civil</option>
+          <option value="procesos" ${t.disciplina==='procesos'?'selected':''}>Procesos</option>
+        </select>
+      </div>
     </div>
-    <div style="display:flex;gap:8px;align-items:center;justify-content:space-between">
-      <button class="btn btn-accent" onclick="guardarEdicion()" style="font-size:12px;padding:5px 12px">Guardar</button>
+
+    <!-- Fila 3: Contratista, Líder, Supervisores, Depende de -->
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px;margin-bottom:8px">
+      <div class="field" style="margin:0"><label style="font-size:10px">Contratista</label>
+        <select id="ep-contra" style="font-size:12px;padding:4px 6px">
+          <option value="">Sin contratista</option>
+          ${contraOpts}
+        </select>
+      </div>
+      <div class="field" style="margin:0"><label style="font-size:10px">Líder responsable</label>
+        <select id="ep-lider" style="font-size:12px;padding:4px 6px">
+          <option value="">Sin líder</option>
+          ${liderOpts}
+        </select>
+      </div>
+      <div class="field" style="margin:0"><label style="font-size:10px">Supervisores</label>
+        <select id="ep-sup" multiple style="font-size:12px;padding:4px 6px;height:52px">
+          ${supOpts}
+        </select>
+      </div>
+      <div class="field" style="margin:0"><label style="font-size:10px">Depende de (ID)</label>
+        <input type="text" id="ep-dep" value="${t.depende_de||''}" placeholder="ej: 1.1, 1.2" style="font-size:12px;padding:4px 6px"/>
+      </div>
+    </div>
+
+    <!-- Observación -->
+    <div class="field" style="margin:0 0 8px"><label style="font-size:10px">Observación</label>
+      <textarea id="ep-obs" style="min-height:36px;font-size:12px;padding:4px 6px" placeholder="Nota de la reunión...">${t.observaciones||''}</textarea>
+    </div>
+
+    <!-- Checklist -->
+    <div style="margin-bottom:8px">
+      <label style="font-size:10px;color:var(--text2);text-transform:uppercase;letter-spacing:.05em">Checklist</label>
+      <div id="ep-checklist" style="margin-top:4px">${checklistItems}</div>
+      <div style="display:flex;gap:6px;margin-top:6px">
+        <input type="text" id="ep-chk-new" placeholder="Agregar ítem..." style="font-size:11px;padding:3px 6px;flex:1"/>
+        <button onclick="agregarChecklistItem()" style="background:var(--bg3);border:0.5px solid var(--border2);border-radius:var(--r);font-size:11px;padding:3px 8px;cursor:pointer;color:var(--text)">+ Agregar</button>
+      </div>
+    </div>
+
+    <!-- Botones -->
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+      <button class="btn btn-accent" onclick="guardarEdicion()" style="font-size:12px;padding:5px 14px">Guardar cambios</button>
+      <span class="msg" id="ep-msg" style="flex:1;text-align:center"></span>
       ${esLider ? `<button onclick="eliminarTarea('${t.id}')" style="background:none;border:0.5px solid #e05555;color:#e05555;border-radius:var(--r);font-size:11px;padding:4px 10px;cursor:pointer">Eliminar tarea</button>` : ''}
-      <span class="msg" id="ep-msg"></span>
     </div>
   </div>`;
 
@@ -1518,6 +1620,52 @@ function cerrarEditPanel() {
   editTareaId = null;
 }
 
+function syncEstadoAvance() {
+  const estado = document.getElementById('ep-estado')?.value;
+  const avInput = document.getElementById('ep-avance');
+  const avVal = document.getElementById('ep-avance-val');
+  if (estado === 'completada') {
+    if (avInput) avInput.value = 100;
+    if (avVal) avVal.textContent = '100%';
+  } else if (estado === 'pendiente') {
+    if (avInput && avInput.value == 100) { avInput.value = 0; if (avVal) avVal.textContent = '0%'; }
+  }
+}
+
+function syncAvanceEstado(val) {
+  const avVal = document.getElementById('ep-avance-val');
+  if (avVal) avVal.textContent = val + '%';
+  const estadoEl = document.getElementById('ep-estado');
+  if (!estadoEl) return;
+  if (parseInt(val) === 100) estadoEl.value = 'completada';
+  else if (parseInt(val) === 0) estadoEl.value = 'pendiente';
+  else estadoEl.value = 'proceso';
+}
+
+function agregarChecklistItem() {
+  const input = document.getElementById('ep-chk-new');
+  if (!input || !input.value.trim()) return;
+  const container = document.getElementById('ep-checklist');
+  const i = container.children.length;
+  const div = document.createElement('div');
+  div.style.cssText = 'display:flex;align-items:center;gap:6px;margin-bottom:4px';
+  div.innerHTML = `<input type="checkbox" id="chk-${i}" style="width:14px;height:14px;cursor:pointer"/><span style="font-size:11px;color:var(--text)">${input.value.trim()}</span>`;
+  container.appendChild(div);
+  input.value = '';
+}
+
+function getChecklistText() {
+  const container = document.getElementById('ep-checklist');
+  if (!container) return '';
+  const items = [];
+  container.querySelectorAll('div').forEach(div => {
+    const chk = div.querySelector('input[type=checkbox]');
+    const span = div.querySelector('span');
+    if (span) items.push((chk?.checked ? '☑' : '☐') + ' ' + span.textContent.trim());
+  });
+  return items.join('\n');
+}
+
 async function eliminarTarea(id) {
   if (!confirm('¿Eliminar esta tarea? Esta acción no se puede deshacer.')) return;
   if (!confirm('Confirma nuevamente: ¿Eliminar la tarea definitivamente?')) return;
@@ -1538,12 +1686,27 @@ async function guardarEdicion() {
   const msg = document.getElementById('ep-msg');
   msg.textContent = 'Guardando...'; msg.className = 'msg';
   try {
+    const supSel = document.getElementById('ep-sup');
+    const supVals = supSel ? Array.from(supSel.selectedOptions).map(o=>o.value).join(', ') : '';
+    const chkText = getChecklistText();
+    const obsText = document.getElementById('ep-obs')?.value || '';
+    const obsCompleto = [obsText, chkText].filter(Boolean).join('\n');
+
     const res = await apiPost({ accion: 'actualizar_tarea', id: editTareaId, datos: {
+      descripcion: document.getElementById('ep-desc')?.value,
       estado: document.getElementById('ep-estado')?.value,
       avance: document.getElementById('ep-avance')?.value,
       fecha_inicio: document.getElementById('ep-ini')?.value,
       fecha_fin: document.getElementById('ep-fin')?.value,
-      observaciones: document.getElementById('ep-obs')?.value || undefined
+      area: document.getElementById('ep-area')?.value,
+      disciplina: document.getElementById('ep-disc')?.value,
+      contratista: document.getElementById('ep-contra')?.value,
+      lider_responsable: document.getElementById('ep-lider')?.value,
+      supervisores: supVals,
+      depende_de: document.getElementById('ep-dep')?.value,
+      hito: document.getElementById('ep-hito')?.value,
+      aprobaciones: document.getElementById('ep-validada')?.value === 'si' ? miPerfil.nombre : '',
+      observaciones: obsCompleto || undefined
     }});
     if (res.ok) {
       msg.textContent = '✓ Guardado'; msg.className = 'msg msg-ok';
