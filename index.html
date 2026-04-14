@@ -322,24 +322,28 @@ input[type=checkbox] { width: 16px; height: 16px; accent-color: var(--accent); f
 
 <!-- ===== MAIN APP ===== -->
 <div id="app">
-  <header class="app-header">
-    <div class="app-logo">COMISIONAMIENTO ARDEMAX</div>
-    <div style="display:flex;align-items:center;gap:12px">
-      <span id="last-update" style="font-size:10px;color:var(--text3);display:none"></span>
-      <button onclick="recargar()" title="Actualizar datos" style="background:none;border:none;cursor:pointer;padding:4px;color:var(--text2);font-size:16px">↻</button>
-      <button onclick="toggleTheme()" id="theme-btn" style="background:none;border:none;cursor:pointer;padding:4px;display:flex;align-items:center;color:var(--text2);font-size:18px" title="Cambiar tema">
-        <span id="theme-icon">☀</span>
-      </button>
-      <div class="app-user">
-        <div class="user-dot"></div>
-        <span id="hdr-user">—</span>
-      </div>
+  <header class="app-header" style="flex-direction:column;height:auto;padding:.5rem 1rem;gap:2px">
+    <div style="display:flex;align-items:center;justify-content:space-between;width:100%">
       <svg width="106" height="34" viewBox="0 0 106 34" xmlns="http://www.w3.org/2000/svg">
         <circle cx="8"  cy="17" r="7"  fill="#E05555" opacity="0.9"/>
         <circle cx="18" cy="17" r="9"  fill="#e8c84a" opacity="0.9"/>
         <circle cx="31" cy="17" r="12" fill="#4CAF7D" opacity="0.9"/>
         <text x="47" y="20" font-family="Barlow,sans-serif" font-size="19" font-weight="700" fill="#e8c84a" dominant-baseline="middle" id="pulze-text">Pulze</text>
       </svg>
+      <div style="display:flex;align-items:center;gap:10px">
+        <span id="last-update" style="font-size:10px;color:var(--text3);display:none"></span>
+        <button onclick="recargar()" title="Actualizar datos" style="background:none;border:none;cursor:pointer;padding:4px;color:var(--text2);font-size:16px">↻</button>
+        <button onclick="toggleTheme()" id="theme-btn" style="background:none;border:none;cursor:pointer;padding:4px;display:flex;align-items:center;color:var(--text2);font-size:18px" title="Cambiar tema">
+          <span id="theme-icon">☀</span>
+        </button>
+        <div class="app-user">
+          <div class="user-dot"></div>
+          <span id="hdr-user">—</span>
+        </div>
+      </div>
+    </div>
+    <div style="width:100%;text-align:left">
+      <div class="app-logo">COMISIONAMIENTO ARDEMAX</div>
     </div>
   </header>
 
