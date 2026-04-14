@@ -388,11 +388,11 @@ input[type=checkbox] { width: 16px; height: 16px; accent-color: var(--accent); f
 
       <!-- FORM NUEVA TAREA (solo líderes) -->
       <div id="form-nueva-tarea" class="card" style="display:none">
-        <div class="card-title">Nueva tarea</div>
+        <div class="card-title" style="font-weight:700">Nueva tarea</div>
         <div class="field"><label>Descripción</label><input type="text" id="t-desc" placeholder="Ej: Montaje sección hogar caldera"/></div>
-        <div class="grid2">
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
           <div class="field"><label>Disciplina</label>
-            <select id="t-disc" style="min-height:44px;font-size:14px">
+            <select id="t-disc" style="font-size:13px">
               <option value="mecanico">Mecánico</option>
               <option value="electrocontrol">Electrocontrol</option>
               <option value="civil">Civil</option>
@@ -400,7 +400,7 @@ input[type=checkbox] { width: 16px; height: 16px; accent-color: var(--accent); f
             </select>
           </div>
           <div class="field"><label>Área</label>
-            <select id="t-area" style="min-height:44px;font-size:14px">
+            <select id="t-area" style="font-size:13px">
               <option value="verde">Área verde</option>
               <option value="seca">Área seca</option>
               <option value="caldera">Caldera</option>
@@ -408,20 +408,19 @@ input[type=checkbox] { width: 16px; height: 16px; accent-color: var(--accent); f
             </select>
           </div>
           <div class="field"><label>Contratista</label>
-            <select id="t-contra" style="min-height:44px;font-size:14px">
+            <select id="t-contra" style="font-size:13px">
               <option value="">Selecciona contratista...</option>
             </select>
           </div>
-          <div class="field">
-            <label>Líder responsable</label>
-            <select id="t-lider" style="min-height:44px;font-size:14px">
+          <div class="field"><label>Líder responsable</label>
+            <select id="t-lider" style="font-size:13px">
               <option value="">Selecciona un líder...</option>
             </select>
           </div>
           <div class="field"><label>Inicio</label><input type="date" id="t-ini"/></div>
           <div class="field"><label>Término</label><input type="date" id="t-fin"/></div>
           <div class="field"><label>Prioridad</label>
-            <select id="t-prio" style="min-height:44px;font-size:14px">
+            <select id="t-prio" style="font-size:13px">
               <option value="alta">Alta</option>
               <option value="media">Media</option>
               <option value="baja">Baja</option>
@@ -1406,7 +1405,7 @@ function renderProg() {
       const barColor = t.estado === 'completada' ? '#4caf7d' : atrasada ? '#e05555' : esCritica ? '#e8943a' : '#5a9fd4';
       const novT = datos.novedades.filter(n => n.tarea_id && n.tarea_id.toString() === t.id.toString());
 
-      html += `<div style="display:grid;grid-template-columns:${NAME_W}px 1fr;border-bottom:0.5px solid var(--border);height:22px${esLider?';cursor:pointer':''}" ${esLider?`onclick="abrirEditPanel('${t.id}')"`:''}>`;
+      html += `<div style="display:grid;grid-template-columns:${NAME_W}px 1fr;border-bottom:0.5px solid var(--border);height:18px${esLider?';cursor:pointer':''}" ${esLider?`onclick="abrirEditPanel('${t.id}')"`:''}>`;
 
       // Name cell
       html += `<div style="padding:1px 6px;font-size:9px;color:var(--text);border-right:0.5px solid var(--border2);display:flex;align-items:center;gap:3px;min-width:0">
@@ -1415,7 +1414,7 @@ function renderProg() {
       </div>`;
 
       // Bar cell
-      html += `<div style="position:relative;height:22px">`;
+      html += `<div style="position:relative;height:18px">`;
       // Today line
       html += `<div style="position:absolute;left:${hoyPct}%;top:0;bottom:0;width:1.5px;background:rgba(232,200,74,0.6);z-index:5"></div>`;
 
@@ -1427,13 +1426,13 @@ function renderProg() {
         html += `<div style="position:absolute;left:${hitoPct}%;top:0;bottom:0;width:1px;background:var(--accent);opacity:0.4;z-index:3"></div>`;
       } else {
         // Normal bar
-        html += `<div style="position:absolute;left:${left}%;width:${width}%;top:50%;transform:translateY(-50%);height:10px;background:${barColor};opacity:0.25;border-radius:2px"></div>`;
+        html += `<div style="position:absolute;left:${left}%;width:${width}%;top:50%;transform:translateY(-50%);height:8px;background:${barColor};opacity:0.25;border-radius:2px"></div>`;
         if (avance > 0) {
           const progW = (parseFloat(width) * avance / 100).toFixed(2);
-          html += `<div style="position:absolute;left:${left}%;width:${progW}%;top:50%;transform:translateY(-50%);height:10px;background:${barColor};border-radius:2px;z-index:2"></div>`;
+          html += `<div style="position:absolute;left:${left}%;width:${progW}%;top:50%;transform:translateY(-50%);height:8px;background:${barColor};border-radius:2px;z-index:2"></div>`;
         }
         if (parseFloat(width) > 8) {
-          html += `<div style="position:absolute;left:${left}%;width:${width}%;top:50%;transform:translateY(-50%);height:10px;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:400;color:#fff;z-index:3;text-shadow:0 1px 2px rgba(0,0,0,0.5)">${avance}%</div>`;
+          html += `<div style="position:absolute;left:${left}%;width:${width}%;top:50%;transform:translateY(-50%);height:8px;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:400;color:#fff;z-index:3;text-shadow:0 1px 2px rgba(0,0,0,0.5)">${avance}%</div>`;
         }
       }
       html += `</div></div>`;
@@ -1444,7 +1443,7 @@ function renderProg() {
   html += `<div style="display:grid;grid-template-columns:${NAME_W}px 1fr;border-top:1px solid var(--border2);background:var(--bg3)">`;
   html += `<div style="padding:5px 8px;font-size:11px;font-weight:600;color:var(--accent);border-right:0.5px solid var(--border2)">▶ Entrega planta</div>`;
   const finPct = ((Math.round((dFin-dIni)/86400000)/totalDias)*100).toFixed(2);
-  html += `<div style="position:relative;height:22px"><div style="position:absolute;left:${finPct}%;top:50%;transform:translate(-50%,-50%);width:14px;height:14px;background:var(--accent);clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%)"></div></div>`;
+  html += `<div style="position:relative;height:18px"><div style="position:absolute;left:${finPct}%;top:50%;transform:translate(-50%,-50%);width:14px;height:14px;background:var(--accent);clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%)"></div></div>`;
   html += `</div>`;
 
   container.innerHTML = html;
