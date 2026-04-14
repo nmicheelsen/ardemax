@@ -1341,7 +1341,7 @@ function renderProg() {
 
   // Calculate dynamic name column width based on longest description
   const maxDescLen = ft.reduce((max, t) => Math.max(max, (t.descripcion || '').length), 0);
-  const NAME_W = Math.min(320, Math.max(200, maxDescLen * 5.5));
+  const NAME_W = Math.min(250, Math.max(150, maxDescLen * 5.5));
   const esLider = miPerfil && miPerfil.capa === 'lider';
 
   // Calculate critical path
