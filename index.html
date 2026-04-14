@@ -1339,9 +1339,15 @@ function renderProg() {
     dw.setDate(dw.getDate() + 7);
   }
 
-  // Calculate dynamic name column width based on longest description
-  const maxDescLen = ft.reduce((max, t) => Math.max(max, (t.descripcion || '').length), 0);
-  const NAME_W = Math.min(350, Math.max(150, maxDescLen * 6));
+  // Calculate dynamic name column width by measuring actual text
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
+  ctx.font = '9px Barlow, sans-serif';
+  const maxTextW = ft.reduce((max, t) => {
+    const w = ctx.measureText(t.descripcion || '').width;
+    return Math.max(max, w);
+  }, 0);
+  const NAME_W = Math.min(350, Math.max(150, Math.ceil(maxTextW) + 24));
   const esLider = miPerfil && miPerfil.capa === 'lider';
 
   // Calculate critical path
